@@ -1,21 +1,16 @@
-import { useState } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import Register from './pages/Register';
+
+const router = createBrowserRouter([
+    { path: '/', element: <Home /> },
+    { path: '/login', element: <Login /> },
+    { path: '/register', element: <Register /> },
+]);
 
 function App() {
-    const [count, setCount] = useState(0);
-
-    return (
-        <>
-            <h1>Vite + React</h1>
-            <div className="card">
-                <button onClick={() => setCount((count) => count + 1)}>
-                    count is {count}
-                </button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
-            </div>
-        </>
-    );
+    return <RouterProvider router={router} />;
 }
 
 export default App;

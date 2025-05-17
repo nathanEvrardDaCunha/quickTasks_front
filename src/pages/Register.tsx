@@ -87,7 +87,7 @@ function Register() {
                         /> */}
 
                         <button type="submit">Submit</button>
-                        <button type="reset"></button>
+                        <button type="reset">Reset</button>
                     </fieldset>
                 </form>
             </main>

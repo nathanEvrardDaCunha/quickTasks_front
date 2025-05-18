@@ -1,98 +1,158 @@
-import { useQuery } from '@tanstack/react-query';
+import { useMutation } from '@tanstack/react-query';
+import { useState } from 'react';
+
+type User = {
+    email: string;
+    password: string;
+};
+
+type APIError = {
+    name: string;
+    cause: string;
+    stack: string;
+};
+
+// Should remove the status from here and the server.
+type APISuccess = {
+    status: string;
+    message: string;
+    accessToken: string;
+};
+
+// Might be a good idea to create my custom Error with more detail ?
 
 function Login() {
-    const { isLoading, error, data } = useQuery({
-        queryKey: ['defaultApiRoute'],
-        queryFn: async () => {
-            const response = await fetch('http://localhost:5003/api');
-            return await response.json();
+    const [formData, setFormData] = useState<User>({
+        email: '',
+        password: '',
+    });
+
+    // Form what I remember, the server side doesn't have a default route for non implemented api route (like GET for api/auth/login which will never exist)
+
+    // Should remove "Cannot process weak password ! It should have one uppercase, lowercase, number, special character, and be at least 6 characters long."
+    // in server with "Invalid credentials" instead
+
+    const mutation = useMutation({
+        mutationKey: ['loginUser'],
+        mutationFn: async (user: User) => {
+            const result = await fetch(`http://localhost:5003/api/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+            });
+
+            if (!result.ok) {
+                const errorData: APIError = await result.json();
+                throw errorData;
+            }
+
+            return await result.json();
+        },
+        onError: (error: APIError) => {
+            console.error(`${error.name}: ${error.cause}`);
+        },
+        onSuccess: (data: APISuccess) => {
+            localStorage.setItem('accessToken', data.accessToken);
+            handleReset();
         },
     });
 
-    if (error) {
-        return <h1>{error.message}</h1>;
+    function handleAction(formData: FormData) {
+        const email = formData.get('email');
+        const password = formData.get('password');
+
+        if (!email) {
+            throw new Error(`Couldn't find the email property of the form !`);
+        }
+
+        if (!password) {
+            throw new Error(
+                `Couldn't find the password property of the form !`
+            );
+        }
+
+        const user: User = {
+            email: email as string,
+            password: password as string,
+        };
+
+        mutation.mutate(user);
     }
 
-    if (isLoading) {
-        return <h1>Loading...</h1>;
+    function handleOnCHange(event: any) {
+        const { name, value } = event.target;
+        setFormData((previous) => ({
+            ...previous,
+            [name]: value,
+        }));
     }
 
-    // What if there are no data ? => error
-    return <em>{data.message}</em>;
+    function handleReset() {
+        setFormData({
+            email: '',
+            password: '',
+        });
+    }
 
-    // function handleAction(formData: FormData) {
-    //     for (const [key, value] of formData.entries()) {
-    //         console.log(key, value);
-    //     }
-    // }
+    return (
+        <>
+            <header>
+                <h2>Website Header</h2>
+            </header>
 
-    // return (
-    //     <>
-    //         <header>
-    //             <h2>Website Header</h2>
-    //         </header>
+            <main>
+                <h1>Login Page</h1>
 
-    //         <main>
-    //             <h1>Login Page</h1>
+                {mutation.isSuccess && (
+                    <h2>Success: {(mutation.data as APISuccess).message}</h2>
+                )}
 
-    //             <form action={handleAction}>
-    //                 <fieldset>
-    //                     <legend>User Sign-In</legend>
+                {mutation.error && (
+                    <h2>Error: {(mutation.error as APIError).cause} </h2>
+                )}
 
-    //                     <label htmlFor="sign-in-email">Email Address</label>
-    //                     <input
-    //                         type="email"
-    //                         name="sign-in-email"
-    //                         id="sign-in-email"
-    //                         required={true}
-    //                     />
+                {mutation.isPending && <h2>Action processing...</h2>}
 
-    //                     {/* <input
-    //                         type="email"
-    //                         name="sign-up-email"
-    //                         id="sign-up-email"
-    //                         required={true}
-    //                         value={undefined}
-    //                         onChange={undefined}
-    //                         minLength={undefined}
-    //                         maxLength={undefined}
-    //                         disabled={false}
-    //                         placeholder=""
-    //                         pattern={undefined}
-    //                     /> */}
+                <form action={handleAction}>
+                    <fieldset>
+                        <legend>User Sign-In</legend>
 
-    //                     <label htmlFor="sign-in-password">Password</label>
-    //                     <input
-    //                         type="password"
-    //                         name="sign-in-password"
-    //                         id="sign-in-password"
-    //                         required={true}
-    //                     />
+                        <label htmlFor="email">Email Address</label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            required={true}
+                            value={formData.email}
+                            onChange={handleOnCHange}
+                        />
 
-    //                     {/* <input
-    //                         type="password"
-    //                         name="sign-up-password"
-    //                         id="sign-up-password"
-    //                         required={true}
-    //                         value={undefined}
-    //                         onChange={undefined}
-    //                         minLength={undefined}
-    //                         maxLength={undefined}
-    //                         disabled={false}
-    //                         placeholder=""
-    //                         pattern={undefined}
-    //                     /> */}
+                        <label htmlFor="password">Password</label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            required={true}
+                            value={formData.password}
+                            onChange={handleOnCHange}
+                        />
 
-    //                     <button type="submit">Submit</button>
-    //                     <button type="reset">Reset</button>
-    //                 </fieldset>
-    //             </form>
-    //         </main>
-    //         <footer>
-    //             <h2>Website Footer</h2>
-    //         </footer>
-    //     </>
-    // );
+                        <button type="submit" disabled={mutation.isPending}>
+                            {mutation.isPending ? 'Submitting...' : 'Submit'}
+                        </button>
+                        <button type="button" onClick={handleReset}>
+                            Reset
+                        </button>
+                    </fieldset>
+                </form>
+            </main>
+            <footer>
+                <h2>Website Footer</h2>
+            </footer>
+        </>
+    );
 }
 
 export default Login;

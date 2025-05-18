@@ -1,8 +1,9 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Home from './pages/Home';
 import Login from './pages/Login';
 import Register from './pages/Register';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Today from './pages/Today';
 
 // In index.html:
 // TO-DO: Add all generic meta tag.
@@ -13,10 +14,13 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const queryClient = new QueryClient();
 
+// The "/today" route should required being connected.
+
 const router = createBrowserRouter([
     { path: '/', element: <Home /> },
     { path: '/login', element: <Login /> },
     { path: '/register', element: <Register /> },
+    { path: '/today', element: <Today /> },
 ]);
 
 // TO-CONSIDER: Add react query dev tools ?

@@ -27,7 +27,7 @@ function Register() {
         password: '',
     });
 
-    // Hook ('useSomething' don't trigger at every rerunder it seem)
+    // Hook ('useSomething' don't trigger at every rerender it seem)
     // What about normal function ? Create one and see for yourself !
 
     const mutation = useMutation({

@@ -17,6 +17,7 @@ type APISuccess = {
     status: string;
     message: string;
     accessToken: string;
+    userId: number;
 };
 
 // Might be a good idea to create my custom Error with more detail ?
@@ -55,6 +56,7 @@ function Login() {
         },
         onSuccess: (data: APISuccess) => {
             localStorage.setItem('accessToken', data.accessToken);
+            localStorage.setItem('userId', data.userId.toString());
             handleReset();
         },
     });

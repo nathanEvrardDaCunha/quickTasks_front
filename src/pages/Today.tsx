@@ -11,6 +11,7 @@ type Task = {
 };
 
 type PostTask = {
+    userId: string;
     title: string;
     description: string;
     project: string;
@@ -38,6 +39,7 @@ type APISuccess = {
 
 function Today() {
     const [formData, setFormData] = useState<PostTask>({
+        userId: '',
         title: '',
         description: '',
         project: '',
@@ -73,10 +75,18 @@ function Today() {
     });
 
     function handleAction(formData: FormData) {
+        const userId = localStorage.getItem('userId');
         const title = formData.get('title');
         const description = formData.get('description');
         const project = formData.get('project');
         const deadline = formData.get('deadline');
+
+        // TO-DO: Add Error Boundaries to avoid crashing the page !
+        if (!userId) {
+            throw new Error(
+                `Couldn't find the userId property in localStorage !`
+            );
+        }
 
         if (!title) {
             throw new Error(`Couldn't find the title property of the form !`);
@@ -99,6 +109,7 @@ function Today() {
         }
 
         const task: PostTask = {
+            userId: userId,
             title: title as string,
             description: description as string,
             project: project as string,
@@ -118,6 +129,7 @@ function Today() {
 
     function handleReset() {
         setFormData({
+            userId: '',
             title: '',
             description: '',
             project: '',

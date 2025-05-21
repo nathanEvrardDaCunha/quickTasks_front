@@ -182,6 +182,33 @@ function Today() {
         });
     }
 
+    function displayNonCompletedTask(tasks: TodayTask[]): React.ReactNode {
+        const newTasks: TodayTask[] = tasks.filter((task) => {
+            if (!task.completed) {
+                return task;
+            }
+        });
+        {
+            /* Add logic to complete task afterward */
+        }
+
+        const taskElements = newTasks.map((task) => {
+            return (
+                <li key={task.id}>
+                    <h4>{task.title}</h4>
+                    <p>{task.description}</p>
+                    <p>{task.project}</p>
+                    <time dateTime={task.deadline.toString()}>
+                        {task.deadline.toString()}
+                    </time>
+                    <button type="button">Complete</button>
+                </li>
+            );
+        });
+
+        return <ul>{taskElements}</ul>;
+    }
+
     // TO-FIX: The user can send for almost any input "   " whitespace that make the task bug visually
     return (
         <>
@@ -201,25 +228,10 @@ function Today() {
 
                     {query.isSuccess &&
                     query.data &&
-                    query.data.tasks.length > 0 ? (
-                        <ul>
-                            {query.data.tasks.map((task) => (
-                                <li key={task.id}>
-                                    <h4>{task.title}</h4>
-                                    <p>{task.description}</p>
-                                    <p>{task.project}</p>
-                                    <time dateTime={task.deadline.toString()}>
-                                        {task.deadline.toString()}
-                                    </time>
-                                    {/* Add logic to complete task afterward */}
-                                    <button type="button">Complete</button>
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        !query.isLoading &&
-                        !query.isError && <p>No tasks for today!</p>
-                    )}
+                    query.data.tasks.length > 0
+                        ? displayNonCompletedTask(query.data.tasks)
+                        : !query.isLoading &&
+                          !query.isError && <p>No tasks for today!</p>}
                 </section>
 
                 {mutation.isSuccess && (

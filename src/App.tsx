@@ -14,7 +14,7 @@ import Today from './pages/Today';
 
 const queryClient = new QueryClient();
 
-// The "/today" route should required being connected.
+// The "/today" route should required being connected and having a user ID.
 
 const router = createBrowserRouter([
     { path: '/', element: <Home /> },

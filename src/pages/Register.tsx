@@ -57,6 +57,8 @@ function Register() {
             console.error(`${error.name}: ${error.cause}`);
         },
         onSuccess: () => {
+            // TO-CONSIDER: Redirect to the 'login' page automatically ?
+
             handleReset();
         },
     });

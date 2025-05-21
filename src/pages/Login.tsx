@@ -22,6 +22,23 @@ type APISuccess = {
 
 // Might be a good idea to create my custom Error with more detail ?
 
+{
+    /* Allow user to create new task for any day */
+}
+{
+    /* Allow user to complete one today task */
+}
+{
+    /* Allow user to delete one today task */
+}
+{
+    /* Allow user to modify one today task */
+}
+
+// TO-DO: Add Error Boundaries to avoid crashing the page !
+
+// Don't show the completed task
+
 function Login() {
     const [formData, setFormData] = useState<User>({
         email: '',
@@ -57,6 +74,9 @@ function Login() {
         onSuccess: (data: APISuccess) => {
             localStorage.setItem('accessToken', data.accessToken);
             localStorage.setItem('userId', data.userId.toString());
+
+            // TO-CONSIDER: Redirect to the 'today' page automatically ?
+
             handleReset();
         },
     });

@@ -1,21 +1,12 @@
-import { useMutation } from '@tanstack/react-query';
-import { useState } from 'react';
-
-type Task = {
-    id: number;
-    title: string;
-    description: string;
-    completed: boolean;
-    project: string;
-    deadline: string; //Date or string ?
-};
+import { useMutation, useQuery } from '@tanstack/react-query';
+import { useEffect, useState } from 'react';
 
 type PostTask = {
     userId: string;
     title: string;
     description: string;
     project: string;
-    deadline: string; //Date or string ?
+    deadline: string;
 };
 
 type APIError = {
@@ -27,7 +18,7 @@ type APIError = {
 type APISuccess = {
     status: string;
     message: string;
-    temporary: {
+    task: {
         title: string;
         description: string;
         project: string;
@@ -35,16 +26,40 @@ type APISuccess = {
     };
 };
 
-// Create custom Error more detailed ?
+type APIGetTodayResponse = {
+    status: string;
+    message: string;
+    tasks: TodayTask[];
+};
+
+type TodayTask = {
+    id: number;
+    title: string;
+    description: string;
+    project: string;
+    deadline: Date;
+    completed: boolean;
+};
 
 function Today() {
-    const [formData, setFormData] = useState<PostTask>({
+    const [postTaskData, setPostTaskData] = useState<PostTask>({
         userId: '',
         title: '',
         description: '',
         project: '',
         deadline: '',
     });
+
+    const [getTodayUserId, setGetTodayUserId] = useState<string>('');
+
+    useEffect(() => {
+        const userId = localStorage.getItem('userId');
+        console.log('Use effect');
+
+        if (userId) {
+            setGetTodayUserId(userId);
+        }
+    }, []);
 
     const mutation = useMutation({
         mutationKey: ['postTask'],
@@ -62,30 +77,60 @@ function Today() {
                 throw errorData;
             }
 
-            return await result.json();
+            return (await result.json()) as APISuccess;
         },
         // Delete "temporary"
-        onSuccess(temporary: APISuccess) {
-            console.log(temporary);
+        onSuccess() {
             handleReset();
+            query.refetch();
         },
         onError(error: APIError) {
             console.error(`${error.name}: ${error.cause}`);
         },
     });
 
-    function handleAction(formData: FormData) {
+    // Should use useEffect or not ?
+    const query = useQuery({
+        queryKey: ['getTodayTask', getTodayUserId],
+        queryFn: async () => {
+            if (!getTodayUserId) {
+                throw new Error(
+                    `Cannot process today task fetch because no user Id has been found in localStorage !`
+                );
+            }
+
+            const result = await fetch(
+                `http://localhost:5003/api/task/today?userId=${getTodayUserId}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                }
+            );
+
+            if (!result.ok) {
+                const errorData: APIError = await result.json();
+                throw errorData;
+            }
+
+            return (await result.json()) as APIGetTodayResponse;
+        },
+
+        enabled: Boolean(getTodayUserId),
+    });
+
+    async function handleAction(formData: FormData) {
+        // TO-CONSIDER: Instead of using formData, should I use the values store in postTask ?
+        // => Would doing this make my component more controlled ?
         const userId = localStorage.getItem('userId');
         const title = formData.get('title');
         const description = formData.get('description');
         const project = formData.get('project');
         const deadline = formData.get('deadline');
 
-        // TO-DO: Add Error Boundaries to avoid crashing the page !
         if (!userId) {
-            throw new Error(
-                `Couldn't find the userId property in localStorage !`
-            );
+            throw new Error(`Couldn't find any userId value in localStorage !`);
         }
 
         if (!title) {
@@ -109,11 +154,11 @@ function Today() {
         }
 
         const task: PostTask = {
-            userId: userId,
+            userId: userId as string,
             title: title as string,
             description: description as string,
             project: project as string,
-            deadline: deadline as string, //Date or string ?
+            deadline: deadline as string,
         };
 
         mutation.mutate(task);
@@ -121,14 +166,14 @@ function Today() {
 
     function handleOnChange(event: any) {
         const { name, value } = event.target;
-        setFormData((previous) => ({
+        setPostTaskData((previous) => ({
             ...previous,
             [name]: value,
         }));
     }
 
     function handleReset() {
-        setFormData({
+        setPostTaskData({
             userId: '',
             title: '',
             description: '',
@@ -137,18 +182,45 @@ function Today() {
         });
     }
 
+    // TO-FIX: The user can send for almost any input "   " whitespace that make the task bug visually
     return (
         <>
             <header>
                 <h2>Website Header</h2>
             </header>
             <main>
-                {/* Display the task due today and the one that are not complete but should have been completed earlier */}
-                <h1>Today Task</h1>
-                {/* Allow user to create new task for any day */}
-                {/* Allow user to complete one today task */}
-                {/* Allow user to delete one today task */}
-                {/* Allow user to modify one today task */}
+                <section>
+                    {query.isLoading && <p>Loading today's tasks...</p>}
+
+                    {query.isError && (
+                        <h2>
+                            Error:{' '}
+                            {query.error.message || 'Failed to fetch tasks'}
+                        </h2>
+                    )}
+
+                    {query.isSuccess &&
+                    query.data &&
+                    query.data.tasks.length > 0 ? (
+                        <ul>
+                            {query.data.tasks.map((task) => (
+                                <li key={task.id}>
+                                    <h4>{task.title}</h4>
+                                    <p>{task.description}</p>
+                                    <p>{task.project}</p>
+                                    <time dateTime={task.deadline.toString()}>
+                                        {task.deadline.toString()}
+                                    </time>
+                                    {/* Add logic to complete task afterward */}
+                                    <button type="button">Complete</button>
+                                </li>
+                            ))}
+                        </ul>
+                    ) : (
+                        !query.isLoading &&
+                        !query.isError && <p>No tasks for today!</p>
+                    )}
+                </section>
 
                 {mutation.isSuccess && (
                     <h2>Success: {(mutation.data as APISuccess).message}</h2>
@@ -169,7 +241,7 @@ function Today() {
                             name="title"
                             id="title"
                             required={true}
-                            value={formData.title}
+                            value={postTaskData.title}
                             onChange={handleOnChange}
                         />
                         <label htmlFor="description">Description</label>
@@ -179,7 +251,7 @@ function Today() {
                             cols={30}
                             rows={10}
                             required={true}
-                            value={formData.description}
+                            value={postTaskData.description}
                             onChange={handleOnChange}
                         ></textarea>
                         <label htmlFor="project">Project</label>
@@ -188,7 +260,7 @@ function Today() {
                             name="project"
                             id="project"
                             required={true}
-                            value={formData.project}
+                            value={postTaskData.project}
                             onChange={handleOnChange}
                         />
                         <label htmlFor="deadline">Deadline</label>
@@ -199,7 +271,7 @@ function Today() {
                             name="deadline"
                             id="deadline"
                             required={true}
-                            value={formData.deadline}
+                            value={postTaskData.deadline}
                             onChange={handleOnChange}
                         />
                         <button type="submit" disabled={mutation.isPending}>

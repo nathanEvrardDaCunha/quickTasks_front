@@ -2,7 +2,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import Home from './pages/Home';
 import Login from './pages/Login';
-import Register from './pages/Register';
+import Register from './features/register/Register';
 import Today from './pages/Today';
 
 // In index.html:
@@ -15,6 +15,10 @@ import Today from './pages/Today';
 const queryClient = new QueryClient();
 
 // The "/today" route should required being connected and having a user ID.
+
+// TO-CONSIDER: Add reset password during login ?
+
+// TO-DO: Add Not Found Page
 
 const router = createBrowserRouter([
     { path: '/', element: <Home /> },

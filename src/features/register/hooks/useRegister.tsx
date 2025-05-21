@@ -1,5 +1,9 @@
 import { useState } from 'react';
-import type { RegisterError, RegisterUser } from '../types/typeRegister';
+import type {
+    RegisterError,
+    RegisterResponse,
+    RegisterUser,
+} from '../types/typeRegister';
 import { useMutation } from '@tanstack/react-query';
 
 function throwErrorIfFalsy(
@@ -14,7 +18,7 @@ function throwErrorIfFalsy(
 }
 
 export default function useRegister() {
-    const [userFormDate, setUserFormDate] = useState<RegisterUser>({
+    const [userFormData, setUserFormData] = useState<RegisterUser>({
         username: '',
         email: '',
         password: '',
@@ -39,7 +43,7 @@ export default function useRegister() {
                 throw errorData;
             }
 
-            return await result.json();
+            return (await result.json()) as RegisterResponse;
         },
         onError: (error: RegisterError) => {
             console.error(`${error.name}: ${error.cause}`);
@@ -71,14 +75,14 @@ export default function useRegister() {
 
     function handleOnChange(event: any) {
         const { name, value } = event.target;
-        setUserFormDate((previous) => ({
+        setUserFormData((previous) => ({
             ...previous,
             [name]: value,
         }));
     }
 
     function handleReset() {
-        setUserFormDate({
+        setUserFormData({
             username: '',
             email: '',
             password: '',
@@ -90,6 +94,6 @@ export default function useRegister() {
         handleAction,
         handleOnChange,
         handleReset,
-        userFormDate,
+        userFormDate: userFormData,
     };
 }

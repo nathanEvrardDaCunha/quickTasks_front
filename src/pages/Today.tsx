@@ -42,6 +42,25 @@ type TodayTask = {
     completed: boolean;
 };
 
+// Might be a good idea to create my custom Error with more detail ?
+
+{
+    /* Allow user to create new task for any day */
+}
+{
+    /* Allow user to complete one today task */
+}
+{
+    /* Allow user to delete one today task */
+}
+{
+    /* Allow user to modify one today task */
+}
+
+// TO-DO: Add Error Boundaries to avoid crashing the page !
+
+// Don't show the completed task
+
 function Today() {
     const [postTaskData, setPostTaskData] = useState<PostTask>({
         userId: '',

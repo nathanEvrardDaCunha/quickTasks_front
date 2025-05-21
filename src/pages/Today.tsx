@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
+import Task from '../components/Task';
 
 type PostTask = {
     userId: string;
@@ -182,31 +183,21 @@ function Today() {
         });
     }
 
-    function displayNonCompletedTask(tasks: TodayTask[]): React.ReactNode {
+    function displayNonCompletedTask(tasks: TodayTask[]) {
         const newTasks: TodayTask[] = tasks.filter((task) => {
             if (!task.completed) {
                 return task;
             }
         });
-        {
-            /* Add logic to complete task afterward */
-        }
 
-        const taskElements = newTasks.map((task) => {
-            return (
-                <li key={task.id}>
-                    <h4>{task.title}</h4>
-                    <p>{task.description}</p>
-                    <p>{task.project}</p>
-                    <time dateTime={task.deadline.toString()}>
-                        {task.deadline.toString()}
-                    </time>
-                    <button type="button">Complete</button>
-                </li>
-            );
-        });
-
-        return <ul>{taskElements}</ul>;
+        /* Add logic to complete task afterward */
+        return (
+            <ul>
+                {newTasks.map((task) => {
+                    return <Task task={task} handleOnClick={undefined} />;
+                })}
+            </ul>
+        );
     }
 
     // TO-FIX: The user can send for almost any input "   " whitespace that make the task bug visually

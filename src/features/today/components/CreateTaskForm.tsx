@@ -1,4 +1,14 @@
-// Add a interface instead to add type more easily ?
+import type { CreateTaskData } from '../types/typeCreateTask';
+
+interface CreateTaskFormProps {
+    handleAction: (formData: FormData) => void;
+    handleOnChange: (
+        event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+    handleReset: () => void;
+    mutation: any;
+    createTaskData: CreateTaskData;
+}
 
 export default function CreateTaskForm({
     handleAction,
@@ -6,7 +16,7 @@ export default function CreateTaskForm({
     handleReset,
     mutation,
     createTaskData,
-}) {
+}: CreateTaskFormProps) {
     return (
         <>
             <form action={handleAction}>
@@ -41,7 +51,6 @@ export default function CreateTaskForm({
                         onChange={handleOnChange}
                     />
                     <label htmlFor="deadline">Deadline</label>
-                    {/* If "date" create problem, try "datetime-local" and the others */}
                     <input
                         type="date"
                         name="deadline"

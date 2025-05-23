@@ -1,5 +1,4 @@
-export type CreateTask = {
-    userId: string;
+export type CreateTaskData = {
     title: string;
     description: string;
     project: string;

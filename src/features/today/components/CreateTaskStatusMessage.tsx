@@ -1,8 +1,8 @@
-import type { RegisterError } from '../types/typeRegister';
-
 // Add a interface instead to add type more easily ?
 
-export default function RegisterStatusMessage({ mutation }) {
+import type { CreateTaskError } from '../types/typeCreateTask';
+
+export default function CreateTaskStatusMessage({ mutation }) {
     if (mutation.isPending) {
         return <h2>Action processing...</h2>;
     }
@@ -15,7 +15,7 @@ export default function RegisterStatusMessage({ mutation }) {
         return (
             <h2>
                 Error:{' '}
-                {(mutation.error as RegisterError).cause ||
+                {(mutation.error as CreateTaskError).cause ||
                     mutation.error.message}
             </h2>
         );

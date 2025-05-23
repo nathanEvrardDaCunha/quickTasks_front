@@ -1,3 +1,5 @@
+// Add a interface instead to add type more easily ?
+
 export default function RegisterForm({
     handleAction,
     handleOnChange,

@@ -8,28 +8,28 @@ import type {
 import Task from '../../../components/Task';
 
 export default function useFetchTask() {
-    const [userId, setUserId] = useState<string>('');
+    const [accessToken, setAccessToken] = useState<string>('');
 
     useEffect(() => {
-        const userId = localStorage.getItem('userId');
+        const accessToken = localStorage.getItem('accessToken');
 
-        if (userId) {
-            setUserId(userId);
+        if (accessToken) {
+            setAccessToken(accessToken);
         }
     }, []);
 
     // Should use useEffect or not ?
     const query = useQuery({
-        queryKey: ['getTodayTask', userId],
+        queryKey: ['getTodayTask', accessToken],
         queryFn: async () => {
-            if (!userId) {
+            if (!accessToken) {
                 throw new Error(
                     `Cannot process today task fetch because no user Id has been found in localStorage !`
                 );
             }
 
             const result = await fetch(
-                `http://localhost:5003/api/task/today?userId=${userId}`,
+                `http://localhost:5003/api/task/today?accessToken=${accessToken}`,
                 {
                     method: 'GET',
                     headers: {
@@ -46,7 +46,7 @@ export default function useFetchTask() {
             return (await result.json()) as FetchTaskSuccess;
         },
 
-        enabled: Boolean(userId),
+        enabled: Boolean(accessToken),
     });
 
     function displayNonCompletedTask(tasks: FetchTask[]) {

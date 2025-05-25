@@ -14,8 +14,9 @@ export default function FetchTaskStatusMessage({
         );
     }
 
-    if (query.isSuccess && query.data && query.data.tasks.length > 0) {
-        return displayNonCompletedTask(query.data.tasks);
+    // type the query.data to avoid any future issues
+    if (query.isSuccess && query.data && query.data.data.tasks.length > 0) {
+        return displayNonCompletedTask(query.data.data.tasks);
     }
 
     if (!query.isLoading && !query.isError) {

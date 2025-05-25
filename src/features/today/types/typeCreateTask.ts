@@ -1,5 +1,5 @@
 export type CreateTask = {
-    userId: string;
+    accessToken: string;
     title: string;
     description: string;
     project: string;

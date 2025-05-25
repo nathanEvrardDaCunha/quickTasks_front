@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query';
 
 export default function useCreateTask(query) {
     const [createTaskData, setCreateTaskData] = useState<CreateTask>({
-        userId: '',
+        accessToken: '',
         title: '',
         description: '',
         project: '',
@@ -44,14 +44,16 @@ export default function useCreateTask(query) {
     });
 
     async function handleAction(formData: FormData) {
-        const userId = localStorage.getItem('userId');
+        const accessToken = localStorage.getItem('accessToken');
 
-        if (!userId) {
-            throw new Error(`Couldn't find any userId value in localStorage !`);
+        if (!accessToken) {
+            throw new Error(
+                `Couldn't find any accessToken value in localStorage !`
+            );
         }
 
         const task: CreateTask = {
-            userId: userId,
+            accessToken: accessToken,
             title: createTaskData.title,
             description: createTaskData.description,
             project: createTaskData.project,
@@ -71,7 +73,7 @@ export default function useCreateTask(query) {
 
     function handleReset() {
         setCreateTaskData({
-            userId: '',
+            accessToken: '',
             title: '',
             description: '',
             project: '',

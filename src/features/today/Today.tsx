@@ -21,6 +21,20 @@ import useFetchTask from './hooks/useFetchTask';
 
 // TO-DO: Add Error Boundaries to avoid crashing the page !
 
+//
+//
+//
+// Setup typescript (make it work with docker without hot reload)
+//
+// Test every functionalities
+//
+// Rewrite everything to typescript (type of param + type of output)
+//
+// Test every functionalities
+//
+//
+//
+
 function Today() {
     const { query, displayNonCompletedTask } = useFetchTask();
 

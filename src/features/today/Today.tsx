@@ -4,37 +4,6 @@ import FetchTaskStatusMessage from './components/FetchTaskStatusMessage';
 import useCreateTask from './hooks/useCreateTask';
 import useFetchTask from './hooks/useFetchTask';
 
-// Might be a good idea to create my custom Error with more detail ?
-
-{
-    /* Allow user to create new task for any day */
-}
-{
-    /* Allow user to complete one today task */
-}
-{
-    /* Allow user to delete one today task */
-}
-{
-    /* Allow user to modify one today task */
-}
-
-// TO-DO: Add Error Boundaries to avoid crashing the page !
-
-//
-//
-//
-// Setup typescript (make it work with docker without hot reload)
-//
-// Test every functionalities
-//
-// Rewrite everything to typescript (type of param + type of output)
-//
-// Test every functionalities
-//
-//
-//
-
 function Today() {
     const { query, displayNonCompletedTask } = useFetchTask();
 
@@ -46,8 +15,6 @@ function Today() {
         createTaskData,
     } = useCreateTask(query);
 
-    // TO-FIX: The user can send for almost any input "   " whitespace that make the task bug visually
-    // TO-FIX: When /today accessed directly without authentication => no userId => Unexpected Application Error
     return (
         <>
             <header>

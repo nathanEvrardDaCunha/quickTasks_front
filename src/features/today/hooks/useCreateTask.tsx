@@ -1,14 +1,11 @@
 import { useState } from 'react';
-import type {
-    CreateTask,
-    CreateTaskError,
-    CreateTaskSuccess,
-} from '../types/typeCreateTask';
+import type { CreateTask, CreateTaskError } from '../types/typeCreateTask';
 import { useMutation } from '@tanstack/react-query';
+import { apiClient } from '../../../hooks/ApiClient';
 
 export default function useCreateTask(query) {
     const [createTaskData, setCreateTaskData] = useState<CreateTask>({
-        accessToken: '',
+        accessToken: '', // Keep this for consistency
         title: '',
         description: '',
         project: '',
@@ -17,25 +14,11 @@ export default function useCreateTask(query) {
 
     const mutation = useMutation({
         mutationKey: ['postTask'],
-        mutationFn: async (task: CreateTask) => {
-            const result = await fetch(`http://localhost:5003/api/task/task`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(task),
-            });
-
-            if (!result.ok) {
-                const errorData: CreateTaskError = await result.json();
-                throw errorData;
-            }
-
-            return (await result.json()) as CreateTaskSuccess;
+        mutationFn: async (task: Omit<CreateTask, 'accessToken'>) => {
+            return await apiClient.createTask(task);
         },
         onSuccess() {
             handleReset();
-
             query.refetch();
         },
         onError(error: CreateTaskError) {
@@ -44,16 +27,7 @@ export default function useCreateTask(query) {
     });
 
     async function handleAction(formData: FormData) {
-        const accessToken = localStorage.getItem('accessToken');
-
-        if (!accessToken) {
-            throw new Error(
-                `Couldn't find any accessToken value in localStorage !`
-            );
-        }
-
-        const task: CreateTask = {
-            accessToken: accessToken,
+        const task = {
             title: createTaskData.title,
             description: createTaskData.description,
             project: createTaskData.project,

@@ -1,5 +1,3 @@
-// Add a interface instead to add type more easily ?
-
 import type { CreateTaskError } from '../types/typeCreateTask';
 
 export default function CreateTaskStatusMessage({ mutation }) {

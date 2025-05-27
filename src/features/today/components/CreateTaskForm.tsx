@@ -1,5 +1,3 @@
-// Add a interface instead to add type more easily ?
-
 export default function CreateTaskForm({
     handleAction,
     handleOnChange,
@@ -12,6 +10,7 @@ export default function CreateTaskForm({
             <form action={handleAction}>
                 <fieldset>
                     <legend>Task Creation</legend>
+
                     <label htmlFor="title">Title</label>
                     <input
                         type="text"
@@ -21,6 +20,7 @@ export default function CreateTaskForm({
                         value={createTaskData.title}
                         onChange={handleOnChange}
                     />
+
                     <label htmlFor="description">Description</label>
                     <textarea
                         name="description"
@@ -31,6 +31,7 @@ export default function CreateTaskForm({
                         value={createTaskData.description}
                         onChange={handleOnChange}
                     ></textarea>
+
                     <label htmlFor="project">Project</label>
                     <input
                         type="text"
@@ -40,8 +41,8 @@ export default function CreateTaskForm({
                         value={createTaskData.project}
                         onChange={handleOnChange}
                     />
+
                     <label htmlFor="deadline">Deadline</label>
-                    {/* If "date" create problem, try "datetime-local" and the others */}
                     <input
                         type="date"
                         name="deadline"
@@ -50,9 +51,11 @@ export default function CreateTaskForm({
                         value={createTaskData.deadline}
                         onChange={handleOnChange}
                     />
+
                     <button type="submit" disabled={mutation.isPending}>
                         {mutation.isPending ? 'Submitting...' : 'Submit'}
                     </button>
+
                     <button type="button" onClick={handleReset}>
                         Reset
                     </button>

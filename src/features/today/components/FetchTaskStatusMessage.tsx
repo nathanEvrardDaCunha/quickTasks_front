@@ -1,5 +1,3 @@
-// Add a interface instead to add type more easily ?
-
 export default function FetchTaskStatusMessage({
     query,
     displayNonCompletedTask,
@@ -15,8 +13,8 @@ export default function FetchTaskStatusMessage({
     }
 
     // type the query.data to avoid any future issues
-    if (query.isSuccess && query.data && query.data.data.tasks.length > 0) {
-        return displayNonCompletedTask(query.data.data.tasks);
+    if (query.isSuccess && query.data && query.data.data.length > 0) {
+        return displayNonCompletedTask(query.data.data);
     }
 
     if (!query.isLoading && !query.isError) {

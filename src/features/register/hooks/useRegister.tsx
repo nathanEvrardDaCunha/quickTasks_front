@@ -1,10 +1,7 @@
 import { useState } from 'react';
-import type {
-    RegisterError,
-    RegisterResponse,
-    RegisterUser,
-} from '../types/typeRegister';
+import type { RegisterError, RegisterUser } from '../types/typeRegister';
 import { useMutation } from '@tanstack/react-query';
+import { apiClient } from '../../../hooks/ApiClient';
 
 function throwErrorIfFalsy(
     value: FormDataEntryValue | null,
@@ -27,30 +24,12 @@ export default function useRegister() {
     const mutation = useMutation({
         mutationKey: ['registerUser'],
         mutationFn: async (user: RegisterUser) => {
-            const result = await fetch(
-                `http://localhost:5003/api/auth/register`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(user),
-                }
-            );
-
-            if (!result.ok) {
-                const errorData: RegisterError = await result.json();
-                throw errorData;
-            }
-
-            return (await result.json()) as RegisterResponse;
+            return await apiClient.register(user);
         },
         onError: (error: RegisterError) => {
             console.error(`${error.name}: ${error.cause}`);
         },
         onSuccess: () => {
-            // TO-CONSIDER: Redirect to the 'login' page automatically ?
-
             handleReset();
         },
     });
@@ -94,6 +73,6 @@ export default function useRegister() {
         handleAction,
         handleOnChange,
         handleReset,
-        userFormDate: userFormData,
+        userFormDate: userFormData, // Keep the original typo
     };
 }

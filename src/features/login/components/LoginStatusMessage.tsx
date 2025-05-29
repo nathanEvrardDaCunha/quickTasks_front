@@ -1,6 +1,13 @@
-import type { LoginError } from '../types/loginType';
+import type { UseMutationResult } from '@tanstack/react-query';
+import type { LoginError, LoginResponse } from '../types/loginType';
 
-export default function LoginStatusMessage({ mutation }) {
+interface LoginStatusMessageProps {
+    mutation: UseMutationResult<LoginResponse, LoginError>;
+}
+
+export default function LoginStatusMessage({
+    mutation,
+}: LoginStatusMessageProps) {
     if (mutation.isPending) {
         return <h2>Action processing...</h2>;
     }
@@ -10,12 +17,11 @@ export default function LoginStatusMessage({ mutation }) {
     }
 
     if (mutation.error) {
-        return (
-            <h2>
-                Error:{' '}
-                {(mutation.error as LoginError).cause || mutation.error.message}
-            </h2>
-        );
+        const errorMessage =
+            mutation.error instanceof Error
+                ? mutation.error.message
+                : (mutation.error as LoginError).cause;
+        return <h2>Error: {errorMessage}</h2>;
     }
 
     return null;

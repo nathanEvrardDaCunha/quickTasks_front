@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { ChangeEvent } from 'react';
 import type { LoginError, LoginResponse, LoginUser } from '../types/loginType';
 import { useMutation } from '@tanstack/react-query';
 
@@ -10,7 +11,7 @@ export default function useLogin() {
 
     const mutation = useMutation({
         mutationKey: ['loginUser'],
-        mutationFn: async (user: LoginUser) => {
+        mutationFn: async (user: LoginUser): Promise<LoginResponse> => {
             const response = await fetch(
                 `http://localhost:5003/api/auth/login`,
                 {
@@ -32,6 +33,7 @@ export default function useLogin() {
 
             return (await response.json()) as LoginResponse;
         },
+        // Error here is always undefined
         onError: (error: LoginError) => {
             console.error(`${error.name}: ${error.cause}`);
         },
@@ -59,7 +61,7 @@ export default function useLogin() {
         mutation.mutate(user);
     }
 
-    function handleOnCHange(event: any) {
+    function handleOnCHange(event: ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target;
         setUserFormData((previous) => ({
             ...previous,

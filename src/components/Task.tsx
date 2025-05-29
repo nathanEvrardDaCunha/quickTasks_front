@@ -1,3 +1,5 @@
+import type { MouseEventHandler } from 'react';
+
 interface TaskProps {
     task: {
         id: number;
@@ -7,7 +9,7 @@ interface TaskProps {
         deadline: Date;
         completed: boolean;
     };
-    handleOnClick: any;
+    handleOnClick: MouseEventHandler<HTMLButtonElement> | undefined;
 }
 
 function Task(props: TaskProps) {
@@ -17,8 +19,11 @@ function Task(props: TaskProps) {
     return (
         <li key={id}>
             <h4>{title}</h4>
-            <p>{description}</p>
-            <p>{project}</p>
+
+            {description && <p>{description}</p>}
+
+            {project && <p>{project}</p>}
+
             <time dateTime={deadline.toString()}>{deadline.toString()}</time>
             <button type="button" onClick={handleOnClick}>
                 Complete

@@ -1,7 +1,16 @@
+import type { UseQueryResult } from '@tanstack/react-query';
+import type { ReactElement } from 'react';
+import type { FetchTask } from '../types/typeFetchTask';
+
+interface FetchTaskStatusMessageProps {
+    query: UseQueryResult<{ data: FetchTask[] }, Error>;
+    displayNonCompletedTask: (tasks: FetchTask[]) => ReactElement;
+}
+
 export default function FetchTaskStatusMessage({
     query,
     displayNonCompletedTask,
-}) {
+}: FetchTaskStatusMessageProps) {
     if (query.isLoading) {
         return <p>Loading today's tasks...</p>;
     }
@@ -12,13 +21,12 @@ export default function FetchTaskStatusMessage({
         );
     }
 
-    // type the query.data to avoid any future issues
     if (query.isSuccess && query.data && query.data.data.length > 0) {
         return displayNonCompletedTask(query.data.data);
     }
 
     if (!query.isLoading && !query.isError) {
-        <p>No tasks for today!</p>;
+        return <p>No tasks for today!</p>;
     }
 
     return null;

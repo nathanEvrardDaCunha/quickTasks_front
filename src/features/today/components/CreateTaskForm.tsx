@@ -1,10 +1,24 @@
+import type { UseMutationResult } from '@tanstack/react-query';
+import type { ChangeEvent } from 'react';
+import type { CreateTask, CreateTaskError } from '../types/typeCreateTask';
+
+interface CreateTaskFormProps {
+    handleAction: (formData: FormData) => Promise<void>;
+    handleOnChange: (
+        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+    handleReset: () => void;
+    mutation: UseMutationResult<unknown, CreateTaskError>;
+    createTaskData: CreateTask;
+}
+
 export default function CreateTaskForm({
     handleAction,
     handleOnChange,
     handleReset,
     mutation,
     createTaskData,
-}) {
+}: CreateTaskFormProps) {
     return (
         <>
             <form action={handleAction}>
@@ -27,7 +41,7 @@ export default function CreateTaskForm({
                         id="description"
                         cols={30}
                         rows={10}
-                        required={true}
+                        required={false}
                         value={createTaskData.description}
                         onChange={handleOnChange}
                     ></textarea>
@@ -37,7 +51,7 @@ export default function CreateTaskForm({
                         type="text"
                         name="project"
                         id="project"
-                        required={true}
+                        required={false}
                         value={createTaskData.project}
                         onChange={handleOnChange}
                     />

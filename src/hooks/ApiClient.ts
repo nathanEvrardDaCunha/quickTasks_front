@@ -1,11 +1,10 @@
-// Simpler approach using Authorization header instead of query params
 class ApiClient {
     private baseURL: string;
     private isRefreshing: boolean = false;
     private failedQueue: Array<{
-        resolve: (value: any) => void;
-        reject: (error: any) => void;
-        retry: () => Promise<any>;
+        resolve: (value: unknown) => void;
+        reject: (reason?: unknown) => void;
+        retry: () => Promise<unknown>;
     }> = [];
 
     constructor(baseURL: string = 'http://localhost:5003/api') {
@@ -26,13 +25,13 @@ class ApiClient {
             throw new Error('Token refresh failed');
         }
 
-        const data = await response.json();
+        const data: { data: string } = await response.json();
         const newAccessToken = data.data;
         localStorage.setItem('accessToken', newAccessToken);
         return newAccessToken;
     }
 
-    private processQueue(error: any = null) {
+    private processQueue(error: Error | null = null) {
         this.failedQueue.forEach(({ resolve, reject, retry }) => {
             if (error) {
                 reject(error);
@@ -52,7 +51,6 @@ class ApiClient {
     }
 
     async request<T>(url: string, options: RequestInit = {}): Promise<T> {
-        // Merge auth headers with any existing headers
         const headers = {
             ...this.getAuthHeaders(),
             ...(options.headers || {}),
@@ -68,8 +66,7 @@ class ApiClient {
         }
 
         if (response.status === 401) {
-            return this.handleTokenRefresh(async () => {
-                // Get fresh headers after token refresh
+            return this.handleTokenRefresh<T>(async () => {
                 const freshHeaders = {
                     ...this.getAuthHeaders(),
                     ...(options.headers || {}),
@@ -89,9 +86,9 @@ class ApiClient {
         retryRequest: () => Promise<Response>
     ): Promise<T> {
         if (this.isRefreshing) {
-            return new Promise((resolve, reject) => {
+            return new Promise<T>((resolve, reject) => {
                 this.failedQueue.push({
-                    resolve,
+                    resolve: (value) => resolve(value as T),
                     reject,
                     retry: async () => {
                         const response = await retryRequest();
@@ -119,29 +116,39 @@ class ApiClient {
 
             return await response.json();
         } catch (error) {
-            this.processQueue(error);
+            this.processQueue(
+                error instanceof Error ? error : new Error(String(error))
+            );
             throw error;
         } finally {
             this.isRefreshing = false;
         }
     }
 
-    // Simplified methods - no need to manually handle tokens
-    async createTask(taskData: any) {
-        return this.request(`${this.baseURL}/task/task`, {
+    async createTask<T>(taskData: {
+        title: string;
+        description?: string;
+        project?: string;
+        deadline: string;
+    }): Promise<T> {
+        return this.request<T>(`${this.baseURL}/task/task`, {
             method: 'POST',
             body: JSON.stringify(taskData),
         });
     }
 
-    async fetchTodayTasks() {
-        return this.request(`${this.baseURL}/task/today`, {
+    async fetchTodayTasks<T>(): Promise<T> {
+        return this.request<T>(`${this.baseURL}/task/today`, {
             method: 'GET',
         });
     }
 
-    async register(userData: any) {
-        return this.request(`${this.baseURL}/auth/register`, {
+    async register<T>(userData: {
+        username: string;
+        email: string;
+        password: string;
+    }): Promise<T> {
+        return this.request<T>(`${this.baseURL}/auth/register`, {
             method: 'POST',
             body: JSON.stringify(userData),
         });

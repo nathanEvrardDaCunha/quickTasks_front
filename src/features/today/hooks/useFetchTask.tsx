@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
+import type { ReactElement } from 'react';
 import type { FetchTask } from '../types/typeFetchTask';
 import Task from '../../../components/Task';
 import { apiClient } from '../../../hooks/ApiClient';
@@ -20,10 +21,10 @@ export default function useFetchTask() {
             return await apiClient.fetchTodayTasks();
         },
         enabled: Boolean(accessToken),
-        refetchInterval: 5 * 60000, // Refetch before token expires
+        refetchInterval: 5 * 60000,
     });
 
-    function displayNonCompletedTask(tasks: FetchTask[]) {
+    function displayNonCompletedTask(tasks: FetchTask[]): ReactElement {
         const newTasks: FetchTask[] = tasks.filter((task) => !task.completed);
 
         return (

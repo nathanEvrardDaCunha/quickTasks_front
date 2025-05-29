@@ -1,4 +1,18 @@
-// Add a interface instead to add type more easily ?
+import type { UseMutationResult } from '@tanstack/react-query';
+import type { ChangeEvent } from 'react';
+import type {
+    RegisterError,
+    RegisterResponse,
+    RegisterUser,
+} from '../types/typeRegister';
+
+interface RegisterFormProps {
+    handleAction: (formData: FormData) => void;
+    handleOnChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    handleReset: () => void;
+    userFormDate: RegisterUser;
+    mutation: UseMutationResult<RegisterResponse, RegisterError>;
+}
 
 export default function RegisterForm({
     handleAction,
@@ -6,7 +20,7 @@ export default function RegisterForm({
     handleReset,
     userFormDate,
     mutation,
-}) {
+}: RegisterFormProps) {
     return (
         <>
             <form action={handleAction}>

@@ -11,6 +11,7 @@ export default function Register() {
         userFormDate,
     } = useRegister();
 
+    // Need to fix every mutation and maybe query type overwrite problems
     return (
         <>
             <header>

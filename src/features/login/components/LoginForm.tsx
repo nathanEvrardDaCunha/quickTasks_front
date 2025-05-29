@@ -1,10 +1,25 @@
+import type { UseMutationResult } from '@tanstack/react-query';
+import type { ChangeEvent } from 'react';
+import type { LoginError, LoginResponse } from '../types/loginType';
+
+interface LoginFormProps {
+    handleAction: () => void;
+    handleOnChange: (event: ChangeEvent<HTMLInputElement>) => void;
+    handleReset: () => void;
+    mutation: UseMutationResult<LoginResponse, LoginError>;
+    userFormData: {
+        email: string;
+        password: string;
+    };
+}
+
 export default function LoginForm({
     handleAction,
     handleOnChange,
     handleReset,
     mutation,
     userFormData,
-}) {
+}: LoginFormProps) {
     return (
         <>
             <form action={handleAction}>

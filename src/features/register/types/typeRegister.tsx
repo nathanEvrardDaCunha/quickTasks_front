@@ -10,7 +10,6 @@ export type RegisterError = {
     stack: string;
 };
 
-// Should remove the status from here and the server.
 export type RegisterResponse = {
     status: string;
     message: string;

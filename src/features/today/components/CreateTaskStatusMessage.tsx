@@ -1,22 +1,29 @@
+import type { UseMutationResult } from '@tanstack/react-query';
 import type { CreateTaskError } from '../types/typeCreateTask';
 
-export default function CreateTaskStatusMessage({ mutation }) {
+interface CreateTaskStatusMessageProps {
+    mutation: UseMutationResult<unknown, CreateTaskError>;
+}
+
+export default function CreateTaskStatusMessage({
+    mutation,
+}: CreateTaskStatusMessageProps) {
     if (mutation.isPending) {
         return <h2>Action processing...</h2>;
     }
 
     if (mutation.isSuccess && mutation.data) {
-        return <h2>Success: {mutation.data.message}</h2>;
+        return (
+            <h2>Success: {(mutation.data as { message: string }).message}</h2>
+        );
     }
 
     if (mutation.error) {
-        return (
-            <h2>
-                Error:{' '}
-                {(mutation.error as CreateTaskError).cause ||
-                    mutation.error.message}
-            </h2>
-        );
+        const errorMessage =
+            mutation.error instanceof Error
+                ? mutation.error.message
+                : (mutation.error as CreateTaskError).cause;
+        return <h2>Error: {errorMessage}</h2>;
     }
 
     return null;

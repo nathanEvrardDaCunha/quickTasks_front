@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import type { ChangeEvent } from 'react';
 import type { RegisterError, RegisterUser } from '../types/typeRegister';
 import { useMutation } from '@tanstack/react-query';
 import { apiClient } from '../../../hooks/ApiClient';
@@ -6,7 +7,7 @@ import { apiClient } from '../../../hooks/ApiClient';
 function throwErrorIfFalsy(
     value: FormDataEntryValue | null,
     valueName: string
-) {
+): void {
     if (!value) {
         throw new Error(
             `Couldn't find the ${valueName} property of the form !`
@@ -52,7 +53,7 @@ export default function useRegister() {
         mutation.mutate(user);
     }
 
-    function handleOnChange(event: any) {
+    function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
         const { name, value } = event.target;
         setUserFormData((previous) => ({
             ...previous,
@@ -73,6 +74,6 @@ export default function useRegister() {
         handleAction,
         handleOnChange,
         handleReset,
-        userFormDate: userFormData, // Keep the original typo
+        userFormDate: userFormData,
     };
 }

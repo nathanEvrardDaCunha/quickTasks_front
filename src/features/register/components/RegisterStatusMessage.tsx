@@ -1,8 +1,13 @@
-import type { RegisterError } from '../types/typeRegister';
+import type { UseMutationResult } from '@tanstack/react-query';
+import type { RegisterError, RegisterResponse } from '../types/typeRegister';
 
-// Add a interface instead to add type more easily ?
+interface RegisterStatusMessageProps {
+    mutation: UseMutationResult<RegisterResponse, RegisterError>;
+}
 
-export default function RegisterStatusMessage({ mutation }) {
+export default function RegisterStatusMessage({
+    mutation,
+}: RegisterStatusMessageProps) {
     if (mutation.isPending) {
         return <h2>Action processing...</h2>;
     }
@@ -12,13 +17,11 @@ export default function RegisterStatusMessage({ mutation }) {
     }
 
     if (mutation.error) {
-        return (
-            <h2>
-                Error:{' '}
-                {(mutation.error as RegisterError).cause ||
-                    mutation.error.message}
-            </h2>
-        );
+        const errorMessage =
+            mutation.error instanceof Error
+                ? mutation.error.message
+                : (mutation.error as RegisterError).cause;
+        return <h2>Error: {errorMessage}</h2>;
     }
 
     return null;

@@ -14,11 +14,12 @@ import Today from './features/today/Today';
 
 const queryClient = new QueryClient();
 
-// The "/today" route should required being connected and having a user ID.
+// The "/today" route should required being connected and having a accessToken (which will be validated on the server side).
 
 // TO-CONSIDER: Add reset password during login ?
-
 // TO-DO: Add Not Found Page
+// TO-DO: Add Logout Page
+// TO-DO: Form (register/login/logout) should redirect to the next page
 
 const router = createBrowserRouter([
     { path: '/', element: <Home /> },
@@ -26,8 +27,6 @@ const router = createBrowserRouter([
     { path: '/register', element: <Register /> },
     { path: '/today', element: <Today /> },
 ]);
-
-// TO-CONSIDER: Add react query dev tools ?
 
 function App() {
     return (

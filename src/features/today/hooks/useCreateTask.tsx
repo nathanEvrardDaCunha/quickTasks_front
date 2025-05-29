@@ -1,11 +1,22 @@
 import { useState } from 'react';
+import type { ChangeEvent } from 'react';
 import type { CreateTask, CreateTaskError } from '../types/typeCreateTask';
 import { useMutation } from '@tanstack/react-query';
 import { apiClient } from '../../../hooks/ApiClient';
+import type {
+    QueryObserverResult,
+    RefetchOptions,
+} from '@tanstack/react-query';
 
-export default function useCreateTask(query) {
+type QueryType = {
+    refetch: (
+        options?: RefetchOptions | undefined
+    ) => Promise<QueryObserverResult>;
+};
+
+export default function useCreateTask(query: QueryType) {
     const [createTaskData, setCreateTaskData] = useState<CreateTask>({
-        accessToken: '', // Keep this for consistency
+        accessToken: '',
         title: '',
         description: '',
         project: '',
@@ -26,7 +37,7 @@ export default function useCreateTask(query) {
         },
     });
 
-    async function handleAction(formData: FormData) {
+    function handleAction() {
         const task = {
             title: createTaskData.title,
             description: createTaskData.description,
@@ -37,7 +48,9 @@ export default function useCreateTask(query) {
         mutation.mutate(task);
     }
 
-    function handleOnChange(event: any) {
+    function handleOnChange(
+        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) {
         const { name, value } = event.target;
         setCreateTaskData((previous) => ({
             ...previous,

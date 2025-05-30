@@ -1,15 +1,14 @@
+import { Footer } from '../layouts/Footer';
+import { Header } from '../layouts/Header';
+
 function Home() {
     return (
         <>
-            <header>
-                <h2>Website Header</h2>
-            </header>
+            <Header />
             <main>
                 <h1>Home Page</h1>
             </main>
-            <footer>
-                <h2>Website Footer</h2>
-            </footer>
+            <Footer />
         </>
     );
 }

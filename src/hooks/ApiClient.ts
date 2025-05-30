@@ -167,6 +167,13 @@ class ApiClient {
             body: JSON.stringify(userData),
         });
     }
+
+    async logout<T>(): Promise<T> {
+        return this.request<T>(`${this.baseURL}/auth/logout`, {
+            method: 'POST',
+            credentials: 'include',
+        });
+    }
 }
 
 export const apiClient = new ApiClient();

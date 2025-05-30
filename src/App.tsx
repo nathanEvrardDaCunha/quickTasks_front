@@ -12,6 +12,8 @@ import Today from './features/today/Today';
 // TO-DO: Add all Twitter meta tag.
 // TO-DO: Add website icon.
 
+// Make the site HTTPS with 'secure' and 'strict' the day I deploy to production ?
+
 const queryClient = new QueryClient();
 
 // The "/today" route should required being connected and having a accessToken (which will be validated on the server side).

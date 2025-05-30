@@ -1,3 +1,5 @@
+import { Footer } from '../../layouts/Footer';
+import { Header } from '../../layouts/Header';
 import CreateTaskForm from './components/CreateTaskForm';
 import CreateTaskStatusMessage from './components/CreateTaskStatusMessage';
 import FetchTaskStatusMessage from './components/FetchTaskStatusMessage';
@@ -17,9 +19,7 @@ function Today() {
 
     return (
         <>
-            <header>
-                <h2>Website Header</h2>
-            </header>
+            <Header />
             <main>
                 <CreateTaskStatusMessage mutation={mutation} />
 
@@ -36,9 +36,7 @@ function Today() {
                     displayNonCompletedTask={displayNonCompletedTask}
                 />
             </main>
-            <footer>
-                <h2>Website Footer</h2>
-            </footer>
+            <Footer />
         </>
     );
 }

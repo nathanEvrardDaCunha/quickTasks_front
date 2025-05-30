@@ -1,3 +1,5 @@
+import { Footer } from '../../layouts/Footer';
+import { Header } from '../../layouts/Header';
 import LoginForm from './components/LoginForm';
 import LoginStatusMessage from './components/LoginStatusMessage';
 import useLogin from './hooks/useLogin';
@@ -13,10 +15,7 @@ function Login() {
 
     return (
         <>
-            <header>
-                <h2>Website Header</h2>
-            </header>
-
+            <Header />
             <main>
                 <h1>Login Page</h1>
 
@@ -30,9 +29,7 @@ function Login() {
                     userFormData={userFormData}
                 />
             </main>
-            <footer>
-                <h2>Website Footer</h2>
-            </footer>
+            <Footer />
         </>
     );
 }

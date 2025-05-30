@@ -1,3 +1,5 @@
+import { Footer } from '../../layouts/Footer';
+import { Header } from '../../layouts/Header';
 import RegisterForm from './components/RegisterForm';
 import RegisterStatusMessage from './components/RegisterStatusMessage';
 import useRegister from './hooks/useRegister';
@@ -14,9 +16,7 @@ export default function Register() {
     // Need to fix every mutation and maybe query type overwrite problems
     return (
         <>
-            <header>
-                <h2>Website Header</h2>
-            </header>
+            <Header />
             <main>
                 <h1>Register Page</h1>
 
@@ -30,9 +30,7 @@ export default function Register() {
                     mutation={mutation}
                 />
             </main>
-            <footer>
-                <h2>Website Footer</h2>
-            </footer>
+            <Footer />
         </>
     );
 }

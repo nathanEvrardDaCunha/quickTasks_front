@@ -131,7 +131,7 @@ class ApiClient {
         project?: string;
         deadline: string;
     }): Promise<T> {
-        return this.request<T>(`${this.baseURL}/task/task`, {
+        return this.request<T>(`${this.baseURL}/task/`, {
             method: 'POST',
             body: JSON.stringify(taskData),
         });
@@ -142,6 +142,12 @@ class ApiClient {
         return this.request<T>(`${this.baseURL}/task/${taskData.id}/complete`, {
             method: 'PATCH',
             body: JSON.stringify(taskData),
+        });
+    }
+
+    async deleteSingleTask<T>(taskData: { id: number }): Promise<T> {
+        return this.request<T>(`${this.baseURL}/task/${taskData.id}`, {
+            method: 'DELETE',
         });
     }
 

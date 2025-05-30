@@ -28,23 +28,38 @@ function Task(props: TaskProps) {
     const { id, title, description, project, deadline } = props.task;
     const query = props.query;
 
-    const mutation = useMutation({
+    const completeMutation = useMutation({
         mutationKey: ['completeSingleTask'],
         mutationFn: async (taskId: number) => {
             return await apiClient.completeSingleTask({ id: taskId });
         },
         onSuccess() {
-            console.log('Task made query refetch.');
-            console.log(`Task id: ${id}.`);
             query.refetch();
         },
         onError(error: CreateTaskError) {
-            console.log(`${error.name}: ${error.cause}`);
+            console.error(`${error.name}: ${error.cause}`);
         },
     });
 
-    function handleOnClick(): void {
-        mutation.mutate(id);
+    const deleteMutation = useMutation({
+        mutationKey: ['deleteSingleTask'],
+        mutationFn: async (taskId: number) => {
+            return await apiClient.deleteSingleTask({ id: taskId });
+        },
+        onSuccess() {
+            query.refetch();
+        },
+        onError(error: CreateTaskError) {
+            console.error(`${error.name}: ${error.cause}`);
+        },
+    });
+
+    function handleOnCompleteClick(): void {
+        completeMutation.mutate(id);
+    }
+
+    function handleOnDeleteClick(): void {
+        deleteMutation.mutate(id);
     }
 
     return (
@@ -56,8 +71,11 @@ function Task(props: TaskProps) {
             {project && <p>{project}</p>}
 
             <time dateTime={deadline.toString()}>{deadline.toString()}</time>
-            <button type="button" onClick={handleOnClick}>
+            <button type="button" onClick={handleOnCompleteClick}>
                 Complete
+            </button>
+            <button type="button" onClick={handleOnDeleteClick}>
+                Delete
             </button>
         </li>
     );

@@ -4,6 +4,7 @@ import Home from './pages/Home';
 import Login from './features/login/Login';
 import Register from './features/register/Register';
 import Today from './features/today/Today';
+import { NotFound } from './pages/NotFound';
 
 // In index.html:
 // TO-DO: Add all generic meta tag.
@@ -28,6 +29,7 @@ const router = createBrowserRouter([
     { path: '/login', element: <Login /> },
     { path: '/register', element: <Register /> },
     { path: '/today', element: <Today /> },
+    { path: '*', element: <NotFound /> },
 ]);
 
 function App() {

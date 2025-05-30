@@ -3,6 +3,7 @@ import type { ChangeEvent } from 'react';
 import type { RegisterError, RegisterUser } from '../types/typeRegister';
 import { useMutation } from '@tanstack/react-query';
 import { apiClient } from '../../../hooks/ApiClient';
+import { useNavigate } from 'react-router-dom';
 
 function throwErrorIfFalsy(
     value: FormDataEntryValue | null,
@@ -21,17 +22,18 @@ export default function useRegister() {
         email: '',
         password: '',
     });
+    const navigate = useNavigate();
 
     const mutation = useMutation({
         mutationKey: ['registerUser'],
         mutationFn: async (user: RegisterUser) => {
             return await apiClient.register(user);
         },
+        onSuccess: () => {
+            navigate('/login');
+        },
         onError: (error: RegisterError) => {
             console.error(`${error.name}: ${error.cause}`);
-        },
-        onSuccess: () => {
-            handleReset();
         },
     });
 

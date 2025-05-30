@@ -2,12 +2,14 @@ import { useState } from 'react';
 import type { ChangeEvent } from 'react';
 import type { LoginError, LoginResponse, LoginUser } from '../types/loginType';
 import { useMutation } from '@tanstack/react-query';
+import { useNavigate } from 'react-router-dom';
 
 export default function useLogin() {
     const [userFormData, setUserFormData] = useState<LoginUser>({
         email: '',
         password: '',
     });
+    const navigate = useNavigate();
 
     const mutation = useMutation({
         mutationKey: ['loginUser'],
@@ -39,10 +41,7 @@ export default function useLogin() {
         },
         onSuccess: (data: LoginResponse) => {
             localStorage.setItem('accessToken', data.data['accessToken']);
-
-            // TO-CONSIDER: Redirect to the 'today' page automatically ?
-
-            handleReset();
+            navigate('/today');
         },
     });
 

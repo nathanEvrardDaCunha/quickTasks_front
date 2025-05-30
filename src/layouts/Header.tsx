@@ -1,11 +1,12 @@
 import { useMutation } from '@tanstack/react-query';
 import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import type { CreateTaskError } from '../features/today/types/typeCreateTask';
 import { apiClient } from '../hooks/ApiClient';
 
 export function Header() {
     const [accessToken, setAccessToken] = useState<string | null>(null);
+    const navigate = useNavigate();
 
     useEffect(() => {
         setAccessToken(localStorage.getItem('accessToken'));
@@ -18,7 +19,7 @@ export function Header() {
         },
         onSuccess() {
             localStorage.removeItem('accessToken');
-            setAccessToken(null);
+            navigate('/login');
         },
         onError(error: CreateTaskError) {
             console.error(`${error.name}: ${error.cause}`);

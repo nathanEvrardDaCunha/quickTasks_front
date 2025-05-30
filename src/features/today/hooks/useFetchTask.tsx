@@ -30,13 +30,7 @@ export default function useFetchTask() {
         return (
             <ul>
                 {newTasks.map((task) => {
-                    return (
-                        <Task
-                            key={task.id}
-                            task={task}
-                            handleOnClick={undefined}
-                        />
-                    );
+                    return <Task key={task.id} task={task} query={query} />;
                 })}
             </ul>
         );

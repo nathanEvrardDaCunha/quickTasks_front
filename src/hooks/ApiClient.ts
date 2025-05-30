@@ -137,6 +137,14 @@ class ApiClient {
         });
     }
 
+    // Body not used in backend => Can remove it without causing any issue ?
+    async completeSingleTask<T>(taskData: { id: number }): Promise<T> {
+        return this.request<T>(`${this.baseURL}/task/${taskData.id}/complete`, {
+            method: 'PATCH',
+            body: JSON.stringify(taskData),
+        });
+    }
+
     async fetchTodayTasks<T>(): Promise<T> {
         return this.request<T>(`${this.baseURL}/task/today`, {
             method: 'GET',

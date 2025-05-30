@@ -1,5 +1,3 @@
-import type { MouseEventHandler } from 'react';
-
 interface TaskProps {
     task: {
         id: number;
@@ -9,12 +7,45 @@ interface TaskProps {
         deadline: Date;
         completed: boolean;
     };
-    handleOnClick: MouseEventHandler<HTMLButtonElement> | undefined;
+    query: QueryType;
 }
+
+import {
+    useMutation,
+    type QueryObserverResult,
+    type RefetchOptions,
+} from '@tanstack/react-query';
+import { apiClient } from '../hooks/ApiClient';
+import type { CreateTaskError } from '../features/today/types/typeCreateTask';
+
+type QueryType = {
+    refetch: (
+        options?: RefetchOptions | undefined
+    ) => Promise<QueryObserverResult>;
+};
 
 function Task(props: TaskProps) {
     const { id, title, description, project, deadline } = props.task;
-    const handleOnClick = props.handleOnClick;
+    const query = props.query;
+
+    const mutation = useMutation({
+        mutationKey: ['completeSingleTask'],
+        mutationFn: async (taskId: number) => {
+            return await apiClient.completeSingleTask({ id: taskId });
+        },
+        onSuccess() {
+            console.log('Task made query refetch.');
+            console.log(`Task id: ${id}.`);
+            query.refetch();
+        },
+        onError(error: CreateTaskError) {
+            console.log(`${error.name}: ${error.cause}`);
+        },
+    });
+
+    function handleOnClick(): void {
+        mutation.mutate(id);
+    }
 
     return (
         <li key={id}>

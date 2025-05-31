@@ -3,12 +3,11 @@ import {
     type QueryObserverResult,
     type RefetchOptions,
 } from '@tanstack/react-query';
-import { apiClient } from '../hooks/ApiClient';
-import type {
-    CreateTask,
-    CreateTaskError,
-} from '../features/today/types/typeCreateTask';
+
 import { useState, type ChangeEvent, type JSX } from 'react';
+import useDeleteTask from '../hooks/useDeleteTask';
+import type { CreateTask, CreateTaskError } from '../types/typeCreateTask';
+import { apiClient } from '../../../hooks/ApiClient';
 
 interface TaskProps {
     task: {
@@ -117,6 +116,18 @@ function Task(props: TaskProps) {
     //
     //
     //
+
+    // {
+    //     handleOnDeleteClick, deleteMutation
+    // } = useDeleteTask(props.task.id, query);
+
+    const { handleOnDeleteClick } = useDeleteTask(props.task.id, props.query);
+
+    //
+    //
+    //
+    //
+    //
     const query = props.query;
 
     const completeMutation = useMutation({
@@ -132,25 +143,8 @@ function Task(props: TaskProps) {
         },
     });
 
-    const deleteMutation = useMutation({
-        mutationKey: ['deleteSingleTask'],
-        mutationFn: async (taskId: number) => {
-            return await apiClient.deleteSingleTask({ id: taskId });
-        },
-        onSuccess() {
-            query.refetch();
-        },
-        onError(error: CreateTaskError) {
-            console.error(`${error.name}: ${error.cause}`);
-        },
-    });
-
     function handleOnCompleteClick(): void {
         completeMutation.mutate(props.task.id);
-    }
-
-    function handleOnDeleteClick(): void {
-        deleteMutation.mutate(props.task.id);
     }
 
     return (

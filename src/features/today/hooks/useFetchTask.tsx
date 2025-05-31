@@ -2,8 +2,8 @@ import { useQuery } from '@tanstack/react-query';
 import { useState, useEffect } from 'react';
 import type { ReactElement } from 'react';
 import type { FetchTask } from '../types/typeFetchTask';
-import Task from '../../../components/Task';
 import { apiClient } from '../../../hooks/ApiClient';
+import Task from '../components/Task';
 
 export default function useFetchTask() {
     const [accessToken, setAccessToken] = useState<string>('');

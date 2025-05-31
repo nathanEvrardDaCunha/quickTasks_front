@@ -8,6 +8,7 @@ import { useState, type ChangeEvent, type JSX } from 'react';
 import useDeleteTask from '../hooks/useDeleteTask';
 import type { CreateTask, CreateTaskError } from '../types/typeCreateTask';
 import { apiClient } from '../../../hooks/ApiClient';
+import useCompleteTask from '../hooks/useCompleteTask';
 
 interface TaskProps {
     task: {
@@ -28,8 +29,6 @@ type QueryType = {
 };
 
 function Task(props: TaskProps) {
-    // const { id, title, description, project, deadline } = props.task;
-
     const [createTaskData, setCreateTaskData] = useState<CreateTask>({
         accessToken: '',
         title: props.task.title,
@@ -46,9 +45,8 @@ function Task(props: TaskProps) {
         },
         onSuccess() {
             console.log('Update Task');
-            // handleReset();
             setIsUpdating(false);
-            query.refetch(); // Useless ?
+            props.query.refetch(); // Useless ?
         },
         onError(error: CreateTaskError) {
             console.error(`${error.name}: ${error.cause}`);
@@ -117,10 +115,6 @@ function Task(props: TaskProps) {
     //
     //
 
-    // {
-    //     handleOnDeleteClick, deleteMutation
-    // } = useDeleteTask(props.task.id, query);
-
     const { handleOnDeleteClick } = useDeleteTask(props.task.id, props.query);
 
     //
@@ -128,24 +122,11 @@ function Task(props: TaskProps) {
     //
     //
     //
-    const query = props.query;
 
-    const completeMutation = useMutation({
-        mutationKey: ['completeSingleTask'],
-        mutationFn: async (taskId: number) => {
-            return await apiClient.completeSingleTask({ id: taskId });
-        },
-        onSuccess() {
-            query.refetch();
-        },
-        onError(error: CreateTaskError) {
-            console.error(`${error.name}: ${error.cause}`);
-        },
-    });
-
-    function handleOnCompleteClick(): void {
-        completeMutation.mutate(props.task.id);
-    }
+    const { handleOnCompleteClick } = useCompleteTask(
+        props.task.id,
+        props.query
+    );
 
     return (
         <li key={props.task.id}>

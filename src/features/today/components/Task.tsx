@@ -1,14 +1,11 @@
 import {
-    useMutation,
     type QueryObserverResult,
     type RefetchOptions,
 } from '@tanstack/react-query';
 
-import { useState, type ChangeEvent, type JSX } from 'react';
 import useDeleteTask from '../hooks/useDeleteTask';
-import type { CreateTask, CreateTaskError } from '../types/typeCreateTask';
-import { apiClient } from '../../../hooks/ApiClient';
 import useCompleteTask from '../hooks/useCompleteTask';
+import useUpdateTask from '../hooks/useUpdateTask';
 
 interface TaskProps {
     task: {
@@ -29,85 +26,16 @@ type QueryType = {
 };
 
 function Task(props: TaskProps) {
-    const [createTaskData, setCreateTaskData] = useState<CreateTask>({
-        accessToken: '',
-        title: props.task.title,
-        description: props.task.description,
-        project: props.task.project,
-        deadline: props.task.deadline.toString().split('T')[0],
-    });
-    const [isUpdating, setIsUpdating] = useState<boolean>(false);
-
-    const updateMutation = useMutation({
-        mutationKey: ['updateTask'],
-        mutationFn: async (task: Omit<CreateTask, 'accessToken'>) => {
-            return await apiClient.updateTask(task, props.task.id);
-        },
-        onSuccess() {
-            console.log('Update Task');
-            setIsUpdating(false);
-            props.query.refetch(); // Useless ?
-        },
-        onError(error: CreateTaskError) {
-            console.error(`${error.name}: ${error.cause}`);
-        },
-    });
-
-    function handleAction() {
-        const task = {
-            title: createTaskData.title,
-            description: createTaskData.description,
-            project: createTaskData.project,
-            deadline: createTaskData.deadline,
-        };
-
-        updateMutation.mutate(task);
-    }
-
-    function handleOnUpdateChange(event) {
-        setIsUpdating((previous) => !previous);
-    }
-
-    function handleOnChange(
-        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) {
-        const { name, value } = event.target;
-        setCreateTaskData((previous) => ({
-            ...previous,
-            [name]: value,
-        }));
-    }
-
-    function handleReset() {
-        setCreateTaskData({
-            accessToken: '',
-            title: props.task.title,
-            description: props.task.description,
-            project: props.task.project,
-            deadline: props.task.deadline.toString().split('T')[0],
-        });
-    }
-
-    function updateTaskStatusMessage(): JSX.Element {
-        if (updateMutation.isPending) {
-            return <p>Loading update tasks...</p>;
-        }
-
-        if (updateMutation.isError) {
-            return (
-                <h2>
-                    Error:{' '}
-                    {updateMutation.error.cause || 'Failed to update task'}{' '}
-                </h2>
-            );
-        }
-
-        if (updateMutation.isSuccess) {
-            return <h2>Update task successfully</h2>;
-        }
-
-        return <p>No Update yet !</p>;
-    }
+    const {
+        isUpdating,
+        createTaskData,
+        updateMutation,
+        updateTaskStatusMessage,
+        handleAction,
+        handleOnChange,
+        handleOnUpdateChange,
+        handleReset,
+    } = useUpdateTask(props);
 
     //
     //

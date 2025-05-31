@@ -1,0 +1,118 @@
+import {
+    useMutation,
+    type QueryObserverResult,
+    type RefetchOptions,
+} from '@tanstack/react-query';
+import { apiClient } from '../../../hooks/ApiClient';
+import { useState, type ChangeEvent, type JSX } from 'react';
+import type { CreateTask, CreateTaskError } from '../types/typeCreateTask';
+
+interface isUpdateTaskProps {
+    task: {
+        id: number;
+        title: string;
+        description: string;
+        project: string;
+        deadline: Date;
+        completed: boolean;
+    };
+    query: QueryType;
+}
+
+type QueryType = {
+    refetch: (
+        options?: RefetchOptions | undefined
+    ) => Promise<QueryObserverResult>;
+};
+
+export default function useUpdateTask(props: isUpdateTaskProps) {
+    const [createTaskData, setCreateTaskData] = useState<CreateTask>({
+        accessToken: '',
+        title: props.task.title,
+        description: props.task.description,
+        project: props.task.project,
+        deadline: props.task.deadline.toString().split('T')[0],
+    });
+    const [isUpdating, setIsUpdating] = useState<boolean>(false);
+
+    const updateMutation = useMutation({
+        mutationKey: ['updateTask'],
+        mutationFn: async (task: Omit<CreateTask, 'accessToken'>) => {
+            return await apiClient.updateTask(task, props.task.id);
+        },
+        onSuccess() {
+            setIsUpdating(false);
+            props.query.refetch(); // Useless ?
+        },
+        onError(error: CreateTaskError) {
+            console.error(`${error.name}: ${error.cause}`);
+        },
+    });
+
+    function handleAction(): void {
+        const task = {
+            title: createTaskData.title,
+            description: createTaskData.description,
+            project: createTaskData.project,
+            deadline: createTaskData.deadline,
+        };
+
+        updateMutation.mutate(task);
+    }
+
+    function handleOnUpdateChange(): void {
+        setIsUpdating((previous) => !previous);
+    }
+
+    function handleOnChange(
+        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ): void {
+        const { name, value } = event.target;
+        setCreateTaskData((previous) => ({
+            ...previous,
+            [name]: value,
+        }));
+    }
+
+    function handleReset(): void {
+        setCreateTaskData({
+            accessToken: '',
+            title: props.task.title,
+            description: props.task.description,
+            project: props.task.project,
+            deadline: props.task.deadline.toString().split('T')[0],
+        });
+    }
+
+    function updateTaskStatusMessage(): JSX.Element {
+        if (updateMutation.isPending) {
+            return <p>Loading update tasks...</p>;
+        }
+
+        if (updateMutation.isError) {
+            return (
+                <h2>
+                    Error:{' '}
+                    {updateMutation.error.cause || 'Failed to update task'}{' '}
+                </h2>
+            );
+        }
+
+        if (updateMutation.isSuccess) {
+            return <h2>Update task successfully</h2>;
+        }
+
+        return <p>No Update yet !</p>;
+    }
+
+    return {
+        updateTaskStatusMessage,
+        handleReset,
+        handleOnChange,
+        handleOnUpdateChange,
+        handleAction,
+        updateMutation,
+        isUpdating,
+        createTaskData,
+    };
+}

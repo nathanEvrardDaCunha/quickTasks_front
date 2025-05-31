@@ -37,7 +37,7 @@ export default function useCreateTask(query: QueryType) {
         },
     });
 
-    function handleAction() {
+    function handleAction(): void {
         const task = {
             title: createTaskData.title,
             description: createTaskData.description,
@@ -50,7 +50,7 @@ export default function useCreateTask(query: QueryType) {
 
     function handleOnChange(
         event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) {
+    ): void {
         const { name, value } = event.target;
         setCreateTaskData((previous) => ({
             ...previous,
@@ -58,7 +58,7 @@ export default function useCreateTask(query: QueryType) {
         }));
     }
 
-    function handleReset() {
+    function handleReset(): void {
         setCreateTaskData({
             accessToken: '',
             title: '',

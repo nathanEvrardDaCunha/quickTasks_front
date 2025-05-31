@@ -4,7 +4,7 @@ import {
     type RefetchOptions,
 } from '@tanstack/react-query';
 import { apiClient } from '../../../hooks/ApiClient';
-import { useState, type ChangeEvent, type JSX } from 'react';
+import { useState, type ChangeEvent } from 'react';
 import type { CreateTask, CreateTaskError } from '../types/typeCreateTask';
 
 interface isUpdateTaskProps {

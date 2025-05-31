@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import type { ReactElement } from 'react';
 import type { FetchTask } from '../types/typeFetchTask';
 import { apiClient } from '../../../hooks/ApiClient';
-import Task from '../components/Task';
+import TaskLogic from '../TaskLogic';
 
 export default function useFetchTask() {
     const [accessToken, setAccessToken] = useState<string>('');
@@ -30,7 +30,9 @@ export default function useFetchTask() {
         return (
             <ul>
                 {newTasks.map((task) => {
-                    return <Task key={task.id} task={task} query={query} />;
+                    return (
+                        <TaskLogic key={task.id} task={task} query={query} />
+                    );
                 })}
             </ul>
         );

@@ -4,7 +4,10 @@ import {
     type RefetchOptions,
 } from '@tanstack/react-query';
 import { apiClient } from '../../../hooks/ApiClient';
-import type { CreateTaskError } from '../types/typeCreateTask';
+import type {
+    DeleteTaskError,
+    DeleteTaskSuccess,
+} from '../types/typeDeleteTask';
 
 type QueryType = {
     refetch: (
@@ -16,12 +19,14 @@ export default function useDeleteTask(taskId: number, query: QueryType) {
     const deleteMutation = useMutation({
         mutationKey: ['deleteSingleTask'],
         mutationFn: async (taskId: number) => {
-            return await apiClient.deleteSingleTask({ id: taskId });
+            return (await apiClient.deleteSingleTask({
+                id: taskId,
+            })) as DeleteTaskSuccess;
         },
         onSuccess() {
             query.refetch();
         },
-        onError(error: CreateTaskError) {
+        onError(error: DeleteTaskError) {
             console.error(`${error.name}: ${error.cause}`);
         },
     });

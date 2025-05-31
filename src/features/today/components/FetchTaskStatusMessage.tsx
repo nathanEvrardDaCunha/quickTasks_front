@@ -1,15 +1,45 @@
 import type { ReactElement } from 'react';
-import type { FetchTask } from '../types/typeFetchTask';
+import type { FetchTask, FetchTaskSuccess } from '../types/typeFetchTask';
+import type { UseQueryResult } from '@tanstack/react-query';
+import TaskLogic from '../TaskLogic';
 
 interface FetchTaskStatusMessageProps {
-    query: any;
-    displayNonCompletedTask: (tasks: FetchTask[]) => ReactElement;
+    query: UseQueryResult<FetchTaskSuccess, Error>;
+    project: string;
 }
 
 export default function FetchTaskStatusMessage({
     query,
-    displayNonCompletedTask,
+    project,
 }: FetchTaskStatusMessageProps) {
+    function displayNonCompletedTask(
+        tasks: FetchTask[],
+        project: string
+    ): ReactElement {
+        // For later completion filter
+        // const newTasks: FetchTask[] = tasks.filter((task) => !task.completed);
+
+        let newTasks: FetchTask[] = tasks;
+
+        if (project !== 'all') {
+            newTasks = newTasks.filter((task) => {
+                if (task.project === project) {
+                    return task;
+                }
+            });
+        }
+
+        return (
+            <ul>
+                {newTasks.map((task) => {
+                    return (
+                        <TaskLogic key={task.id} task={task} query={query} />
+                    );
+                })}
+            </ul>
+        );
+    }
+
     if (query.isLoading) {
         return <p>Loading today's tasks...</p>;
     }
@@ -21,7 +51,7 @@ export default function FetchTaskStatusMessage({
     }
 
     if (query.isSuccess && query.data && query.data.data.length > 0) {
-        return displayNonCompletedTask(query.data.data);
+        return displayNonCompletedTask(query.data.data, project);
     }
 
     if (!query.isLoading && !query.isError) {

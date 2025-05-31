@@ -4,7 +4,10 @@ import {
     type RefetchOptions,
 } from '@tanstack/react-query';
 import { apiClient } from '../../../hooks/ApiClient';
-import type { CreateTaskError } from '../types/typeCreateTask';
+import type {
+    CompleteTaskError,
+    CompleteTaskSuccess,
+} from '../types/typeCompleteTask';
 
 type QueryType = {
     refetch: (
@@ -16,12 +19,14 @@ export default function useCompleteTask(taskId: number, query: QueryType) {
     const completeMutation = useMutation({
         mutationKey: ['completeSingleTask'],
         mutationFn: async (taskId: number) => {
-            return await apiClient.completeSingleTask({ id: taskId });
+            return (await apiClient.completeSingleTask({
+                id: taskId,
+            })) as CompleteTaskSuccess;
         },
         onSuccess() {
             query.refetch();
         },
-        onError(error: CreateTaskError) {
+        onError(error: CompleteTaskError) {
             console.error(`${error.name}: ${error.cause}`);
         },
     });

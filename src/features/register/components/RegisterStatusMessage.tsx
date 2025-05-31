@@ -1,8 +1,8 @@
 import type { UseMutationResult } from '@tanstack/react-query';
-import type { RegisterError, RegisterResponse } from '../types/typeRegister';
+import type { RegisterError, RegisterSuccess } from '../types/typeRegister';
 
 interface RegisterStatusMessageProps {
-    mutation: UseMutationResult<RegisterResponse, RegisterError>;
+    mutation: UseMutationResult<RegisterSuccess, RegisterError>;
 }
 
 export default function RegisterStatusMessage({

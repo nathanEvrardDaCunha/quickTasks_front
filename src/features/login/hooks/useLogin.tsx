@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import type { ChangeEvent } from 'react';
-import type { LoginError, LoginResponse, LoginUser } from '../types/loginType';
+import type { LoginError, LoginSuccess, LoginUser } from '../types/loginType';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
 
@@ -13,7 +13,7 @@ export default function useLogin() {
 
     const mutation = useMutation({
         mutationKey: ['loginUser'],
-        mutationFn: async (user: LoginUser): Promise<LoginResponse> => {
+        mutationFn: async (user: LoginUser): Promise<LoginSuccess> => {
             const response = await fetch(
                 `http://localhost:5003/api/auth/login`,
                 {
@@ -33,13 +33,13 @@ export default function useLogin() {
                 );
             }
 
-            return (await response.json()) as LoginResponse;
+            return (await response.json()) as LoginSuccess;
         },
         // Error here is always undefined
         onError: (error: LoginError) => {
             console.error(`${error.name}: ${error.cause}`);
         },
-        onSuccess: (data: LoginResponse) => {
+        onSuccess: (data: LoginSuccess) => {
             localStorage.setItem('accessToken', data.data['accessToken']);
             navigate('/today');
         },

@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import type { ChangeEvent } from 'react';
-import type { CreateTask, CreateTaskError } from '../types/typeCreateTask';
+import type {
+    CreateTask,
+    CreateTaskError,
+    CreateTaskSuccess,
+} from '../types/typeCreateTask';
 import { useMutation } from '@tanstack/react-query';
 import { apiClient } from '../../../hooks/ApiClient';
 import type {
@@ -26,7 +30,7 @@ export default function useCreateTask(query: QueryType) {
     const mutation = useMutation({
         mutationKey: ['postTask'],
         mutationFn: async (task: Omit<CreateTask, 'accessToken'>) => {
-            return await apiClient.createTask(task);
+            return (await apiClient.createTask(task)) as CreateTaskSuccess;
         },
         onSuccess() {
             handleReset();

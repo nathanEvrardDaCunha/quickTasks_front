@@ -2,7 +2,7 @@ import type { UseMutationResult } from '@tanstack/react-query';
 import type { ChangeEvent } from 'react';
 import type {
     RegisterError,
-    RegisterResponse,
+    RegisterSuccess,
     RegisterUser,
 } from '../types/typeRegister';
 
@@ -11,7 +11,7 @@ interface RegisterFormProps {
     handleOnChange: (event: ChangeEvent<HTMLInputElement>) => void;
     handleReset: () => void;
     userFormDate: RegisterUser;
-    mutation: UseMutationResult<RegisterResponse, RegisterError>;
+    mutation: UseMutationResult<RegisterSuccess, RegisterError>;
 }
 
 export default function RegisterForm({

@@ -1,5 +1,7 @@
 import type { CreateTaskError } from '../types/typeCreateTask';
 
+// Replace the any by real static type
+
 interface CreateTaskStatusMessageProps {
     mutation: any;
 }

@@ -9,16 +9,10 @@ import useUpdateTask from './hooks/useUpdateTask';
 import UpdateTaskForm from './components/UpdateTaskForm';
 import UpdateTaskStatusMessage from './components/UpdateTaskStatusMessage';
 import TaskBody from './components/TaskBody';
+import type { FetchTask } from './types/typeFetchTask';
 
 interface TaskLogicProps {
-    task: {
-        id: number;
-        title: string;
-        description: string;
-        project: string;
-        deadline: Date;
-        completed: boolean;
-    };
+    task: FetchTask;
     query: QueryType;
 }
 

@@ -5,7 +5,11 @@ import {
 } from '@tanstack/react-query';
 import { apiClient } from '../../../hooks/ApiClient';
 import { useState, type ChangeEvent } from 'react';
-import type { CreateTask, CreateTaskError } from '../types/typeCreateTask';
+import type { CreateTask } from '../types/typeCreateTask';
+import type {
+    UpdateTaskError,
+    UpdateTaskSuccess,
+} from '../types/typeUpdateTask';
 
 interface isUpdateTaskProps {
     task: {
@@ -38,13 +42,16 @@ export default function useUpdateTask(props: isUpdateTaskProps) {
     const updateMutation = useMutation({
         mutationKey: ['updateTask'],
         mutationFn: async (task: Omit<CreateTask, 'accessToken'>) => {
-            return await apiClient.updateTask(task, props.task.id);
+            return (await apiClient.updateTask(
+                task,
+                props.task.id
+            )) as UpdateTaskSuccess;
         },
         onSuccess() {
             setIsUpdating(false);
             props.query.refetch(); // Useless ?
         },
-        onError(error: CreateTaskError) {
+        onError(error: UpdateTaskError) {
             console.error(`${error.name}: ${error.cause}`);
         },
     });

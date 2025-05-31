@@ -1,6 +1,10 @@
 import { useState } from 'react';
 import type { ChangeEvent } from 'react';
-import type { RegisterError, RegisterUser } from '../types/typeRegister';
+import type {
+    RegisterError,
+    RegisterSuccess,
+    RegisterUser,
+} from '../types/typeRegister';
 import { useMutation } from '@tanstack/react-query';
 import { apiClient } from '../../../hooks/ApiClient';
 import { useNavigate } from 'react-router-dom';
@@ -27,7 +31,7 @@ export default function useRegister() {
     const mutation = useMutation({
         mutationKey: ['registerUser'],
         mutationFn: async (user: RegisterUser) => {
-            return await apiClient.register(user);
+            return (await apiClient.register(user)) as RegisterSuccess;
         },
         onSuccess: () => {
             navigate('/login');

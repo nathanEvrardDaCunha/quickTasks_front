@@ -1,8 +1,7 @@
-import type { UseMutationResult } from '@tanstack/react-query';
 import type { CreateTaskError } from '../types/typeCreateTask';
 
 interface CreateTaskStatusMessageProps {
-    mutation: UseMutationResult<unknown, CreateTaskError>;
+    mutation: any;
 }
 
 export default function CreateTaskStatusMessage({

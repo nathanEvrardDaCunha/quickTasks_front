@@ -1,9 +1,8 @@
-import type { UseQueryResult } from '@tanstack/react-query';
 import type { ReactElement } from 'react';
 import type { FetchTask } from '../types/typeFetchTask';
 
 interface FetchTaskStatusMessageProps {
-    query: UseQueryResult<{ data: FetchTask[] }, Error>;
+    query: any;
     displayNonCompletedTask: (tasks: FetchTask[]) => ReactElement;
 }
 

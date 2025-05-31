@@ -1,3 +1,15 @@
+import {
+    useMutation,
+    type QueryObserverResult,
+    type RefetchOptions,
+} from '@tanstack/react-query';
+import { apiClient } from '../hooks/ApiClient';
+import type {
+    CreateTask,
+    CreateTaskError,
+} from '../features/today/types/typeCreateTask';
+import { useState, type ChangeEvent, type JSX } from 'react';
+
 interface TaskProps {
     task: {
         id: number;
@@ -10,14 +22,6 @@ interface TaskProps {
     query: QueryType;
 }
 
-import {
-    useMutation,
-    type QueryObserverResult,
-    type RefetchOptions,
-} from '@tanstack/react-query';
-import { apiClient } from '../hooks/ApiClient';
-import type { CreateTaskError } from '../features/today/types/typeCreateTask';
-
 type QueryType = {
     refetch: (
         options?: RefetchOptions | undefined
@@ -25,7 +29,94 @@ type QueryType = {
 };
 
 function Task(props: TaskProps) {
-    const { id, title, description, project, deadline } = props.task;
+    // const { id, title, description, project, deadline } = props.task;
+
+    const [createTaskData, setCreateTaskData] = useState<CreateTask>({
+        accessToken: '',
+        title: props.task.title,
+        description: props.task.description,
+        project: props.task.project,
+        deadline: props.task.deadline.toString().split('T')[0],
+    });
+    const [isUpdating, setIsUpdating] = useState<boolean>(false);
+
+    const updateMutation = useMutation({
+        mutationKey: ['updateTask'],
+        mutationFn: async (task: Omit<CreateTask, 'accessToken'>) => {
+            return await apiClient.updateTask(task, props.task.id);
+        },
+        onSuccess() {
+            console.log('Update Task');
+            // handleReset();
+            setIsUpdating(false);
+            query.refetch(); // Useless ?
+        },
+        onError(error: CreateTaskError) {
+            console.error(`${error.name}: ${error.cause}`);
+        },
+    });
+
+    function handleAction() {
+        const task = {
+            title: createTaskData.title,
+            description: createTaskData.description,
+            project: createTaskData.project,
+            deadline: createTaskData.deadline,
+        };
+
+        updateMutation.mutate(task);
+    }
+
+    function handleOnUpdateChange(event) {
+        setIsUpdating((previous) => !previous);
+    }
+
+    function handleOnChange(
+        event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) {
+        const { name, value } = event.target;
+        setCreateTaskData((previous) => ({
+            ...previous,
+            [name]: value,
+        }));
+    }
+
+    function handleReset() {
+        setCreateTaskData({
+            accessToken: '',
+            title: props.task.title,
+            description: props.task.description,
+            project: props.task.project,
+            deadline: props.task.deadline.toString().split('T')[0],
+        });
+    }
+
+    function updateTaskStatusMessage(): JSX.Element {
+        if (updateMutation.isPending) {
+            return <p>Loading update tasks...</p>;
+        }
+
+        if (updateMutation.isError) {
+            return (
+                <h2>
+                    Error:{' '}
+                    {updateMutation.error.cause || 'Failed to update task'}{' '}
+                </h2>
+            );
+        }
+
+        if (updateMutation.isSuccess) {
+            return <h2>Update task successfully</h2>;
+        }
+
+        return <p>No Update yet !</p>;
+    }
+
+    //
+    //
+    //
+    //
+    //
     const query = props.query;
 
     const completeMutation = useMutation({
@@ -55,28 +146,110 @@ function Task(props: TaskProps) {
     });
 
     function handleOnCompleteClick(): void {
-        completeMutation.mutate(id);
+        completeMutation.mutate(props.task.id);
     }
 
     function handleOnDeleteClick(): void {
-        deleteMutation.mutate(id);
+        deleteMutation.mutate(props.task.id);
     }
 
     return (
-        <li key={id}>
-            <h4>{title}</h4>
+        <li key={props.task.id}>
+            {isUpdating === true ? (
+                <>
+                    {updateTaskStatusMessage()}
 
-            {description && <p>{description}</p>}
+                    <form action={handleAction}>
+                        <fieldset>
+                            <legend>Task Creation</legend>
 
-            {project && <p>{project}</p>}
+                            <label htmlFor="title">Title</label>
+                            <input
+                                type="text"
+                                name="title"
+                                id="title"
+                                required={true}
+                                value={createTaskData.title}
+                                onChange={handleOnChange}
+                            />
 
-            <time dateTime={deadline.toString()}>{deadline.toString()}</time>
-            <button type="button" onClick={handleOnCompleteClick}>
-                Complete
-            </button>
-            <button type="button" onClick={handleOnDeleteClick}>
-                Delete
-            </button>
+                            <label htmlFor="description">Description</label>
+                            <textarea
+                                name="description"
+                                id="description"
+                                cols={30}
+                                rows={10}
+                                required={false}
+                                value={createTaskData.description}
+                                onChange={handleOnChange}
+                            ></textarea>
+
+                            <label htmlFor="project">Project</label>
+                            <input
+                                type="text"
+                                name="project"
+                                id="project"
+                                required={false}
+                                value={createTaskData.project}
+                                onChange={handleOnChange}
+                            />
+
+                            <label htmlFor="deadline">Deadline</label>
+                            <input
+                                type="date"
+                                name="deadline"
+                                id="deadline"
+                                required={true}
+                                value={createTaskData.deadline}
+                                onChange={handleOnChange}
+                            />
+
+                            <button
+                                type="button"
+                                onClick={handleOnUpdateChange}
+                            >
+                                Close
+                            </button>
+
+                            <button
+                                type="submit"
+                                disabled={updateMutation.isPending}
+                            >
+                                {updateMutation.isPending
+                                    ? 'Submitting...'
+                                    : 'Submit'}
+                            </button>
+
+                            <button type="button" onClick={handleReset}>
+                                Reset
+                            </button>
+                        </fieldset>
+                    </form>
+                </>
+            ) : (
+                <>
+                    <h4>{props.task.title}</h4>
+
+                    {props.task.description && <p>{props.task.description}</p>}
+
+                    {props.task.project && <p>{props.task.project}</p>}
+
+                    <time
+                        dateTime={props.task.deadline.toString().split('T')[0]}
+                    >
+                        {props.task.deadline.toString().split('T')[0]}
+                    </time>
+                    <button type="button" onClick={handleOnUpdateChange}>
+                        Update
+                    </button>
+                    <button type="button" onClick={handleOnCompleteClick}>
+                        Complete
+                    </button>
+                    <button type="button" onClick={handleOnDeleteClick}>
+                        Delete
+                    </button>
+                </>
+            )}
         </li>
     );
 }

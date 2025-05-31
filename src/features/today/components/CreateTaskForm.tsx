@@ -1,14 +1,13 @@
-import type { UseMutationResult } from '@tanstack/react-query';
 import type { ChangeEvent } from 'react';
-import type { CreateTask, CreateTaskError } from '../types/typeCreateTask';
+import type { CreateTask } from '../types/typeCreateTask';
 
 interface CreateTaskFormProps {
-    handleAction: (formData: FormData) => Promise<void>;
+    handleAction: any;
     handleOnChange: (
         event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
     handleReset: () => void;
-    mutation: UseMutationResult<unknown, CreateTaskError>;
+    mutation: any;
     createTaskData: CreateTask;
 }
 

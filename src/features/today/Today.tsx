@@ -19,6 +19,7 @@ function Today() {
     } = useCreateTask(query);
 
     const [projectFilter, setProjectFilter] = useState<string>('all');
+    const [completedFilter, setCompletedFilter] = useState<string>('false');
 
     function displayAllProject(): JSX.Element | JSX.Element[] {
         if (query.data) {
@@ -47,8 +48,13 @@ function Today() {
     }
 
     // Add type for event
-    function handleOnSelectChange(event) {
+    function handleOnFilterProjectChange(event) {
         setProjectFilter(event.target.value);
+    }
+
+    // Add type for event
+    function handleOnFilterCompletedChange(event) {
+        setCompletedFilter(event.target.value);
     }
 
     return (
@@ -57,12 +63,27 @@ function Today() {
             <main>
                 <CreateTaskStatusMessage mutation={mutation} />
 
+                <label htmlFor="filter-project">
+                    Filter task based on project
+                </label>
                 <select
-                    name="project"
-                    id="project"
-                    onChange={handleOnSelectChange}
+                    name="filter-project"
+                    id="filter-project"
+                    onChange={handleOnFilterProjectChange}
                 >
                     {displayAllProject()}
+                </select>
+
+                <label htmlFor="filter-completed">
+                    Filter task based on completion
+                </label>
+                <select
+                    name="filter-completed"
+                    id="filter-completed"
+                    onChange={handleOnFilterCompletedChange}
+                >
+                    <option value="false">to-complete</option>
+                    <option value="true">already-completed</option>
                 </select>
 
                 <CreateTaskForm
@@ -73,7 +94,11 @@ function Today() {
                     createTaskData={createTaskData}
                 />
 
-                <FetchTaskStatusMessage query={query} project={projectFilter} />
+                <FetchTaskStatusMessage
+                    query={query}
+                    project={projectFilter}
+                    completed={completedFilter}
+                />
             </main>
             <Footer />
         </>

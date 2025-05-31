@@ -6,6 +6,8 @@ import {
 import useDeleteTask from '../hooks/useDeleteTask';
 import useCompleteTask from '../hooks/useCompleteTask';
 import useUpdateTask from '../hooks/useUpdateTask';
+import UpdateTaskForm from './UpdateTaskForm';
+import UpdateTaskStatusMessage from './UpdateTaskStatusMessage';
 
 interface TaskProps {
     task: {
@@ -30,104 +32,48 @@ function Task(props: TaskProps) {
         isUpdating,
         createTaskData,
         updateMutation,
-        updateTaskStatusMessage,
         handleAction,
         handleOnChange,
         handleOnUpdateChange,
         handleReset,
     } = useUpdateTask(props);
 
-    //
-    //
-    //
-    //
-    //
-
     const { handleOnDeleteClick } = useDeleteTask(props.task.id, props.query);
-
-    //
-    //
-    //
-    //
-    //
 
     const { handleOnCompleteClick } = useCompleteTask(
         props.task.id,
         props.query
     );
 
+    // <CreateTaskStatusMessage mutation={mutation} />
+
+    // <CreateTaskForm
+    //     handleAction={handleAction}
+    //     handleOnChange={handleOnChange}
+    //     handleReset={handleReset}
+    //     mutation={mutation}
+    //     createTaskData={createTaskData}
+    // />
+
+    // <FetchTaskStatusMessage
+    //     query={query}
+    //     displayNonCompletedTask={displayNonCompletedTask}
+    // />
+
     return (
         <li key={props.task.id}>
             {isUpdating === true ? (
                 <>
-                    {updateTaskStatusMessage()}
+                    <UpdateTaskStatusMessage updateMutation={updateMutation} />
 
-                    <form action={handleAction}>
-                        <fieldset>
-                            <legend>Task Creation</legend>
-
-                            <label htmlFor="title">Title</label>
-                            <input
-                                type="text"
-                                name="title"
-                                id="title"
-                                required={true}
-                                value={createTaskData.title}
-                                onChange={handleOnChange}
-                            />
-
-                            <label htmlFor="description">Description</label>
-                            <textarea
-                                name="description"
-                                id="description"
-                                cols={30}
-                                rows={10}
-                                required={false}
-                                value={createTaskData.description}
-                                onChange={handleOnChange}
-                            ></textarea>
-
-                            <label htmlFor="project">Project</label>
-                            <input
-                                type="text"
-                                name="project"
-                                id="project"
-                                required={false}
-                                value={createTaskData.project}
-                                onChange={handleOnChange}
-                            />
-
-                            <label htmlFor="deadline">Deadline</label>
-                            <input
-                                type="date"
-                                name="deadline"
-                                id="deadline"
-                                required={true}
-                                value={createTaskData.deadline}
-                                onChange={handleOnChange}
-                            />
-
-                            <button
-                                type="button"
-                                onClick={handleOnUpdateChange}
-                            >
-                                Close
-                            </button>
-
-                            <button
-                                type="submit"
-                                disabled={updateMutation.isPending}
-                            >
-                                {updateMutation.isPending
-                                    ? 'Submitting...'
-                                    : 'Submit'}
-                            </button>
-
-                            <button type="button" onClick={handleReset}>
-                                Reset
-                            </button>
-                        </fieldset>
-                    </form>
+                    <UpdateTaskForm
+                        handleAction={handleAction}
+                        createTaskData={createTaskData}
+                        handleOnChange={handleOnChange}
+                        handleOnUpdateChange={handleOnUpdateChange}
+                        updateMutation={updateMutation}
+                        handleReset={handleReset}
+                    />
                 </>
             ) : (
                 <>

@@ -84,29 +84,7 @@ export default function useUpdateTask(props: isUpdateTaskProps) {
         });
     }
 
-    function updateTaskStatusMessage(): JSX.Element {
-        if (updateMutation.isPending) {
-            return <p>Loading update tasks...</p>;
-        }
-
-        if (updateMutation.isError) {
-            return (
-                <h2>
-                    Error:{' '}
-                    {updateMutation.error.cause || 'Failed to update task'}{' '}
-                </h2>
-            );
-        }
-
-        if (updateMutation.isSuccess) {
-            return <h2>Update task successfully</h2>;
-        }
-
-        return <p>No Update yet !</p>;
-    }
-
     return {
-        updateTaskStatusMessage,
         handleReset,
         handleOnChange,
         handleOnUpdateChange,

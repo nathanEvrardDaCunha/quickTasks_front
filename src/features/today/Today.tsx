@@ -20,6 +20,8 @@ function Today() {
 
     const [projectFilter, setProjectFilter] = useState<string>('all');
     const [completedFilter, setCompletedFilter] = useState<string>('false');
+    const [minDate, setMinDate] = useState<string>('1990-01-01');
+    const [maxDate, setMaxDate] = useState<string>('2100-01-01');
 
     function displayAllProject(): JSX.Element | JSX.Element[] {
         if (query.data) {
@@ -57,6 +59,14 @@ function Today() {
         setCompletedFilter(event.target.value);
     }
 
+    function handleMinDateChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setMinDate(event.target.value);
+    }
+
+    function handleMaxDateChange(event: React.ChangeEvent<HTMLInputElement>) {
+        setMaxDate(event.target.value);
+    }
+
     return (
         <>
             <Header />
@@ -86,6 +96,26 @@ function Today() {
                     <option value="true">already-completed</option>
                 </select>
 
+                <div>
+                    <label htmlFor="min-date">Minimum deadline date:</label>
+                    <input
+                        type="date"
+                        id="min-date"
+                        value={minDate}
+                        onChange={handleMinDateChange}
+                    />
+                </div>
+
+                <div>
+                    <label htmlFor="max-date">Maximum deadline date:</label>
+                    <input
+                        type="date"
+                        id="max-date"
+                        value={maxDate}
+                        onChange={handleMaxDateChange}
+                    />
+                </div>
+
                 <CreateTaskForm
                     handleAction={handleAction}
                     handleOnChange={handleOnChange}
@@ -98,6 +128,8 @@ function Today() {
                     query={query}
                     project={projectFilter}
                     completed={completedFilter}
+                    minDate={minDate}
+                    maxDate={maxDate}
                 />
             </main>
             <Footer />

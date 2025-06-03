@@ -7,25 +7,25 @@ interface FetchTaskStatusMessageProps {
     query: UseQueryResult<FetchTaskSuccess, Error>;
     project: string;
     completed: string;
+    minDate: string;
+    maxDate: string;
 }
 
 export default function FetchTaskStatusMessage({
     query,
     project,
     completed,
+    minDate,
+    maxDate,
 }: FetchTaskStatusMessageProps) {
     function displayNonCompletedTask(
         tasks: FetchTask[],
         project: string,
-        completed: string
+        completed: string,
+        minDate: string,
+        maxDate: string
     ): ReactElement {
-        // For later completion filter
-        // const newTasks: FetchTask[] = tasks.filter((task) => !task.completed);
-
         let newTasks: FetchTask[] = tasks;
-
-        console.log(project);
-        console.log(completed);
 
         if (completed === 'true') {
             newTasks = newTasks.filter((task) => {
@@ -44,20 +44,24 @@ export default function FetchTaskStatusMessage({
         }
 
         if (project !== 'all') {
-            newTasks = newTasks.filter((task) => {
-                if (task.project === project) {
-                    return task;
-                }
-            });
+            newTasks = newTasks.filter((task) => task.project === project);
         }
+
+        newTasks = newTasks.filter((task) => {
+            const newTaskDate = new Date(task.deadline);
+            const newMinDate = new Date(minDate);
+            const newMaxDate = new Date(maxDate);
+
+            if (newMinDate <= newTaskDate && newTaskDate <= newMaxDate) {
+                return task;
+            }
+        });
 
         return (
             <ul>
-                {newTasks.map((task) => {
-                    return (
-                        <TaskLogic key={task.id} task={task} query={query} />
-                    );
-                })}
+                {newTasks.map((task) => (
+                    <TaskLogic key={task.id} task={task} query={query} />
+                ))}
             </ul>
         );
     }
@@ -75,7 +79,13 @@ export default function FetchTaskStatusMessage({
     // When there s no task, the project filter is "" isntead of "all"
 
     if (query.isSuccess && query.data && query.data.data.length > 0) {
-        return displayNonCompletedTask(query.data.data, project, completed);
+        return displayNonCompletedTask(
+            query.data.data,
+            project,
+            completed,
+            minDate,
+            maxDate
+        );
     }
 
     if (!query.isLoading && !query.isError) {

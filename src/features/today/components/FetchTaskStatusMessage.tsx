@@ -9,6 +9,10 @@ interface FetchTaskStatusMessageProps {
     completed: string;
     minDate: string;
     maxDate: string;
+    deadlineSort: string;
+    projectSort: string;
+    titleSort: string;
+    descriptionSort: string;
 }
 
 export default function FetchTaskStatusMessage({
@@ -17,13 +21,21 @@ export default function FetchTaskStatusMessage({
     completed,
     minDate,
     maxDate,
+    deadlineSort,
+    projectSort,
+    titleSort,
+    descriptionSort,
 }: FetchTaskStatusMessageProps) {
     function displayNonCompletedTask(
         tasks: FetchTask[],
         project: string,
         completed: string,
         minDate: string,
-        maxDate: string
+        maxDate: string,
+        deadlineSort: string,
+        projectSort: string,
+        titleSort: string,
+        descriptionSort: string
     ): ReactElement {
         let newTasks: FetchTask[] = tasks;
 
@@ -57,6 +69,62 @@ export default function FetchTaskStatusMessage({
             }
         });
 
+        if (deadlineSort === 'ascending') {
+            newTasks = newTasks.sort((a, b) => {
+                const dateA = new Date(a.deadline);
+                const dateB = new Date(b.deadline);
+                return dateA.getTime() - dateB.getTime();
+            });
+        } else if (deadlineSort === 'descending') {
+            newTasks = newTasks.sort((a, b) => {
+                const dateA = new Date(a.deadline);
+                const dateB = new Date(b.deadline);
+                return dateB.getTime() - dateA.getTime();
+            });
+        }
+
+        if (projectSort === 'ascending') {
+            newTasks = newTasks.sort((a, b) => {
+                const projectA = a.project || '';
+                const projectB = b.project || '';
+                return projectA.localeCompare(projectB);
+            });
+        } else if (projectSort === 'descending') {
+            newTasks = newTasks.sort((a, b) => {
+                const projectA = a.project || '';
+                const projectB = b.project || '';
+                return projectB.localeCompare(projectA);
+            });
+        }
+
+        if (titleSort === 'ascending') {
+            newTasks = newTasks.sort((a, b) => {
+                const titleA = a.title || '';
+                const titleB = b.title || '';
+                return titleA.localeCompare(titleB);
+            });
+        } else if (titleSort === 'descending') {
+            newTasks = newTasks.sort((a, b) => {
+                const titleA = a.title || '';
+                const titleB = b.title || '';
+                return titleB.localeCompare(titleA);
+            });
+        }
+
+        if (descriptionSort === 'ascending') {
+            newTasks = newTasks.sort((a, b) => {
+                const descA = a.description || '';
+                const descB = b.description || '';
+                return descA.localeCompare(descB);
+            });
+        } else if (descriptionSort === 'descending') {
+            newTasks = newTasks.sort((a, b) => {
+                const descA = a.description || '';
+                const descB = b.description || '';
+                return descB.localeCompare(descA);
+            });
+        }
+
         return (
             <ul>
                 {newTasks.map((task) => (
@@ -76,7 +144,7 @@ export default function FetchTaskStatusMessage({
         );
     }
 
-    // When there s no task, the project filter is "" isntead of "all"
+    // When there s no task, the project filter is "" instead of "all"
 
     if (query.isSuccess && query.data && query.data.data.length > 0) {
         return displayNonCompletedTask(
@@ -84,7 +152,11 @@ export default function FetchTaskStatusMessage({
             project,
             completed,
             minDate,
-            maxDate
+            maxDate,
+            deadlineSort,
+            projectSort,
+            titleSort,
+            descriptionSort
         );
     }
 

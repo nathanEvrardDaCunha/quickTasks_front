@@ -23,39 +23,49 @@ function Today() {
     const [minDate, setMinDate] = useState<string>('1990-01-01');
     const [maxDate, setMaxDate] = useState<string>('2100-01-01');
 
-    function displayAllProject(): JSX.Element | JSX.Element[] {
-        if (query.data) {
-            const projectsTask: string[] = query.data.data.map((task) => {
-                if (task.project) {
-                    return task.project;
-                }
-                return 'all';
-            });
+    const [deadlineSort, setDeadlineSort] = useState<string>('default');
+    const [projectSort, setProjectSort] = useState<string>('default');
+    const [titleSort, setTitleSort] = useState<string>('default');
+    const [descriptionSort, setDescriptionSort] = useState<string>('default');
 
-            // UX: Sort the project ascending for easier search
+    function displayAllProject(): JSX.Element | JSX.Element[] {
+        const projects = [
+            <option key="all" value="all">
+                all
+            </option>,
+        ];
+
+        if (query.data) {
+            const projectsTask: string[] = query.data.data
+                .map((task) => task.project)
+                .filter(
+                    (project): project is string =>
+                        project !== undefined && project !== 'all'
+                );
 
             const uniqueProjects: string[] = [...new Set(projectsTask)];
 
-            const projects = uniqueProjects.map((project) => {
-                return (
+            uniqueProjects.forEach((project) => {
+                projects.push(
                     <option key={project} value={project}>
                         {project}
                     </option>
                 );
             });
-
-            return projects;
         }
-        return <option value="all">all</option>;
+
+        return projects;
     }
 
-    // Add type for event
-    function handleOnFilterProjectChange(event) {
+    function handleOnFilterProjectChange(
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) {
         setProjectFilter(event.target.value);
     }
 
-    // Add type for event
-    function handleOnFilterCompletedChange(event) {
+    function handleOnFilterCompletedChange(
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) {
         setCompletedFilter(event.target.value);
     }
 
@@ -67,54 +77,154 @@ function Today() {
         setMaxDate(event.target.value);
     }
 
+    function handleDeadlineSortChange(
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) {
+        setDeadlineSort(event.target.value);
+    }
+
+    function handleProjectSortChange(
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) {
+        setProjectSort(event.target.value);
+    }
+
+    function handleTitleSortChange(
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) {
+        setTitleSort(event.target.value);
+    }
+
+    function handleDescriptionSortChange(
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) {
+        setDescriptionSort(event.target.value);
+    }
+
     return (
         <>
             <Header />
             <main>
                 <CreateTaskStatusMessage mutation={mutation} />
 
-                <label htmlFor="filter-project">
-                    Filter task based on project
-                </label>
-                <select
-                    name="filter-project"
-                    id="filter-project"
-                    onChange={handleOnFilterProjectChange}
-                >
-                    {displayAllProject()}
-                </select>
+                <section>
+                    <h3>Filters</h3>
+                    <label htmlFor="filter-project">
+                        Filter task based on project
+                    </label>
+                    <select
+                        name="filter-project"
+                        id="filter-project"
+                        onChange={handleOnFilterProjectChange}
+                    >
+                        {displayAllProject()}
+                    </select>
 
-                <label htmlFor="filter-completed">
-                    Filter task based on completion
-                </label>
-                <select
-                    name="filter-completed"
-                    id="filter-completed"
-                    onChange={handleOnFilterCompletedChange}
-                >
-                    <option value="false">to-complete</option>
-                    <option value="true">already-completed</option>
-                </select>
+                    <label htmlFor="filter-completed">
+                        Filter task based on completion
+                    </label>
+                    <select
+                        name="filter-completed"
+                        id="filter-completed"
+                        onChange={handleOnFilterCompletedChange}
+                    >
+                        <option value="false">to-complete</option>
+                        <option value="true">already-completed</option>
+                    </select>
 
-                <div>
-                    <label htmlFor="min-date">Minimum deadline date:</label>
-                    <input
-                        type="date"
-                        id="min-date"
-                        value={minDate}
-                        onChange={handleMinDateChange}
-                    />
-                </div>
+                    <div>
+                        <label htmlFor="min-date">Minimum deadline date:</label>
+                        <input
+                            type="date"
+                            id="min-date"
+                            value={minDate}
+                            onChange={handleMinDateChange}
+                        />
+                    </div>
 
-                <div>
-                    <label htmlFor="max-date">Maximum deadline date:</label>
-                    <input
-                        type="date"
-                        id="max-date"
-                        value={maxDate}
-                        onChange={handleMaxDateChange}
-                    />
-                </div>
+                    <div>
+                        <label htmlFor="max-date">Maximum deadline date:</label>
+                        <input
+                            type="date"
+                            id="max-date"
+                            value={maxDate}
+                            onChange={handleMaxDateChange}
+                        />
+                    </div>
+                </section>
+
+                <section>
+                    <h3>Sorting</h3>
+                    <div>
+                        <label htmlFor="sort-deadline">Sort by deadline:</label>
+                        <select
+                            name="sort-deadline"
+                            id="sort-deadline"
+                            value={deadlineSort}
+                            onChange={handleDeadlineSortChange}
+                        >
+                            <option value="default">
+                                Default (no sorting)
+                            </option>
+                            <option value="ascending">
+                                Ascending (earliest first)
+                            </option>
+                            <option value="descending">
+                                Descending (latest first)
+                            </option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label htmlFor="sort-project">Sort by project:</label>
+                        <select
+                            name="sort-project"
+                            id="sort-project"
+                            value={projectSort}
+                            onChange={handleProjectSortChange}
+                        >
+                            <option value="default">
+                                Default (no sorting)
+                            </option>
+                            <option value="ascending">Ascending (A-Z)</option>
+                            <option value="descending">Descending (Z-A)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label htmlFor="sort-title">Sort by title:</label>
+                        <select
+                            name="sort-title"
+                            id="sort-title"
+                            value={titleSort}
+                            onChange={handleTitleSortChange}
+                        >
+                            <option value="default">
+                                Default (no sorting)
+                            </option>
+                            <option value="ascending">Ascending (A-Z)</option>
+                            <option value="descending">Descending (Z-A)</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <label htmlFor="sort-description">
+                            Sort by description:
+                        </label>
+                        <select
+                            name="sort-description"
+                            id="sort-description"
+                            value={descriptionSort}
+                            onChange={handleDescriptionSortChange}
+                        >
+                            <option value="default">
+                                Default (no sorting)
+                            </option>
+                            <option value="ascending">Ascending (A-Z)</option>
+                            <option value="descending">Descending (Z-A)</option>
+                        </select>
+                    </div>
+                </section>
 
                 <CreateTaskForm
                     handleAction={handleAction}
@@ -130,6 +240,10 @@ function Today() {
                     completed={completedFilter}
                     minDate={minDate}
                     maxDate={maxDate}
+                    deadlineSort={deadlineSort}
+                    projectSort={projectSort}
+                    titleSort={titleSort}
+                    descriptionSort={descriptionSort}
                 />
             </main>
             <Footer />

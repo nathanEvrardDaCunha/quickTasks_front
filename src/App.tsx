@@ -6,6 +6,7 @@ import Register from './features/register/Register';
 import Today from './features/today/Today';
 import { NotFound } from './pages/NotFound';
 import { ProtectedRoute } from './components/ProtectedRoute';
+import ResetPassword from './features/reset-password/ResetPassword';
 
 const queryClient = new QueryClient();
 
@@ -13,6 +14,7 @@ const router = createBrowserRouter([
     { path: '/', element: <Home /> },
     { path: '/login', element: <Login /> },
     { path: '/register', element: <Register /> },
+    { path: '/reset-password', element: <ResetPassword /> },
     {
         path: '/today',
         element: (

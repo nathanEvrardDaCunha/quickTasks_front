@@ -1,6 +1,7 @@
 import type { UseMutationResult } from '@tanstack/react-query';
 import type { ChangeEvent } from 'react';
 import type { LoginError, LoginSuccess } from '../types/loginType';
+import { Link } from 'react-router-dom';
 
 interface LoginFormProps {
     handleAction: () => void;
@@ -46,12 +47,16 @@ export default function LoginForm({
                         onChange={handleOnChange}
                     />
 
-                    <button type="submit" disabled={mutation.isPending}>
-                        {mutation.isPending ? 'Submitting...' : 'Submit'}
-                    </button>
-                    <button type="button" onClick={handleReset}>
-                        Reset
-                    </button>
+                    <Link to={'/reset-password'}>Reset Password</Link>
+
+                    <div>
+                        <button type="submit" disabled={mutation.isPending}>
+                            {mutation.isPending ? 'Submitting...' : 'Submit'}
+                        </button>
+                        <button type="button" onClick={handleReset}>
+                            Reset
+                        </button>
+                    </div>
                 </fieldset>
             </form>
         </>

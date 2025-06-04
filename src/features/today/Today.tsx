@@ -6,6 +6,8 @@ import CreateTaskStatusMessage from './components/CreateTaskStatusMessage';
 import FetchTaskStatusMessage from './components/FetchTaskStatusMessage';
 import useCreateTask from './hooks/useCreateTask';
 import useFetchTask from './hooks/useFetchTask';
+import FilterTasks from './components/FilterTasks';
+import useFilterTask from './hooks/useFilterTask';
 
 function Today() {
     const { query } = useFetchTask();
@@ -18,64 +20,22 @@ function Today() {
         createTaskData,
     } = useCreateTask(query);
 
-    const [projectFilter, setProjectFilter] = useState<string>('all');
-    const [completedFilter, setCompletedFilter] = useState<string>('false');
-    const [minDate, setMinDate] = useState<string>('1990-01-01');
-    const [maxDate, setMaxDate] = useState<string>('2100-01-01');
+    const {
+        handleMaxDateChange,
+        handleMinDateChange,
+        handleOnFilterCompletedChange,
+        handleOnFilterProjectChange,
+        displayAllProject,
+        maxDate,
+        minDate,
+        completedFilter,
+        projectFilter,
+    } = useFilterTask(query);
 
     const [deadlineSort, setDeadlineSort] = useState<string>('default');
     const [projectSort, setProjectSort] = useState<string>('default');
     const [titleSort, setTitleSort] = useState<string>('default');
     const [descriptionSort, setDescriptionSort] = useState<string>('default');
-
-    function displayAllProject(): JSX.Element | JSX.Element[] {
-        const projects = [
-            <option key="all" value="all">
-                all
-            </option>,
-        ];
-
-        if (query.data) {
-            const projectsTask: string[] = query.data.data
-                .map((task) => task.project)
-                .filter(
-                    (project): project is string =>
-                        project !== undefined && project !== 'all'
-                );
-
-            const uniqueProjects: string[] = [...new Set(projectsTask)];
-
-            uniqueProjects.forEach((project) => {
-                projects.push(
-                    <option key={project} value={project}>
-                        {project}
-                    </option>
-                );
-            });
-        }
-
-        return projects;
-    }
-
-    function handleOnFilterProjectChange(
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) {
-        setProjectFilter(event.target.value);
-    }
-
-    function handleOnFilterCompletedChange(
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) {
-        setCompletedFilter(event.target.value);
-    }
-
-    function handleMinDateChange(event: React.ChangeEvent<HTMLInputElement>) {
-        setMinDate(event.target.value);
-    }
-
-    function handleMaxDateChange(event: React.ChangeEvent<HTMLInputElement>) {
-        setMaxDate(event.target.value);
-    }
 
     function handleDeadlineSortChange(
         event: React.ChangeEvent<HTMLSelectElement>
@@ -107,51 +67,17 @@ function Today() {
             <main>
                 <CreateTaskStatusMessage mutation={mutation} />
 
-                <section>
-                    <h3>Filters</h3>
-                    <label htmlFor="filter-project">
-                        Filter task based on project
-                    </label>
-                    <select
-                        name="filter-project"
-                        id="filter-project"
-                        onChange={handleOnFilterProjectChange}
-                    >
-                        {displayAllProject()}
-                    </select>
-
-                    <label htmlFor="filter-completed">
-                        Filter task based on completion
-                    </label>
-                    <select
-                        name="filter-completed"
-                        id="filter-completed"
-                        onChange={handleOnFilterCompletedChange}
-                    >
-                        <option value="false">to-complete</option>
-                        <option value="true">already-completed</option>
-                    </select>
-
-                    <div>
-                        <label htmlFor="min-date">Minimum deadline date:</label>
-                        <input
-                            type="date"
-                            id="min-date"
-                            value={minDate}
-                            onChange={handleMinDateChange}
-                        />
-                    </div>
-
-                    <div>
-                        <label htmlFor="max-date">Maximum deadline date:</label>
-                        <input
-                            type="date"
-                            id="max-date"
-                            value={maxDate}
-                            onChange={handleMaxDateChange}
-                        />
-                    </div>
-                </section>
+                <FilterTasks
+                    handleOnFilterProjectChange={handleOnFilterProjectChange}
+                    displayAllProject={displayAllProject}
+                    handleOnFilterCompletedChange={
+                        handleOnFilterCompletedChange
+                    }
+                    minDate={minDate}
+                    handleMinDateChange={handleMinDateChange}
+                    maxDate={maxDate}
+                    handleMaxDateChange={handleMaxDateChange}
+                />
 
                 <section>
                     <h3>Sorting</h3>

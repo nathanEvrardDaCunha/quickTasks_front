@@ -9,8 +9,6 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 
 const queryClient = new QueryClient();
 
-// The "/today" route should required being connected and having a accessToken (which will be validated on the server side).
-
 const router = createBrowserRouter([
     { path: '/', element: <Home /> },
     { path: '/login', element: <Login /> },

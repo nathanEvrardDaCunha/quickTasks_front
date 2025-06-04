@@ -1,4 +1,3 @@
-import { useState, type JSX } from 'react';
 import { Footer } from '../../layouts/Footer';
 import { Header } from '../../layouts/Header';
 import CreateTaskForm from './components/CreateTaskForm';
@@ -8,6 +7,8 @@ import useCreateTask from './hooks/useCreateTask';
 import useFetchTask from './hooks/useFetchTask';
 import FilterTasks from './components/FilterTasks';
 import useFilterTask from './hooks/useFilterTask';
+import useSortTask from './hooks/useSortTask';
+import SortTasks from './components/SortTasks';
 
 function Today() {
     const { query } = useFetchTask();
@@ -32,34 +33,16 @@ function Today() {
         projectFilter,
     } = useFilterTask(query);
 
-    const [deadlineSort, setDeadlineSort] = useState<string>('default');
-    const [projectSort, setProjectSort] = useState<string>('default');
-    const [titleSort, setTitleSort] = useState<string>('default');
-    const [descriptionSort, setDescriptionSort] = useState<string>('default');
-
-    function handleDeadlineSortChange(
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) {
-        setDeadlineSort(event.target.value);
-    }
-
-    function handleProjectSortChange(
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) {
-        setProjectSort(event.target.value);
-    }
-
-    function handleTitleSortChange(
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) {
-        setTitleSort(event.target.value);
-    }
-
-    function handleDescriptionSortChange(
-        event: React.ChangeEvent<HTMLSelectElement>
-    ) {
-        setDescriptionSort(event.target.value);
-    }
+    const {
+        handleDescriptionSortChange,
+        handleTitleSortChange,
+        handleProjectSortChange,
+        handleDeadlineSortChange,
+        descriptionSort,
+        titleSort,
+        projectSort,
+        deadlineSort,
+    } = useSortTask();
 
     return (
         <>
@@ -79,78 +62,16 @@ function Today() {
                     handleMaxDateChange={handleMaxDateChange}
                 />
 
-                <section>
-                    <h3>Sorting</h3>
-                    <div>
-                        <label htmlFor="sort-deadline">Sort by deadline:</label>
-                        <select
-                            name="sort-deadline"
-                            id="sort-deadline"
-                            value={deadlineSort}
-                            onChange={handleDeadlineSortChange}
-                        >
-                            <option value="default">
-                                Default (no sorting)
-                            </option>
-                            <option value="ascending">
-                                Ascending (earliest first)
-                            </option>
-                            <option value="descending">
-                                Descending (latest first)
-                            </option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label htmlFor="sort-project">Sort by project:</label>
-                        <select
-                            name="sort-project"
-                            id="sort-project"
-                            value={projectSort}
-                            onChange={handleProjectSortChange}
-                        >
-                            <option value="default">
-                                Default (no sorting)
-                            </option>
-                            <option value="ascending">Ascending (A-Z)</option>
-                            <option value="descending">Descending (Z-A)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label htmlFor="sort-title">Sort by title:</label>
-                        <select
-                            name="sort-title"
-                            id="sort-title"
-                            value={titleSort}
-                            onChange={handleTitleSortChange}
-                        >
-                            <option value="default">
-                                Default (no sorting)
-                            </option>
-                            <option value="ascending">Ascending (A-Z)</option>
-                            <option value="descending">Descending (Z-A)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label htmlFor="sort-description">
-                            Sort by description:
-                        </label>
-                        <select
-                            name="sort-description"
-                            id="sort-description"
-                            value={descriptionSort}
-                            onChange={handleDescriptionSortChange}
-                        >
-                            <option value="default">
-                                Default (no sorting)
-                            </option>
-                            <option value="ascending">Ascending (A-Z)</option>
-                            <option value="descending">Descending (Z-A)</option>
-                        </select>
-                    </div>
-                </section>
+                <SortTasks
+                    deadlineSort={deadlineSort}
+                    handleDeadlineSortChange={handleDeadlineSortChange}
+                    projectSort={projectSort}
+                    handleProjectSortChange={handleProjectSortChange}
+                    titleSort={titleSort}
+                    handleTitleSortChange={handleTitleSortChange}
+                    descriptionSort={descriptionSort}
+                    handleDescriptionSortChange={handleDescriptionSortChange}
+                />
 
                 <CreateTaskForm
                     handleAction={handleAction}

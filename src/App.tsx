@@ -5,30 +5,24 @@ import Login from './features/login/Login';
 import Register from './features/register/Register';
 import Today from './features/today/Today';
 import { NotFound } from './pages/NotFound';
-
-// In index.html:
-// TO-DO: Add all generic meta tag.
-// TO-DO: Add robot meta tag.
-// TO-DO: Add all OG meta tag.
-// TO-DO: Add all Twitter meta tag.
-// TO-DO: Add website icon.
-
-// Make the site HTTPS with 'secure' and 'strict' the day I deploy to production ?
+import { ProtectedRoute } from './components/ProtectedRoute';
 
 const queryClient = new QueryClient();
 
 // The "/today" route should required being connected and having a accessToken (which will be validated on the server side).
 
-// TO-CONSIDER: Add reset password during login ?
-// TO-DO: Add Not Found Page
-// TO-DO: Add Logout Page
-// TO-DO: Form (register/login/logout) should redirect to the next page
-
 const router = createBrowserRouter([
     { path: '/', element: <Home /> },
     { path: '/login', element: <Login /> },
     { path: '/register', element: <Register /> },
-    { path: '/today', element: <Today /> },
+    {
+        path: '/today',
+        element: (
+            <ProtectedRoute>
+                <Today />
+            </ProtectedRoute>
+        ),
+    },
     { path: '*', element: <NotFound /> },
 ]);
 

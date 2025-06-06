@@ -44,9 +44,15 @@ export function Header() {
                     </Link>
                 </section>
             ) : (
-                <button type="button" onClick={handleOnLogoutClick}>
-                    Logout
-                </button>
+                <section>
+                    <Link to={'/user'}>
+                        <button type="button">Account</button>
+                    </Link>
+
+                    <button type="button" onClick={handleOnLogoutClick}>
+                        Logout
+                    </button>
+                </section>
             )}
         </header>
     );

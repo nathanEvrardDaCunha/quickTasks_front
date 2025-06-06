@@ -41,7 +41,7 @@ export default function useLogin() {
         },
         onSuccess: (data: LoginSuccess) => {
             localStorage.setItem('accessToken', data.data['accessToken']);
-            navigate('/today');
+            navigate('/user');
         },
     });
 

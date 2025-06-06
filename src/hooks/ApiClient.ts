@@ -172,6 +172,12 @@ class ApiClient {
         });
     }
 
+    async fetchUser<T>(): Promise<T> {
+        return this.request<T>(`${this.baseURL}/user/`, {
+            method: 'GET',
+        });
+    }
+
     async register<T>(userData: {
         username: string;
         email: string;

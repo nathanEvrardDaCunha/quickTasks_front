@@ -44,6 +44,8 @@ function Today() {
         deadlineSort,
     } = useSortTask();
 
+    // When the task has whitespace or 'undefined' as project, the filter display is ""
+
     return (
         <>
             <Header />

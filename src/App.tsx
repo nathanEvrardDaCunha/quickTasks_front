@@ -7,8 +7,11 @@ import Today from './features/today/Today';
 import { NotFound } from './pages/NotFound';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import ResetPassword from './features/reset-password/ResetPassword';
+import UserDashboard from './features/user/UserDashboard';
 
 const queryClient = new QueryClient();
+
+// Need to check on the HTML side to see for each page if they have h1, h2, h3 and h4 properly set to display a coherent content structure
 
 const router = createBrowserRouter([
     { path: '/', element: <Home /> },
@@ -20,6 +23,14 @@ const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <Today />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/user',
+        element: (
+            <ProtectedRoute>
+                <UserDashboard />
             </ProtectedRoute>
         ),
     },

@@ -1,39 +1,14 @@
 import { Footer } from '../../layouts/Footer';
 import { Header } from '../../layouts/Header';
 
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import FetchUser from './components/FetchUser';
 import useFetchUser from './hooks/useFetchUser';
-import { useMutation } from '@tanstack/react-query';
-import { apiClient } from '../../hooks/ApiClient';
-import type {
-    DeleteAccountError,
-    DeleteAccountSuccess,
-} from './types/typeDeleteAccount';
+import useDeleteAccount from './hooks/useDeleteAccount';
 
 export default function UserDashboard() {
     const { query } = useFetchUser();
-    const navigate = useNavigate();
-
-    // Check if refreshToken in cookie and accessToken in localStorage are removed
-
-    const mutation = useMutation({
-        mutationKey: ['deleteAccount'],
-        mutationFn: async () => {
-            return (await apiClient.deleteAccount()) as DeleteAccountSuccess;
-        },
-        onSuccess() {
-            localStorage.removeItem('accessToken');
-            navigate('/login');
-        },
-        onError(error: DeleteAccountError) {
-            console.error(`${error.name}: ${error.cause}`);
-        },
-    });
-
-    function handleOnDeleteClick() {
-        mutation.mutate();
-    }
+    const { handleOnDeleteClick } = useDeleteAccount();
 
     // When account delete => automatically go to homepage and logout
 

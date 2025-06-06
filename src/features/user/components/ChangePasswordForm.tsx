@@ -1,5 +1,10 @@
 import type { ChangeEvent } from 'react';
-import type { ChangePasswordType } from '../types/typeChangePassword';
+import type {
+    ChangePasswordError,
+    ChangePasswordSuccess,
+    ChangePasswordType,
+} from '../types/typeChangePassword';
+import type { UseMutationResult } from '@tanstack/react-query';
 
 interface ChangePasswordFormProps {
     handleAction: () => void;
@@ -7,12 +12,19 @@ interface ChangePasswordFormProps {
     handleOnChange: (
         event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
     ) => void;
+    mutation: UseMutationResult<
+        ChangePasswordSuccess,
+        ChangePasswordError,
+        ChangePasswordType,
+        unknown
+    >;
 }
 
 export default function ChangePasswordForm({
     handleAction,
     userFormData,
     handleOnChange,
+    mutation,
 }: ChangePasswordFormProps) {
     return (
         <form action={handleAction}>
@@ -29,7 +41,9 @@ export default function ChangePasswordForm({
                 onChange={handleOnChange}
             />
 
-            <button type="submit">Submit</button>
+            <button type="submit" disabled={mutation.isPending}>
+                {mutation.isPending ? 'Submitting...' : 'Submit'}
+            </button>
         </form>
     );
 }

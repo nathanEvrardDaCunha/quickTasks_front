@@ -9,6 +9,7 @@ import { ProtectedRoute } from './components/ProtectedRoute';
 import ResetPassword from './features/reset-password/ResetPassword';
 import UserDashboard from './features/user/UserDashboard';
 import UserChangePassword from './features/user/UserChangePassword';
+import UserUpdateProfile from './features/user/UserUpdateProfile';
 
 const queryClient = new QueryClient();
 
@@ -40,6 +41,14 @@ const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <UserChangePassword />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/user-update-profile',
+        element: (
+            <ProtectedRoute>
+                <UserUpdateProfile />
             </ProtectedRoute>
         ),
     },

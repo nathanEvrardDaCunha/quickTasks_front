@@ -24,6 +24,7 @@ export default function UserChangePassword() {
                     handleAction={handleAction}
                     userFormData={userFormData}
                     handleOnChange={handleOnChange}
+                    mutation={mutation}
                 />
             </main>
             <Footer />

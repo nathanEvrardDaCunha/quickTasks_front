@@ -22,7 +22,9 @@ export default function UserDashboard() {
                         <button>Check Task</button>
                     </Link>
 
-                    <button>Update Personal Information</button>
+                    <Link to={'/user-update-profile'}>
+                        <button>Update Profile</button>
+                    </Link>
 
                     <Link to={'/user-change-password'}>
                         <button>Change Password</button>

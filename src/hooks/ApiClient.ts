@@ -182,7 +182,7 @@ class ApiClient {
     }
 
     async fetchUser<T>(): Promise<T> {
-        return this.request<T>(`${this.baseURL}/user/`, {
+        return this.request<T>(`${this.baseURL}/user`, {
             method: 'GET',
         });
     }
@@ -194,6 +194,16 @@ class ApiClient {
     }): Promise<T> {
         return this.request<T>(`${this.baseURL}/auth/register`, {
             method: 'POST',
+            body: JSON.stringify(userData),
+        });
+    }
+
+    async updateProfile<T>(userData: {
+        username: string;
+        email: string;
+    }): Promise<T> {
+        return this.request<T>(`${this.baseURL}/user`, {
+            method: 'PATCH',
             body: JSON.stringify(userData),
         });
     }

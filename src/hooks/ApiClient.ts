@@ -214,6 +214,13 @@ class ApiClient {
             credentials: 'include',
         });
     }
+
+    async deleteAccount<T>(): Promise<T> {
+        return this.request<T>(`${this.baseURL}/user`, {
+            method: 'DELETE',
+            credentials: 'include',
+        });
+    }
 }
 
 export const apiClient = new ApiClient();

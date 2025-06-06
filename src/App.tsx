@@ -8,6 +8,7 @@ import { NotFound } from './pages/NotFound';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import ResetPassword from './features/reset-password/ResetPassword';
 import UserDashboard from './features/user/UserDashboard';
+import UserChangePassword from './features/user/UserChangePassword';
 
 const queryClient = new QueryClient();
 
@@ -31,6 +32,14 @@ const router = createBrowserRouter([
         element: (
             <ProtectedRoute>
                 <UserDashboard />
+            </ProtectedRoute>
+        ),
+    },
+    {
+        path: '/user-change-password',
+        element: (
+            <ProtectedRoute>
+                <UserChangePassword />
             </ProtectedRoute>
         ),
     },

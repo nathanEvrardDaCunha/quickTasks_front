@@ -21,8 +21,13 @@ export default function UserDashboard() {
                     <Link to={'/today'}>
                         <button>Check Task</button>
                     </Link>
+
                     <button>Update Personal Information</button>
-                    <button>Change Password</button>
+
+                    <Link to={'/user-change-password'}>
+                        <button>Change Password</button>
+                    </Link>
+
                     <button>Delete Account</button>
                 </section>
             </main>

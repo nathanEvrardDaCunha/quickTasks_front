@@ -160,6 +160,15 @@ class ApiClient {
         });
     }
 
+    // Change every "taskData" to "data" for consistency purpose ?
+    // Replace the {} by the relevant, already existing, type ?
+    async changePassword<T>(data: { password: string }): Promise<T> {
+        return this.request<T>(`${this.baseURL}/user/password`, {
+            method: 'PATCH',
+            body: JSON.stringify(data),
+        });
+    }
+
     async deleteSingleTask<T>(taskData: { id: number }): Promise<T> {
         return this.request<T>(`${this.baseURL}/task/${taskData.id}`, {
             method: 'DELETE',

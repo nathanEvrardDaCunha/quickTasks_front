@@ -9,8 +9,13 @@ import ChangePasswordStatus from './components/ChangePasswordStatus';
 // - Add a <p> description for each field if possible
 
 export default function UserChangePassword() {
-    const { handleAction, handleOnChange, mutation, userFormData } =
-        useChangePassword();
+    const {
+        handleReset,
+        handleAction,
+        handleOnChange,
+        mutation,
+        userFormData,
+    } = useChangePassword();
 
     return (
         <>
@@ -25,6 +30,7 @@ export default function UserChangePassword() {
                     userFormData={userFormData}
                     handleOnChange={handleOnChange}
                     mutation={mutation}
+                    handleReset={handleReset}
                 />
             </main>
             <Footer />

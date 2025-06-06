@@ -18,6 +18,7 @@ interface ChangePasswordFormProps {
         ChangePasswordType,
         unknown
     >;
+    handleReset: () => void;
 }
 
 export default function ChangePasswordForm({
@@ -25,6 +26,7 @@ export default function ChangePasswordForm({
     userFormData,
     handleOnChange,
     mutation,
+    handleReset,
 }: ChangePasswordFormProps) {
     return (
         <form action={handleAction}>
@@ -43,6 +45,9 @@ export default function ChangePasswordForm({
 
             <button type="submit" disabled={mutation.isPending}>
                 {mutation.isPending ? 'Submitting...' : 'Submit'}
+            </button>
+            <button type="button" onClick={handleReset}>
+                Reset
             </button>
         </form>
     );

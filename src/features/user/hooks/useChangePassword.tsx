@@ -38,5 +38,17 @@ export default function useChangePassword() {
         mutation.mutate(userFormData);
     }
 
-    return { handleAction, handleOnChange, mutation, userFormData };
+    function handleReset(): void {
+        setUserFormData({
+            password: '',
+        });
+    }
+
+    return {
+        handleAction,
+        handleOnChange,
+        mutation,
+        userFormData,
+        handleReset,
+    };
 }

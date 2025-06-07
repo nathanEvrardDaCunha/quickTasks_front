@@ -1,0 +1,90 @@
+// === EXTERNAL === //
+
+@use 'variables';
+@use 'reset';
+
+// === DEFAULT-THEME === //
+
+:root {
+    --color-light-neutral-90: #{variables.$color-light-neutral-90};
+    --color-light-neutral-85: #{variables.$color-light-neutral-85};
+    --color-light-neutral-80: #{variables.$color-light-neutral-80};
+    --color-light-neutral-75: #{variables.$color-light-neutral-75};
+    --color-light-neutral-70: #{variables.$color-light-neutral-70};
+    --color-light-neutral-60: #{variables.$color-light-neutral-60};
+    --color-light-neutral-50: #{variables.$color-light-neutral-50};
+    --color-light-neutral-40: #{variables.$color-light-neutral-40};
+    --color-light-neutral-30: #{variables.$color-light-neutral-30};
+    --color-light-neutral-20: #{variables.$color-light-neutral-20};
+    --color-light-neutral-10: #{variables.$color-light-neutral-10};
+
+    --color-light-accent-90: #{variables.$color-light-accent-90};
+    --color-light-accent-80: #{variables.$color-light-accent-80};
+    --color-light-accent-70: #{variables.$color-light-accent-70};
+    --color-light-accent-60: #{variables.$color-light-accent-60};
+    --color-light-accent-50: #{variables.$color-light-accent-50};
+    --color-light-accent-40: #{variables.$color-light-accent-40};
+    --color-light-accent-30: #{variables.$color-light-accent-30};
+    --color-light-accent-20: #{variables.$color-light-accent-20};
+    --color-light-accent-10: #{variables.$color-light-accent-10};
+
+    --color-light-destructive-90: #{variables.$color-light-destructive-90};
+    --color-light-destructive-80: #{variables.$color-light-destructive-80};
+    --color-light-destructive-75: #{variables.$color-light-destructive-75};
+    --color-light-destructive-70: #{variables.$color-light-destructive-70};
+    --color-light-destructive-60: #{variables.$color-light-destructive-60};
+    --color-light-destructive-50: #{variables.$color-light-destructive-50};
+    --color-light-destructive-40: #{variables.$color-light-destructive-40};
+    --color-light-destructive-30: #{variables.$color-light-destructive-30};
+    --color-light-destructive-20: #{variables.$color-light-destructive-20};
+    --color-light-destructive-10: #{variables.$color-light-destructive-10};
+
+    color-scheme: light dark;
+}
+
+// === DARK-THEME === //
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-light-neutral-90: #{variables.$color-dark-neutral-90};
+        --color-light-neutral-85: #{variables.$color-dark-neutral-85};
+        --color-light-neutral-80: #{variables.$color-dark-neutral-80};
+        --color-light-neutral-75: #{variables.$color-dark-neutral-75};
+        --color-light-neutral-70: #{variables.$color-dark-neutral-70};
+        --color-light-neutral-60: #{variables.$color-dark-neutral-60};
+        --color-light-neutral-50: #{variables.$color-dark-neutral-50};
+        --color-light-neutral-40: #{variables.$color-dark-neutral-40};
+        --color-light-neutral-30: #{variables.$color-dark-neutral-30};
+        --color-light-neutral-20: #{variables.$color-dark-neutral-20};
+        --color-light-neutral-10: #{variables.$color-dark-neutral-10};
+
+        --color-light-accent-90: #{variables.$color-dark-accent-90};
+        --color-light-accent-80: #{variables.$color-dark-accent-80};
+        --color-light-accent-70: #{variables.$color-dark-accent-70};
+        --color-light-accent-60: #{variables.$color-dark-accent-60};
+        --color-light-accent-50: #{variables.$color-dark-accent-50};
+        --color-light-accent-40: #{variables.$color-dark-accent-40};
+        --color-light-accent-30: #{variables.$color-dark-accent-30};
+        --color-light-accent-20: #{variables.$color-dark-accent-20};
+        --color-light-accent-10: #{variables.$color-dark-accent-10};
+
+        --color-light-destructive-90: #{variables.$color-dark-destructive-90};
+        --color-light-destructive-80: #{variables.$color-dark-destructive-80};
+        --color-light-destructive-75: #{variables.$color-dark-destructive-75};
+        --color-light-destructive-70: #{variables.$color-dark-destructive-70};
+        --color-light-destructive-60: #{variables.$color-dark-destructive-60};
+        --color-light-destructive-50: #{variables.$color-dark-destructive-50};
+        --color-light-destructive-40: #{variables.$color-dark-destructive-40};
+        --color-light-destructive-30: #{variables.$color-dark-destructive-30};
+        --color-light-destructive-20: #{variables.$color-dark-destructive-20};
+        --color-light-destructive-10: #{variables.$color-dark-destructive-10};
+    }
+}
+
+// === THEME-IMPLEMENTATION === //
+
+body {
+    background-color: var(--color-light-neutral-90);
+    color: var(--color-light-neutral-10);
+    transition: variables.$transition-base;
+}

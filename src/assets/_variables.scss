@@ -1,0 +1,143 @@
+// === EXTERNAL === //
+
+@import url('https://fonts.googleapis.com/css2?family=Geist:wght@100..900&display=swap');
+
+// === FONTS-FAMILY === //
+
+$font-geist: 'Geist', sans-serif;
+
+// === COLORS-NEUTRAL === //
+
+// Light Mode Black/White
+$color-light-neutral-90: hsla(0, 0%, 90%, 100%);
+$color-light-neutral-85: hsla(0, 0%, 85%, 100%);
+$color-light-neutral-80: hsla(0, 0%, 80%, 100%);
+$color-light-neutral-75: hsla(0, 0%, 75%, 100%);
+$color-light-neutral-70: hsla(0, 0%, 70%, 100%);
+$color-light-neutral-60: hsla(0, 0%, 60%, 100%);
+$color-light-neutral-50: hsla(0, 0%, 50%, 100%);
+$color-light-neutral-40: hsla(0, 0%, 40%, 100%);
+$color-light-neutral-30: hsla(0, 0%, 30%, 100%);
+$color-light-neutral-20: hsla(0, 0%, 20%, 100%);
+$color-light-neutral-10: hsla(0, 0%, 10%, 100%);
+
+// Dark Mode Black/White
+$color-dark-neutral-90: hsla(0, 0%, 10%, 100%);
+$color-dark-neutral-85: hsla(0, 0%, 15%, 100%);
+$color-dark-neutral-80: hsla(0, 0%, 20%, 100%);
+$color-dark-neutral-75: hsla(0, 0%, 25%, 100%);
+$color-dark-neutral-70: hsla(0, 0%, 30%, 100%);
+$color-dark-neutral-60: hsla(0, 0%, 40%, 100%);
+$color-dark-neutral-50: hsla(0, 0%, 50%, 100%);
+$color-dark-neutral-40: hsla(0, 0%, 60%, 100%);
+$color-dark-neutral-30: hsla(0, 0%, 70%, 100%);
+$color-dark-neutral-20: hsla(0, 0%, 80%, 100%);
+$color-dark-neutral-10: hsla(0, 0%, 90%, 100%);
+
+// === COLORS-ACCENT === //
+
+// Light Mode Accent
+$color-light-accent-90: hsla(240, 100%, 90%, 100%);
+$color-light-accent-80: hsla(240, 100%, 80%, 100%);
+$color-light-accent-70: hsla(240, 100%, 70%, 100%);
+$color-light-accent-60: hsla(240, 100%, 60%, 100%);
+$color-light-accent-50: hsla(240, 100%, 50%, 100%);
+$color-light-accent-40: hsla(240, 100%, 40%, 100%);
+$color-light-accent-30: hsla(240, 100%, 30%, 100%);
+$color-light-accent-20: hsla(240, 100%, 20%, 100%);
+$color-light-accent-10: hsla(240, 100%, 10%, 100%);
+
+// Dark Mode Accent
+$color-dark-accent-90: hsla(60, 100%, 10%, 100%);
+$color-dark-accent-80: hsla(60, 100%, 20%, 100%);
+$color-dark-accent-70: hsla(60, 100%, 30%, 100%);
+$color-dark-accent-60: hsla(60, 100%, 40%, 100%);
+$color-dark-accent-50: hsla(60, 100%, 50%, 100%);
+$color-dark-accent-40: hsla(60, 100%, 60%, 100%);
+$color-dark-accent-30: hsla(60, 100%, 70%, 100%);
+$color-dark-accent-20: hsla(60, 100%, 80%, 100%);
+$color-dark-accent-10: hsla(60, 100%, 90%, 100%);
+
+// === COLORS-DESTRUCTIVE === //
+
+// Light Mode Destructive
+$color-light-destructive-90: hsla(0, 100%, 90%, 100%);
+$color-light-destructive-80: hsla(0, 100%, 80%, 100%);
+$color-light-destructive-75: hsla(0, 100%, 75%, 100%);
+$color-light-destructive-70: hsla(0, 100%, 70%, 100%);
+$color-light-destructive-60: hsla(0, 100%, 60%, 100%);
+$color-light-destructive-50: hsla(0, 100%, 50%, 100%);
+$color-light-destructive-40: hsla(0, 100%, 40%, 100%);
+$color-light-destructive-30: hsla(0, 100%, 30%, 100%);
+$color-light-destructive-20: hsla(0, 100%, 20%, 100%);
+$color-light-destructive-10: hsla(0, 100%, 10%, 100%);
+
+// Dark Mode Destructive
+$color-dark-destructive-90: hsla(0, 100%, 10%, 100%);
+$color-dark-destructive-80: hsla(0, 100%, 20%, 100%);
+$color-dark-destructive-75: hsla(0, 100%, 25%, 100%);
+$color-dark-destructive-70: hsla(0, 100%, 30%, 100%);
+$color-dark-destructive-60: hsla(0, 100%, 40%, 100%);
+$color-dark-destructive-50: hsla(0, 100%, 50%, 100%);
+$color-dark-destructive-40: hsla(0, 100%, 60%, 100%);
+$color-dark-destructive-30: hsla(0, 100%, 70%, 100%);
+$color-dark-destructive-20: hsla(0, 100%, 80%, 100%);
+$color-dark-destructive-10: hsla(0, 100%, 90%, 100%);
+
+// === FONT-SIZE === //
+
+$font-size-bigger: 2rem;
+$font-size-big: 1.5rem;
+$font-size-larger: 1.25rem;
+$font-size-large: 1.125rem;
+$font-size-base: 1rem;
+$font-size-small: 0.875rem;
+
+// === LINE-HEIGHT === //
+
+$line-height-bigger: 1.2em;
+$line-height-big: 1.2em;
+$line-height-larger: 1.6em;
+$line-height-large: 1.6em;
+$line-height-base: 1.6em;
+$line-height-small: 2em;
+
+// === FONT-WEIGHT === //
+
+$font-weight-100: 100;
+$font-weight-200: 200;
+$font-weight-300: 300;
+$font-weight-400: 400;
+$font-weight-500: 500;
+$font-weight-600: 600;
+$font-weight-700: 700;
+$font-weight-800: 800;
+$font-weight-900: 900;
+
+// === SPACING === //
+
+// IDEA: Maybe rename to "spacing-small" or "spacing-sm"
+$spacing-4: 4px;
+$spacing-8: 8px;
+$spacing-12: 12px;
+$spacing-16: 16px;
+$spacing-20: 20px;
+$spacing-24: 24px;
+$spacing-32: 32px;
+$spacing-48: 48px;
+
+// === BORDER === //
+
+$border-radius-4: 4px;
+$border-radius-8: 8px;
+$border-radius-16: 16px;
+
+// === ANIMATION === //
+
+$transition-base: all 0.3s ease-in-out;
+$transition-quick: all 0.15s ease-in-out;
+
+// === SHADOW === //
+
+$box-shadow-base: 0px 4px 4px hsla(0, 0%, 0%, 0.188),
+    0px 12px 12px hsla(0, 0%, 0%, 0.082);

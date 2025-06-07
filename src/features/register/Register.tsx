@@ -1,8 +1,21 @@
 import { Footer } from '../../layouts/Footer';
 import { Header } from '../../layouts/Header';
+import Main from '../../layouts/Main';
 import RegisterForm from './components/RegisterForm';
 import RegisterStatusMessage from './components/RegisterStatusMessage';
 import useRegister from './hooks/useRegister';
+
+// Add Text in the Form for each input field
+
+// Add Text Between the Heading and the Form to describe what is this form about
+
+// Make the "Reset Password" Link shine as an interactive component
+
+// Transform the Form
+
+// Use AI to rewrite every text to be more professional
+
+// - Add a placeholder if possible
 
 export default function Register() {
     const {
@@ -17,7 +30,8 @@ export default function Register() {
     return (
         <>
             <Header />
-            <main>
+
+            <Main>
                 <h1>Register Page</h1>
 
                 <RegisterStatusMessage mutation={mutation} />
@@ -29,7 +43,8 @@ export default function Register() {
                     userFormDate={userFormDate}
                     mutation={mutation}
                 />
-            </main>
+            </Main>
+
             <Footer />
         </>
     );

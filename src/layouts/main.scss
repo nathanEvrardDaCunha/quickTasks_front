@@ -1,0 +1,12 @@
+// === EXTERNAL === //
+
+@use '../assets/variables';
+@use '../assets/reset';
+
+// === DEFAULT-THEME === //
+
+.container__main {
+    padding-inline: variables.$spacing-24;
+    padding-block: variables.$spacing-16;
+    height: 95vh;
+}

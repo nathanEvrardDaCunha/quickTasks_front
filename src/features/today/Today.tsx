@@ -9,6 +9,17 @@ import FilterTasks from './components/FilterTasks';
 import useFilterTask from './hooks/useFilterTask';
 import useSortTask from './hooks/useSortTask';
 import SortTasks from './components/SortTasks';
+import Main from '../../layouts/Main';
+
+// Add Text in the Form for each input field
+
+// Add Text Between the Heading and the Form to describe what is this form about
+
+// Transform the Form
+
+// Use AI to rewrite every text to be more professional
+
+// - Add a placeholder if possible
 
 function Today() {
     const { query } = useFetchTask();
@@ -49,7 +60,8 @@ function Today() {
     return (
         <>
             <Header />
-            <main>
+
+            <Main>
                 <CreateTaskStatusMessage mutation={mutation} />
 
                 <FilterTasks
@@ -94,7 +106,8 @@ function Today() {
                     titleSort={titleSort}
                     descriptionSort={descriptionSort}
                 />
-            </main>
+            </Main>
+
             <Footer />
         </>
     );

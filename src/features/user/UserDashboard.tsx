@@ -5,6 +5,13 @@ import { Link } from 'react-router-dom';
 import FetchUser from './components/FetchUser';
 import useFetchUser from './hooks/useFetchUser';
 import useDeleteAccount from './hooks/useDeleteAccount';
+import Main from '../../layouts/Main';
+
+// Add Text Between the Heading and the Page to describe what is this form about
+
+// Transform the Page
+
+// Use AI to rewrite every text to be more professional
 
 export default function UserDashboard() {
     const { query } = useFetchUser();
@@ -15,7 +22,8 @@ export default function UserDashboard() {
     return (
         <>
             <Header />
-            <main>
+
+            <Main>
                 <h1>User Dashboard</h1>
 
                 <FetchUser query={query} />
@@ -43,7 +51,8 @@ export default function UserDashboard() {
                         Delete Account
                     </button>
                 </section>
-            </main>
+            </Main>
+
             <Footer />
         </>
     );

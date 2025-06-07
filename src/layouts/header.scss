@@ -12,6 +12,7 @@ $transform-scale-active-80: scale(0.8);
 
 // === DEFAULT-THEME === //
 
+// Make the padding-inline responsive to not be too large on larger screen ?
 .container__header {
     display: flex;
     flex-direction: row;

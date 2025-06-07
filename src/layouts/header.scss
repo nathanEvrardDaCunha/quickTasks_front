@@ -1,0 +1,50 @@
+// === EXTERNAL === //
+
+@use '../assets/variables';
+@use '../assets/reset';
+
+// === LOCAL-VARIABLE === //
+
+$cursor-base: pointer;
+$transform-scale-base: scale(1);
+$transform-scale-active-90: scale(0.9);
+$transform-scale-active-80: scale(0.8);
+
+// === DEFAULT-THEME === //
+
+.container__header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: var(--color-light-neutral-80);
+    padding-inline: variables.$spacing-24;
+    padding-block: variables.$spacing-8;
+}
+
+.header__icon {
+    transition: variables.$transition-quick;
+    transform: $transform-scale-base;
+    width: 50px;
+    height: 50px;
+
+    &:hover,
+    &:focus {
+        cursor: $cursor-base;
+        transform: $transform-scale-active-90;
+    }
+    &:active {
+        transform: $transform-scale-active-80;
+    }
+}
+
+.header__navigation {
+    display: flex;
+    flex-direction: row;
+}
+
+.navigation__list {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: variables.$spacing-8;
+}

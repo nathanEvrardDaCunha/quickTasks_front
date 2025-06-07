@@ -1,0 +1,86 @@
+// === EXTERNAL === //
+
+@use '../../assets/variables';
+@use '../../assets/reset';
+
+// === LOCAL-VARIABLE === //
+
+$cursor-base: pointer;
+$transform-scale-base: scale(1);
+$transform-scale-active-90: scale(0.9);
+$transform-scale-active-80: scale(0.8);
+
+// === BUTTON === //
+
+@mixin buttonBase {
+    transition: variables.$transition-quick;
+    transform: $transform-scale-base;
+    width: fit-content;
+    padding-inline: variables.$spacing-12;
+    padding-block: variables.$spacing-8;
+    border-radius: variables.$spacing-4;
+    font-size: variables.$font-size-small;
+    font-weight: variables.$font-weight-700;
+    &:hover,
+    &:focus {
+        cursor: $cursor-base;
+        transform: $transform-scale-active-90;
+    }
+    &:active {
+        transform: $transform-scale-active-80;
+    }
+}
+
+@mixin buttonFull($color, $text-color) {
+    border: 2px solid $color;
+    background-color: $color;
+    color: $text-color;
+    &:hover,
+    &:focus {
+        background-color: transparent;
+        color: $color;
+    }
+    &:disabled {
+        background-color: var(--color-light-neutral-10);
+        color: var(--color-light-neutral-90);
+        border: 2px solid var(--color-light-neutral-10);
+        transform: $transform-scale-base;
+        cursor: default;
+    }
+}
+
+@mixin buttonOutline($color, $text-color) {
+    @include buttonFull($color, $text-color);
+    background-color: transparent;
+    color: $color;
+    &:hover,
+    &:focus {
+        background-color: $color;
+        color: $text-color;
+    }
+    &:disabled {
+        background-color: transparent;
+        color: var(--color-light-neutral-10);
+        border: 2px solid var(--color-light-neutral-10);
+        transform: $transform-scale-base;
+        cursor: default;
+    }
+}
+
+.button {
+    @include buttonBase();
+
+    @include buttonFull(
+        var(--color-light-accent-30),
+        var(--color-light-neutral-90)
+    );
+}
+
+.button--outline {
+    @include buttonBase();
+
+    @include buttonOutline(
+        var(--color-light-accent-30),
+        var(--color-light-neutral-90)
+    );
+}

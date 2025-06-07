@@ -1,0 +1,11 @@
+// === EXTERNAL === //
+
+@use '../assets/variables';
+@use '../assets/reset';
+
+// === DEFAULT-THEME === //
+
+.container__footer {
+    display: flex;
+    flex-direction: column;
+}

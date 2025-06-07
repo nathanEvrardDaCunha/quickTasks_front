@@ -88,3 +88,8 @@ body {
     color: var(--color-light-neutral-10);
     transition: variables.$transition-base;
 }
+
+.container {
+    display: flex;
+    flex-direction: column;
+}

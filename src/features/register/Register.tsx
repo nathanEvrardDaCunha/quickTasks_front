@@ -27,7 +27,7 @@ export default function Register() {
         <>
             <Header />
 
-            <Main style={{ gap: 24, marginBlockStart: 32 }} variant={'fluid'}>
+            <Main style={{ gap: 24 }} variant={'fluid'}>
                 <Section variant={'column'}>
                     <Heading variant={'h1'} markup={'h1'}>
                         Sign Up
@@ -38,17 +38,15 @@ export default function Register() {
                     </Heading>
                 </Section>
 
-                <Section variant={'column'} style={{ gap: 24 }}>
-                    <RegisterStatusMessage mutation={mutation} />
+                <RegisterStatusMessage mutation={mutation} />
 
-                    <RegisterForm
-                        handleAction={handleAction}
-                        handleOnChange={handleOnChange}
-                        handleReset={handleReset}
-                        userFormDate={userFormDate}
-                        mutation={mutation}
-                    />
-                </Section>
+                <RegisterForm
+                    handleAction={handleAction}
+                    handleOnChange={handleOnChange}
+                    handleReset={handleReset}
+                    userFormDate={userFormDate}
+                    mutation={mutation}
+                />
             </Main>
 
             <Footer />

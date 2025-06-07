@@ -39,6 +39,48 @@
     --color-light-destructive-20: #{variables.$color-light-destructive-20};
     --color-light-destructive-10: #{variables.$color-light-destructive-10};
 
+    --color-light-success-90: #{variables.$color-light-success-90};
+    --color-light-success-80: #{variables.$color-light-success-80};
+    --color-light-success-75: #{variables.$color-light-success-75};
+    --color-light-success-70: #{variables.$color-light-success-70};
+    --color-light-success-60: #{variables.$color-light-success-60};
+    --color-light-success-50: #{variables.$color-light-success-50};
+    --color-light-success-40: #{variables.$color-light-success-40};
+    --color-light-success-30: #{variables.$color-light-success-30};
+    --color-light-success-20: #{variables.$color-light-success-20};
+    --color-light-success-10: #{variables.$color-light-success-10};
+
+    --color-light-warning-90: #{variables.$color-light-warning-90};
+    --color-light-warning-80: #{variables.$color-light-warning-80};
+    --color-light-warning-75: #{variables.$color-light-warning-75};
+    --color-light-warning-70: #{variables.$color-light-warning-70};
+    --color-light-warning-60: #{variables.$color-light-warning-60};
+    --color-light-warning-50: #{variables.$color-light-warning-50};
+    --color-light-warning-40: #{variables.$color-light-warning-40};
+    --color-light-warning-30: #{variables.$color-light-warning-30};
+    --color-light-warning-20: #{variables.$color-light-warning-20};
+    --color-light-warning-10: #{variables.$color-light-warning-10};
+
+    --color-light-neutral-90-transparent: #{variables.$color-light-neutral-90-transparent};
+    --color-light-neutral-10-transparent: #{variables.$color-light-neutral-10-transparent};
+    --color-light-neutral-30-transparent: #{variables.$color-light-neutral-30-transparent};
+
+    --color-light-accent-90-transparent: #{variables.$color-light-accent-90-transparent};
+    --color-light-accent-10-transparent: #{variables.$color-light-accent-10-transparent};
+    --color-light-accent-30-transparent: #{variables.$color-light-accent-30-transparent};
+
+    --color-light-destructive-90-transparent: #{variables.$color-light-destructive-90-transparent};
+    --color-light-destructive-10-transparent: #{variables.$color-light-destructive-10-transparent};
+    --color-light-destructive-30-transparent: #{variables.$color-light-destructive-30-transparent};
+
+    --color-light-success-90-transparent: #{variables.$color-light-success-90-transparent};
+    --color-light-success-10-transparent: #{variables.$color-light-success-10-transparent};
+    --color-light-success-30-transparent: #{variables.$color-light-success-30-transparent};
+
+    --color-light-warning-90-transparent: #{variables.$color-light-warning-90-transparent};
+    --color-light-warning-10-transparent: #{variables.$color-light-warning-10-transparent};
+    --color-light-warning-30-transparent: #{variables.$color-light-warning-30-transparent};
+
     color-scheme: light dark;
 }
 
@@ -78,6 +120,48 @@
         --color-light-destructive-30: #{variables.$color-dark-destructive-30};
         --color-light-destructive-20: #{variables.$color-dark-destructive-20};
         --color-light-destructive-10: #{variables.$color-dark-destructive-10};
+
+        --color-light-success-90: #{variables.$color-dark-success-90};
+        --color-light-success-80: #{variables.$color-dark-success-80};
+        --color-light-success-75: #{variables.$color-dark-success-75};
+        --color-light-success-70: #{variables.$color-dark-success-70};
+        --color-light-success-60: #{variables.$color-dark-success-60};
+        --color-light-success-50: #{variables.$color-dark-success-50};
+        --color-light-success-40: #{variables.$color-dark-success-40};
+        --color-light-success-30: #{variables.$color-dark-success-30};
+        --color-light-success-20: #{variables.$color-dark-success-20};
+        --color-light-success-10: #{variables.$color-dark-success-10};
+
+        --color-light-warning-90: #{variables.$color-dark-warning-90};
+        --color-light-warning-80: #{variables.$color-dark-warning-80};
+        --color-light-warning-75: #{variables.$color-dark-warning-75};
+        --color-light-warning-70: #{variables.$color-dark-warning-70};
+        --color-light-warning-60: #{variables.$color-dark-warning-60};
+        --color-light-warning-50: #{variables.$color-dark-warning-50};
+        --color-light-warning-40: #{variables.$color-dark-warning-40};
+        --color-light-warning-30: #{variables.$color-dark-warning-30};
+        --color-light-warning-20: #{variables.$color-dark-warning-20};
+        --color-light-warning-10: #{variables.$color-dark-warning-10};
+
+        --color-light-neutral-90-transparent: #{variables.$color-dark-neutral-90-transparent};
+        --color-light-neutral-10-transparent: #{variables.$color-dark-neutral-10-transparent};
+        --color-light-neutral-30-transparent: #{variables.$color-dark-neutral-30-transparent};
+
+        --color-light-accent-90-transparent: #{variables.$color-dark-accent-90-transparent};
+        --color-light-accent-10-transparent: #{variables.$color-dark-accent-10-transparent};
+        --color-light-accent-30-transparent: #{variables.$color-dark-accent-30-transparent};
+
+        --color-light-destructive-90-transparent: #{variables.$color-dark-destructive-90-transparent};
+        --color-light-destructive-10-transparent: #{variables.$color-dark-destructive-10-transparent};
+        --color-light-destructive-30-transparent: #{variables.$color-dark-destructive-30-transparent};
+
+        --color-light-success-90-transparent: #{variables.$color-dark-success-90-transparent};
+        --color-light-success-10-transparent: #{variables.$color-dark-success-10-transparent};
+        --color-light-success-30-transparent: #{variables.$color-dark-success-30-transparent};
+
+        --color-light-warning-90-transparent: #{variables.$color-dark-warning-90-transparent};
+        --color-light-warning-10-transparent: #{variables.$color-dark-warning-10-transparent};
+        --color-light-warning-30-transparent: #{variables.$color-dark-warning-30-transparent};
     }
 }
 

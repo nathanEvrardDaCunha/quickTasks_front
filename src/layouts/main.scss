@@ -3,10 +3,31 @@
 @use '../assets/variables';
 @use '../assets/reset';
 
-// === DEFAULT-THEME === //
+// === MAIN === //
 
-.container__main {
+@mixin mainBase() {
+    min-height: 90dvh;
+    height: fit-content;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$spacing-16;
+}
+
+.container__main--default {
+    @include mainBase();
+
+    width: 100%;
+}
+
+.container__main--fluid {
+    @include mainBase();
+
+    width: min(100%, 525px);
+    min-width: 272px;
+    margin-inline: auto;
+
+    justify-content: center;
+
     padding-inline: variables.$spacing-24;
     padding-block: variables.$spacing-16;
-    height: 95vh;
 }

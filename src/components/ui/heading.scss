@@ -1,0 +1,99 @@
+// === EXTERNAL === //
+
+@use '../../assets/variables';
+
+// === HEADING === //
+
+@mixin headingBase() {
+    display: block;
+}
+
+@mixin headingExtension($font-weight, $font-size, $text-color, $line-height) {
+    font-weight: $font-weight;
+    font-size: $font-size;
+    color: $text-color;
+    line-height: $line-height;
+}
+.heading--small {
+    @include headingBase();
+
+    @include headingExtension(
+        variables.$font-weight-400,
+        variables.$font-size-small,
+        var(--color-light-neutral-30),
+        variables.$line-height-small
+    );
+}
+
+.heading--p {
+    @include headingBase();
+
+    @include headingExtension(
+        variables.$font-weight-400,
+        variables.$font-size-base,
+        var(--color-light-neutral-10),
+        variables.$line-height-base
+    );
+}
+
+.heading--h4 {
+    @include headingBase();
+
+    @include headingExtension(
+        variables.$font-weight-700,
+        variables.$font-size-large,
+        var(--color-light-neutral-10),
+        variables.$line-height-large
+    );
+}
+
+.heading--h3 {
+    @include headingBase();
+
+    @include headingExtension(
+        variables.$font-weight-700,
+        variables.$font-size-larger,
+        var(--color-light-neutral-10),
+        variables.$line-height-larger
+    );
+}
+
+.heading--h2 {
+    @include headingBase();
+
+    @include headingExtension(
+        variables.$font-weight-700,
+        variables.$font-size-big,
+        var(--color-light-neutral-10),
+        variables.$line-height-big
+    );
+}
+
+.heading--h1 {
+    @include headingBase();
+
+    @include headingExtension(
+        variables.$font-weight-900,
+        variables.$font-size-bigger,
+        var(--color-light-neutral-10),
+        variables.$line-height-bigger
+    );
+}
+
+// === EXTENSION === //
+
+.status--error {
+    color: var(--color-light-destructive-90);
+}
+
+.status--pending {
+    color: var(--color-light-neutral-90);
+}
+
+.status--warning {
+    color: var(--color-light-warning-90);
+}
+
+.status--success {
+    color: var(--color-light-success-90);
+}

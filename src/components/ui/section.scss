@@ -1,0 +1,27 @@
+// === EXTERNAL === //
+
+@use '../../assets/variables';
+@use '../../assets/reset';
+
+// === SECTION === //
+
+@mixin sectionBase() {
+    display: flex;
+    width: 100%;
+}
+
+@mixin sectionExtension($flex-direction) {
+    flex-direction: $flex-direction;
+}
+
+.section--row {
+    @include sectionBase();
+
+    @include sectionExtension(row);
+}
+
+.section--column {
+    @include sectionBase();
+
+    @include sectionExtension(column);
+}

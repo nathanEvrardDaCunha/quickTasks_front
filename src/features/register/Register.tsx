@@ -1,3 +1,5 @@
+import Heading from '../../components/ui/Heading';
+import Section from '../../components/ui/Section';
 import { Footer } from '../../layouts/Footer';
 import { Header } from '../../layouts/Header';
 import Main from '../../layouts/Main';
@@ -7,15 +9,7 @@ import useRegister from './hooks/useRegister';
 
 // Add Text in the Form for each input field
 
-// Add Text Between the Heading and the Form to describe what is this form about
-
-// Make the "Reset Password" Link shine as an interactive component
-
-// Transform the Form
-
-// Use AI to rewrite every text to be more professional
-
-// - Add a placeholder if possible
+// Aria needed ?
 
 export default function Register() {
     const {
@@ -26,23 +20,35 @@ export default function Register() {
         userFormDate,
     } = useRegister();
 
+    // The email id cause html autocomplete to work sub optimally
+
     // Need to fix every mutation and maybe query type overwrite problems
     return (
         <>
             <Header />
 
-            <Main>
-                <h1>Register Page</h1>
+            <Main style={{ gap: 24, marginBlockStart: 32 }} variant={'fluid'}>
+                <Section variant={'column'}>
+                    <Heading variant={'h1'} markup={'h1'}>
+                        Sign Up
+                    </Heading>
 
-                <RegisterStatusMessage mutation={mutation} />
+                    <Heading variant={'h4'} markup={'h2'}>
+                        So you can use our services.
+                    </Heading>
+                </Section>
 
-                <RegisterForm
-                    handleAction={handleAction}
-                    handleOnChange={handleOnChange}
-                    handleReset={handleReset}
-                    userFormDate={userFormDate}
-                    mutation={mutation}
-                />
+                <Section variant={'column'} style={{ gap: 24 }}>
+                    <RegisterStatusMessage mutation={mutation} />
+
+                    <RegisterForm
+                        handleAction={handleAction}
+                        handleOnChange={handleOnChange}
+                        handleReset={handleReset}
+                        userFormDate={userFormDate}
+                        mutation={mutation}
+                    />
+                </Section>
             </Main>
 
             <Footer />

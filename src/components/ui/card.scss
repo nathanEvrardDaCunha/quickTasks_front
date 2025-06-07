@@ -1,0 +1,48 @@
+// === EXTERNAL === //
+
+@use '../../assets/variables';
+@use '../../assets/reset';
+
+// === CARD === //
+
+@mixin cardBase() {
+    display: flex;
+    border-radius: variables.$spacing-4;
+    padding-inline: variables.$spacing-16;
+    padding-block: variables.$spacing-8;
+    width: 100%;
+}
+
+@mixin cardExtension($flex-direction) {
+    flex-direction: $flex-direction;
+}
+
+.card--row {
+    @include cardBase();
+
+    @include cardExtension(row);
+}
+
+.card--column {
+    @include cardBase();
+
+    @include cardExtension(column);
+}
+
+// === EXTENSION === //
+
+.status--error {
+    background-color: var(--color-light-destructive-10);
+}
+
+.status--pending {
+    background-color: var(--color-light-neutral-10);
+}
+
+.status--warning {
+    background-color: var(--color-light-warning-10);
+}
+
+.status--success {
+    background-color: var(--color-light-success-10);
+}

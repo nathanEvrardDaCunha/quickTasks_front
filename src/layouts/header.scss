@@ -10,23 +10,22 @@ $transform-scale-base: scale(1);
 $transform-scale-active-90: scale(0.9);
 $transform-scale-active-80: scale(0.8);
 
-// === DEFAULT-THEME === //
+// === HEADER === //
 
-// Make the padding-inline responsive to not be too large on larger screen ?
 .container__header {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     background-color: var(--color-light-neutral-80);
-    padding-inline: variables.$spacing-24;
+    padding-inline: clamp(variables.$spacing-8, 5vw, variables.$spacing-48);
     padding-block: variables.$spacing-8;
 }
 
 .header__icon {
     transition: variables.$transition-quick;
     transform: $transform-scale-base;
-    width: 50px;
-    height: 50px;
+    width: 36px;
+    height: 36px;
 
     &:hover,
     &:focus {

@@ -67,7 +67,7 @@ $transform-scale-active-80: scale(0.8);
     }
 }
 
-.button {
+.button--default {
     @include buttonBase();
 
     @include buttonFull(

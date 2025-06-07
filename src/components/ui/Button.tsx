@@ -2,34 +2,29 @@ import type { JSX } from 'react';
 import './button.scss';
 
 interface ButtonProps {
-    type: 'button';
+    type: 'button' | 'reset' | 'submit';
     variant: 'default' | 'outline';
     children: string;
     handleOnClick?: any;
+    disabled?: boolean;
 }
-
-// Add Icon to button ?
 
 export default function Button({
     type,
     variant,
     children,
     handleOnClick,
+    disabled,
 }: ButtonProps): JSX.Element {
-    if (variant === 'outline') {
-        return (
-            <button
-                type={type}
-                className="button--outline"
-                onClick={handleOnClick}
-            >
-                {children}
-            </button>
-        );
-    }
+    const className = `button--${variant}`;
 
     return (
-        <button type={type} className="button" onClick={handleOnClick}>
+        <button
+            type={type}
+            className={className}
+            onClick={handleOnClick}
+            disabled={disabled}
+        >
             {children}
         </button>
     );

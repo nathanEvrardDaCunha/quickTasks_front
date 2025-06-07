@@ -20,6 +20,9 @@ $color-light-neutral-40: hsla(0, 0%, 40%, 100%);
 $color-light-neutral-30: hsla(0, 0%, 30%, 100%);
 $color-light-neutral-20: hsla(0, 0%, 20%, 100%);
 $color-light-neutral-10: hsla(0, 0%, 10%, 100%);
+$color-light-neutral-90-transparent: hsla(0, 0%, 90%, 0%);
+$color-light-neutral-10-transparent: hsla(0, 0%, 10%, 0%);
+$color-light-neutral-30-transparent: hsla(0, 0%, 30%, 0%);
 
 // Dark Mode Black/White
 $color-dark-neutral-90: hsla(0, 0%, 10%, 100%);
@@ -33,6 +36,9 @@ $color-dark-neutral-40: hsla(0, 0%, 60%, 100%);
 $color-dark-neutral-30: hsla(0, 0%, 70%, 100%);
 $color-dark-neutral-20: hsla(0, 0%, 80%, 100%);
 $color-dark-neutral-10: hsla(0, 0%, 90%, 100%);
+$color-dark-neutral-90-transparent: hsla(0, 0%, 10%, 0%);
+$color-dark-neutral-10-transparent: hsla(0, 0%, 90%, 0%);
+$color-dark-neutral-30-transparent: hsla(0, 0%, 70%, 0%);
 
 // === COLORS-ACCENT === //
 
@@ -46,6 +52,9 @@ $color-light-accent-40: hsla(240, 100%, 40%, 100%);
 $color-light-accent-30: hsla(240, 100%, 30%, 100%);
 $color-light-accent-20: hsla(240, 100%, 20%, 100%);
 $color-light-accent-10: hsla(240, 100%, 10%, 100%);
+$color-light-accent-90-transparent: hsla(240, 100%, 90%, 0%);
+$color-light-accent-10-transparent: hsla(240, 100%, 10%, 0%);
+$color-light-accent-30-transparent: hsla(240, 100%, 30%, 0%);
 
 // Dark Mode Accent
 $color-dark-accent-90: hsla(60, 100%, 10%, 100%);
@@ -57,6 +66,9 @@ $color-dark-accent-40: hsla(60, 100%, 60%, 100%);
 $color-dark-accent-30: hsla(60, 100%, 70%, 100%);
 $color-dark-accent-20: hsla(60, 100%, 80%, 100%);
 $color-dark-accent-10: hsla(60, 100%, 90%, 100%);
+$color-dark-accent-90-transparent: hsla(60, 100%, 10%, 0%);
+$color-dark-accent-10-transparent: hsla(60, 100%, 90%, 0%);
+$color-dark-accent-30-transparent: hsla(60, 100%, 70%, 0%);
 
 // === COLORS-DESTRUCTIVE === //
 
@@ -71,6 +83,9 @@ $color-light-destructive-40: hsla(0, 100%, 40%, 100%);
 $color-light-destructive-30: hsla(0, 100%, 30%, 100%);
 $color-light-destructive-20: hsla(0, 100%, 20%, 100%);
 $color-light-destructive-10: hsla(0, 100%, 10%, 100%);
+$color-light-destructive-90-transparent: hsla(0, 100%, 90%, 0%);
+$color-light-destructive-10-transparent: hsla(0, 100%, 10%, 0%);
+$color-light-destructive-30-transparent: hsla(0, 100%, 30%, 0%);
 
 // Dark Mode Destructive
 $color-dark-destructive-90: hsla(0, 100%, 10%, 100%);
@@ -83,6 +98,73 @@ $color-dark-destructive-40: hsla(0, 100%, 60%, 100%);
 $color-dark-destructive-30: hsla(0, 100%, 70%, 100%);
 $color-dark-destructive-20: hsla(0, 100%, 80%, 100%);
 $color-dark-destructive-10: hsla(0, 100%, 90%, 100%);
+$color-dark-destructive-90-transparent: hsla(0, 100%, 10%, 0%);
+$color-dark-destructive-10-transparent: hsla(0, 100%, 90%, 0%);
+$color-dark-destructive-30-transparent: hsla(0, 100%, 70%, 0%);
+
+// === COLORS-SUCCESS === //
+
+// Light Mode Success
+$color-light-success-90: hsla(120, 100%, 90%, 100%);
+$color-light-success-80: hsla(120, 100%, 80%, 100%);
+$color-light-success-75: hsla(120, 100%, 75%, 100%);
+$color-light-success-70: hsla(120, 100%, 70%, 100%);
+$color-light-success-60: hsla(120, 100%, 60%, 100%);
+$color-light-success-50: hsla(120, 100%, 50%, 100%);
+$color-light-success-40: hsla(120, 100%, 40%, 100%);
+$color-light-success-30: hsla(120, 100%, 30%, 100%);
+$color-light-success-20: hsla(120, 100%, 20%, 100%);
+$color-light-success-10: hsla(120, 100%, 10%, 100%);
+$color-light-success-90-transparent: hsla(120, 100%, 90%, 0%);
+$color-light-success-10-transparent: hsla(120, 100%, 10%, 0%);
+$color-light-success-30-transparent: hsla(120, 100%, 30%, 0%);
+
+// Dark Mode Success
+$color-dark-success-90: hsla(120, 100%, 10%, 100%);
+$color-dark-success-80: hsla(120, 100%, 20%, 100%);
+$color-dark-success-75: hsla(120, 100%, 25%, 100%);
+$color-dark-success-70: hsla(120, 100%, 30%, 100%);
+$color-dark-success-60: hsla(120, 100%, 40%, 100%);
+$color-dark-success-50: hsla(120, 100%, 50%, 100%);
+$color-dark-success-40: hsla(120, 100%, 60%, 100%);
+$color-dark-success-30: hsla(120, 100%, 70%, 100%);
+$color-dark-success-20: hsla(120, 100%, 80%, 100%);
+$color-dark-success-10: hsla(120, 100%, 90%, 100%);
+$color-dark-success-90-transparent: hsla(120, 100%, 10%, 0%);
+$color-dark-success-10-transparent: hsla(120, 100%, 90%, 0%);
+$color-dark-success-30-transparent: hsla(120, 100%, 70%, 0%);
+
+// === COLORS-WARNING === //
+
+// Light Mode Warning
+$color-light-warning-90: hsla(50, 100%, 90%, 100%);
+$color-light-warning-80: hsla(50, 100%, 80%, 100%);
+$color-light-warning-75: hsla(50, 100%, 75%, 100%);
+$color-light-warning-70: hsla(50, 100%, 70%, 100%);
+$color-light-warning-60: hsla(50, 100%, 60%, 100%);
+$color-light-warning-50: hsla(50, 100%, 50%, 100%);
+$color-light-warning-40: hsla(50, 100%, 40%, 100%);
+$color-light-warning-30: hsla(50, 100%, 30%, 100%);
+$color-light-warning-20: hsla(50, 100%, 20%, 100%);
+$color-light-warning-10: hsla(50, 100%, 10%, 100%);
+$color-light-warning-90-transparent: hsla(50, 100%, 90%, 0%);
+$color-light-warning-10-transparent: hsla(50, 100%, 10%, 0%);
+$color-light-warning-30-transparent: hsla(50, 100%, 30%, 0%);
+
+// Dark Mode Warning
+$color-dark-warning-90: hsla(50, 100%, 10%, 100%);
+$color-dark-warning-80: hsla(50, 100%, 20%, 100%);
+$color-dark-warning-75: hsla(50, 100%, 25%, 100%);
+$color-dark-warning-70: hsla(50, 100%, 30%, 100%);
+$color-dark-warning-60: hsla(50, 100%, 40%, 100%);
+$color-dark-warning-50: hsla(50, 100%, 50%, 100%);
+$color-dark-warning-40: hsla(50, 100%, 60%, 100%);
+$color-dark-warning-30: hsla(50, 100%, 70%, 100%);
+$color-dark-warning-20: hsla(50, 100%, 80%, 100%);
+$color-dark-warning-10: hsla(50, 100%, 90%, 100%);
+$color-dark-warning-90-transparent: hsla(50, 100%, 10%, 0%);
+$color-dark-warning-10-transparent: hsla(50, 100%, 90%, 0%);
+$color-dark-warning-30-transparent: hsla(50, 100%, 70%, 0%);
 
 // === FONT-SIZE === //
 

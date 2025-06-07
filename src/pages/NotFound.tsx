@@ -11,7 +11,7 @@ export function NotFound() {
         <>
             <Header />
 
-            <Main>
+            <Main variant={'default'}>
                 <h1>Not Found</h1>
                 <Link to={'/'}>
                     <Button type="button" variant={'default'}>

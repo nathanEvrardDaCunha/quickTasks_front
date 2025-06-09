@@ -44,7 +44,11 @@ function Home() {
                                 </p>
                             </div>
                         </div>
-                        <div className="features__item">
+                        <div className="features__item reverse">
+                            <img
+                                src="https://picsum.photos/seed/feature2/300/200"
+                                alt="Productivity Tools"
+                            />
                             <div className="features__item-content">
                                 <h3>Boost Your Productivity</h3>
                                 <p>
@@ -53,10 +57,6 @@ function Home() {
                                     your goals.
                                 </p>
                             </div>
-                            <img
-                                src="https://picsum.photos/seed/feature2/300/200"
-                                alt="Productivity Tools"
-                            />
                         </div>
                         <div className="features__item">
                             <img

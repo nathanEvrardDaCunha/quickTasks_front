@@ -40,7 +40,6 @@
         max-width: 1200px;
         margin: 0 auto;
     }
-
     &__item {
         display: flex;
         gap: 2rem;
@@ -49,6 +48,12 @@
         @media (max-width: 768px) {
             flex-direction: column;
             text-align: center;
+        }
+
+        &.reverse {
+            @media (min-width: 769px) {
+                flex-direction: row-reverse;
+            }
         }
 
         img {

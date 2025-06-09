@@ -2,7 +2,7 @@ import type { JSX } from 'react';
 import './heading.scss';
 
 interface HeadingProps {
-    children: string;
+    children: string | React.ReactNode;
     variant: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'small' | 'link';
     markup: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'small';
     classExtension?: string;

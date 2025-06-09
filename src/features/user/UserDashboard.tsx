@@ -6,51 +6,85 @@ import FetchUser from './components/FetchUser';
 import useFetchUser from './hooks/useFetchUser';
 import useDeleteAccount from './hooks/useDeleteAccount';
 import Main from '../../layouts/Main';
-
-// Add Text Between the Heading and the Page to describe what is this form about
-
-// Transform the Page
-
-// Use AI to rewrite every text to be more professional
+import Heading from '../../components/ui/Heading';
+import Section from '../../components/ui/Section';
+import Button from '../../components/ui/Button';
 
 export default function UserDashboard() {
     const { query } = useFetchUser();
     const { handleOnDeleteClick } = useDeleteAccount();
 
-    // When account delete => automatically go to homepage and logout
-
     return (
         <>
             <Header />
 
-            <Main>
-                <h1>User Dashboard</h1>
+            <Main style={{ gap: 24 }} variant={'fluid'}>
+                <Section variant={'column'}>
+                    <Heading variant={'h1'} markup={'h1'}>
+                        Dashboard
+                    </Heading>
+
+                    <Heading variant={'h4'} markup={'h2'}>
+                        The page where you can interact with our services.
+                    </Heading>
+                </Section>
 
                 <FetchUser query={query} />
 
-                <section>
-                    <h2>Available Action</h2>
+                <Section variant={'column'}>
+                    <Section variant={'column'} style={{ marginBlockEnd: 4 }}>
+                        <Heading variant={'h3'} markup={'h3'}>
+                            Account
+                        </Heading>
 
-                    <Link to={'/today'}>
-                        <button>Check Task</button>
-                    </Link>
+                        <Heading variant={'p'} markup={'h4'}>
+                            Regroup our functionalities.
+                        </Heading>
+                    </Section>
 
-                    <Link to={'/user-update-profile'}>
-                        <button>Update Profile</button>
-                    </Link>
+                    <Section
+                        variant={'row'}
+                        style={{ justifyContent: 'space-between' }}
+                    >
+                        <Link to={'/today'}>
+                            <Button type={'button'} variant={'default'}>
+                                Check Task
+                            </Button>
+                        </Link>
 
-                    <Link to={'/user-change-password'}>
-                        <button>Change Password</button>
-                    </Link>
-                </section>
+                        <Link to={'/user-update-profile'}>
+                            <Button type={'button'} variant={'default'}>
+                                Update Profile
+                            </Button>
+                        </Link>
 
-                <section>
-                    <h2>Permanent Action</h2>
+                        <Link to={'/user-change-password'}>
+                            <Button type={'button'} variant={'outline'}>
+                                Change Password
+                            </Button>
+                        </Link>
+                    </Section>
+                </Section>
 
-                    <button onClick={handleOnDeleteClick}>
+                <Section variant={'column'}>
+                    <Section variant={'column'} style={{ marginBlockEnd: 4 }}>
+                        <Heading variant={'h3'} markup={'h3'}>
+                            Danger
+                        </Heading>
+
+                        <Heading variant={'p'} markup={'h4'}>
+                            Regroup permanent actions.
+                        </Heading>
+                    </Section>
+
+                    <Button
+                        type={'button'}
+                        variant={'outline'}
+                        handleOnClick={handleOnDeleteClick}
+                    >
                         Delete Account
-                    </button>
-                </section>
+                    </Button>
+                </Section>
             </Main>
 
             <Footer />

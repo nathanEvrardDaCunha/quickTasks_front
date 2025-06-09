@@ -6,6 +6,7 @@
 
 @mixin headingBase() {
     display: block;
+    overflow-wrap: break-word;
 }
 
 @mixin headingExtension($font-weight, $font-size, $text-color, $line-height) {
@@ -41,7 +42,7 @@
 
     @include headingExtension(
         variables.$font-weight-700,
-        variables.$font-size-large,
+        variables.$font-size-base,
         var(--color-light-neutral-10),
         variables.$line-height-large
     );
@@ -125,4 +126,9 @@
 
 .status--success {
     color: var(--color-light-success-90);
+}
+
+.personal-info {
+    color: var(--color-light-neutral-90);
+    display: inline;
 }

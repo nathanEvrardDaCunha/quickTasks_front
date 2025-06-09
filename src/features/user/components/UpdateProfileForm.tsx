@@ -11,6 +11,7 @@ import Label from '../../../components/form/Label';
 import Button from '../../../components/ui/Button';
 import Heading from '../../../components/ui/Heading';
 import Section from '../../../components/ui/Section';
+import { Link } from 'react-router-dom';
 
 interface UpdateProfileFormProps {
     handleAction: (formData: FormData) => void;
@@ -93,6 +94,12 @@ export default function UpdateProfileForm({
                         {mutation.isPending ? 'Submitting...' : 'Submit'}
                     </Button>
                 </Section>
+
+                <Link to={'/user'}>
+                    <Heading variant={'link'} markup={'p'}>
+                        Go to Dashboard
+                    </Heading>
+                </Link>
             </Form>
         </>
     );

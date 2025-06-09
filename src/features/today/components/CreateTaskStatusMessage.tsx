@@ -1,21 +1,32 @@
-import type { CreateTaskError } from '../types/typeCreateTask';
-
-// Replace the any by real static type
+import type { UseMutationResult } from '@tanstack/react-query';
+import type {
+    CreateTask,
+    CreateTaskError,
+    CreateTaskSuccess,
+} from '../types/typeCreateTask';
+import Status from '../../../components/composed/Status';
 
 interface CreateTaskStatusMessageProps {
-    mutation: any;
+    mutation: UseMutationResult<
+        CreateTaskSuccess,
+        CreateTaskError,
+        Omit<CreateTask, 'accessToken'>,
+        unknown
+    >;
 }
 
 export default function CreateTaskStatusMessage({
     mutation,
 }: CreateTaskStatusMessageProps) {
     if (mutation.isPending) {
-        return <h2>Action processing...</h2>;
+        return <Status variant={'pending'}>Action processing...</Status>;
     }
 
     if (mutation.isSuccess && mutation.data) {
         return (
-            <h2>Success: {(mutation.data as { message: string }).message}</h2>
+            <Status variant={'success'}>
+                {(mutation.data as { message: string }).message}
+            </Status>
         );
     }
 
@@ -24,7 +35,7 @@ export default function CreateTaskStatusMessage({
             mutation.error instanceof Error
                 ? mutation.error.message
                 : (mutation.error as CreateTaskError).cause;
-        return <h2>Error: {errorMessage}</h2>;
+        return <Status variant={'error'}>{errorMessage}</Status>;
     }
 
     return null;

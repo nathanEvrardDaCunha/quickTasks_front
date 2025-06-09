@@ -10,6 +10,7 @@ import UpdateTaskForm from './components/UpdateTaskForm';
 import UpdateTaskStatusMessage from './components/UpdateTaskStatusMessage';
 import TaskBody from './components/TaskBody';
 import type { FetchTask } from './types/typeFetchTask';
+import Card from '../../components/ui/Card';
 
 interface TaskLogicProps {
     task: FetchTask;
@@ -44,16 +45,20 @@ export default function TaskLogic(props: TaskLogicProps) {
         <li key={props.task.id}>
             {isUpdating === true ? (
                 <>
-                    <UpdateTaskStatusMessage updateMutation={updateMutation} />
+                    <Card variant={'outline'} style={{ gap: 24 }}>
+                        <UpdateTaskStatusMessage
+                            updateMutation={updateMutation}
+                        />
 
-                    <UpdateTaskForm
-                        handleAction={handleAction}
-                        createTaskData={createTaskData}
-                        handleOnChange={handleOnChange}
-                        handleOnUpdateChange={handleOnUpdateChange}
-                        updateMutation={updateMutation}
-                        handleReset={handleReset}
-                    />
+                        <UpdateTaskForm
+                            handleAction={handleAction}
+                            createTaskData={createTaskData}
+                            handleOnChange={handleOnChange}
+                            handleOnUpdateChange={handleOnUpdateChange}
+                            updateMutation={updateMutation}
+                            handleReset={handleReset}
+                        />
+                    </Card>
                 </>
             ) : (
                 <TaskBody

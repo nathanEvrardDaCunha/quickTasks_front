@@ -2,6 +2,7 @@ import type { ReactElement } from 'react';
 import type { FetchTask, FetchTaskSuccess } from '../types/typeFetchTask';
 import type { UseQueryResult } from '@tanstack/react-query';
 import TaskLogic from '../TaskLogic';
+import Status from '../../../components/composed/Status';
 
 interface FetchTaskStatusMessageProps {
     query: UseQueryResult<FetchTaskSuccess, Error>;
@@ -135,16 +136,16 @@ export default function FetchTaskStatusMessage({
     }
 
     if (query.isLoading) {
-        return <p>Loading today's tasks...</p>;
+        return <Status variant={'pending'}>Loading today's tasks...</Status>;
     }
 
     if (query.isError) {
         return (
-            <h2>Error: {query.error.message || 'Failed to fetch tasks'} </h2>
+            <Status variant={'error'}>
+                {query.error.message || 'Failed to fetch tasks'}
+            </Status>
         );
     }
-
-    // When there s no task, the project filter is "" instead of "all"
 
     if (query.isSuccess && query.data && query.data.data.length > 0) {
         return displayNonCompletedTask(
@@ -161,7 +162,7 @@ export default function FetchTaskStatusMessage({
     }
 
     if (!query.isLoading && !query.isError) {
-        return <p>No tasks for today!</p>;
+        return <Status variant={'success'}>No tasks for today!</Status>;
     }
 
     return null;

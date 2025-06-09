@@ -1,77 +1,99 @@
+import Label from '../../../components/form/Label';
+import Select from '../../../components/form/Select';
+import Heading from '../../../components/ui/Heading';
+import Section from '../../../components/ui/Section';
+
 interface SortTasksProps {
-    deadlineSort: any;
-    handleDeadlineSortChange: any;
-    projectSort: any;
-    handleProjectSortChange: any;
-    titleSort: any;
-    handleTitleSortChange: any;
-    descriptionSort: any;
-    handleDescriptionSortChange: any;
+    deadlineSort: string;
+    handleDeadlineSortChange: (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => void;
+    projectSort: string;
+    handleProjectSortChange: (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => void;
+    titleSort: string;
+    handleTitleSortChange: (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => void;
+    descriptionSort: string;
+    handleDescriptionSortChange: (
+        event: React.ChangeEvent<HTMLSelectElement>
+    ) => void;
 }
 
 export default function SortTasks(props: SortTasksProps) {
     return (
-        <section>
-            <h3>Sorting</h3>
-            <div>
-                <label htmlFor="sort-deadline">Sort by deadline:</label>
-                <select
-                    name="sort-deadline"
-                    id="sort-deadline"
-                    value={props.deadlineSort}
-                    onChange={props.handleDeadlineSortChange}
-                >
-                    <option value="default">Default (no sorting)</option>
-                    <option value="ascending">
-                        Ascending (earliest first)
-                    </option>
-                    <option value="descending">
-                        Descending (latest first)
-                    </option>
-                </select>
-            </div>
+        <>
+            <Section variant={'column'} style={{ gap: 16 }}>
+                <Section variant={'column'} style={{ gap: 4 }}>
+                    <Label htmlFor="sort-deadline" style={'default'}>
+                        Sort by deadline:
+                    </Label>
+                    <Select
+                        name="sort-deadline"
+                        id="sort-deadline"
+                        value={props.deadlineSort}
+                        onChange={props.handleDeadlineSortChange}
+                    >
+                        <option value="default">Default (no sorting)</option>
+                        <option value="ascending">
+                            Ascending (earliest first)
+                        </option>
+                        <option value="descending">
+                            Descending (latest first)
+                        </option>
+                    </Select>
+                </Section>
 
-            <div>
-                <label htmlFor="sort-project">Sort by project:</label>
-                <select
-                    name="sort-project"
-                    id="sort-project"
-                    value={props.projectSort}
-                    onChange={props.handleProjectSortChange}
-                >
-                    <option value="default">Default (no sorting)</option>
-                    <option value="ascending">Ascending (A-Z)</option>
-                    <option value="descending">Descending (Z-A)</option>
-                </select>
-            </div>
+                <Section variant={'column'} style={{ gap: 4 }}>
+                    <Label htmlFor="sort-project" style={'default'}>
+                        Sort by project:
+                    </Label>
+                    <Select
+                        name="sort-project"
+                        id="sort-project"
+                        value={props.projectSort}
+                        onChange={props.handleProjectSortChange}
+                    >
+                        <option value="default">Default (no sorting)</option>
+                        <option value="ascending">Ascending (A-Z)</option>
+                        <option value="descending">Descending (Z-A)</option>
+                    </Select>
+                </Section>
 
-            <div>
-                <label htmlFor="sort-title">Sort by title:</label>
-                <select
-                    name="sort-title"
-                    id="sort-title"
-                    value={props.titleSort}
-                    onChange={props.handleTitleSortChange}
-                >
-                    <option value="default">Default (no sorting)</option>
-                    <option value="ascending">Ascending (A-Z)</option>
-                    <option value="descending">Descending (Z-A)</option>
-                </select>
-            </div>
+                <Section variant={'column'} style={{ gap: 4 }}>
+                    <Label htmlFor="sort-title" style={'default'}>
+                        Sort by title:
+                    </Label>
+                    <Select
+                        name="sort-title"
+                        id="sort-title"
+                        value={props.titleSort}
+                        onChange={props.handleTitleSortChange}
+                    >
+                        <option value="default">Default (no sorting)</option>
+                        <option value="ascending">Ascending (A-Z)</option>
+                        <option value="descending">Descending (Z-A)</option>
+                    </Select>
+                </Section>
 
-            <div>
-                <label htmlFor="sort-description">Sort by description:</label>
-                <select
-                    name="sort-description"
-                    id="sort-description"
-                    value={props.descriptionSort}
-                    onChange={props.handleDescriptionSortChange}
-                >
-                    <option value="default">Default (no sorting)</option>
-                    <option value="ascending">Ascending (A-Z)</option>
-                    <option value="descending">Descending (Z-A)</option>
-                </select>
-            </div>
-        </section>
+                <Section variant={'column'} style={{ gap: 4 }}>
+                    <Label htmlFor="sort-description" style={'default'}>
+                        Sort by description:
+                    </Label>
+                    <Select
+                        name="sort-description"
+                        id="sort-description"
+                        value={props.descriptionSort}
+                        onChange={props.handleDescriptionSortChange}
+                    >
+                        <option value="default">Default (no sorting)</option>
+                        <option value="ascending">Ascending (A-Z)</option>
+                        <option value="descending">Descending (Z-A)</option>
+                    </Select>
+                </Section>
+            </Section>{' '}
+        </>
     );
 }

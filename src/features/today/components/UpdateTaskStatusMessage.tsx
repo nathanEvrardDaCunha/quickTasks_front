@@ -1,26 +1,38 @@
+import type { UseMutationResult } from '@tanstack/react-query';
+import type { CreateTask } from '../types/typeCreateTask';
+import type {
+    UpdateTaskSuccess,
+    UpdateTaskError,
+} from '../types/typeUpdateTask';
+import Status from '../../../components/composed/Status';
+
 interface UpdateTaskStatusMessageProps {
-    updateMutation: any;
+    updateMutation: UseMutationResult<
+        UpdateTaskSuccess,
+        UpdateTaskError,
+        Omit<CreateTask, 'accessToken'>,
+        unknown
+    >;
 }
 
 export default function UpdateTaskStatusMessage(
     props: UpdateTaskStatusMessageProps
 ) {
     if (props.updateMutation.isPending) {
-        return <p>Loading update tasks...</p>;
+        return <Status variant={'pending'}>Loading update tasks...</Status>;
     }
 
     if (props.updateMutation.isError) {
         return (
-            <h2>
-                Error:{' '}
-                {props.updateMutation.error.cause || 'Failed to update task'}{' '}
-            </h2>
+            <Status variant={'error'}>
+                {props.updateMutation.error.cause || 'Failed to update task'}
+            </Status>
         );
     }
 
     if (props.updateMutation.isSuccess) {
-        return <h2>Update task successfully</h2>;
+        return <Status variant={'success'}>Update task successfully</Status>;
     }
 
-    return <p>No Update yet !</p>;
+    return null;
 }

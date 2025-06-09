@@ -3,7 +3,7 @@ import './card.scss';
 
 interface CardProps {
     children: React.ReactNode;
-    variant: 'row' | 'column';
+    variant: 'row' | 'column' | 'outline';
     classExtension?: string;
     style?: React.CSSProperties;
 }

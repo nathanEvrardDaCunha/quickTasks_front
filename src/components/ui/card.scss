@@ -29,6 +29,14 @@
     @include cardExtension(column);
 }
 
+.card--outline {
+    @include cardBase();
+
+    @include cardExtension(column);
+
+    border: 1px solid var(--color-light-neutral-10);
+}
+
 // === EXTENSION === //
 
 .status--error {

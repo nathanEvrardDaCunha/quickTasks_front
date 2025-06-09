@@ -1,3 +1,8 @@
+import Button from '../../../components/ui/Button';
+import Card from '../../../components/ui/Card';
+import Heading from '../../../components/ui/Heading';
+import Section from '../../../components/ui/Section';
+
 interface TaskBodyProps {
     handleOnUpdateChange: () => void;
     handleOnCompleteClick: () => void;
@@ -14,28 +19,55 @@ interface TaskBodyProps {
 
 export default function TaskBody(props: TaskBodyProps) {
     return (
-        <>
-            <h4>{props.task.title}</h4>
+        <Card variant={'outline'} style={{ marginBlockEnd: 16 }}>
+            <Heading variant={'h4'} markup={'h4'}>
+                {props.task.title}
+            </Heading>
 
-            {props.task.description && <p>{props.task.description}</p>}
+            {props.task.description && (
+                <Heading variant={'p'} markup={'p'}>
+                    {props.task.description}
+                </Heading>
+            )}
 
-            {props.task.project && <p>{props.task.project}</p>}
+            {props.task.project && (
+                <Heading variant={'p'} markup={'p'}>
+                    {props.task.project}
+                </Heading>
+            )}
 
-            <time dateTime={props.task.deadline.toString().split('T')[0]}>
+            <Heading variant={'p'} markup={'p'}>
                 {props.task.deadline.toString().split('T')[0]}
-            </time>
+            </Heading>
 
-            <section>
-                <button type="button" onClick={props.handleOnUpdateChange}>
-                    Update
-                </button>
-                <button type="button" onClick={props.handleOnCompleteClick}>
-                    Complete
-                </button>
-                <button type="button" onClick={props.handleOnDeleteClick}>
+            <Section
+                variant={'row'}
+                style={{ justifyContent: 'space-between' }}
+            >
+                <Button
+                    type="button"
+                    handleOnClick={props.handleOnDeleteClick}
+                    variant={'outline'}
+                >
                     Delete
-                </button>
-            </section>
-        </>
+                </Button>
+
+                <Button
+                    type="button"
+                    handleOnClick={props.handleOnUpdateChange}
+                    variant={'default'}
+                >
+                    Update
+                </Button>
+
+                <Button
+                    type="button"
+                    handleOnClick={props.handleOnCompleteClick}
+                    variant={'default'}
+                >
+                    Complete
+                </Button>
+            </Section>
+        </Card>
     );
 }

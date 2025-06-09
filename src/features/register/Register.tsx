@@ -7,10 +7,6 @@ import RegisterForm from './components/RegisterForm';
 import RegisterStatusMessage from './components/RegisterStatusMessage';
 import useRegister from './hooks/useRegister';
 
-// Add Text in the Form for each input field
-
-// Aria needed ?
-
 export default function Register() {
     const {
         mutation,

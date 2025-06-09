@@ -3,7 +3,7 @@ import './heading.scss';
 
 interface HeadingProps {
     children: string;
-    variant: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'small';
+    variant: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'small' | 'link';
     markup: 'h1' | 'h2' | 'h3' | 'h4' | 'p' | 'small';
     classExtension?: string;
 }

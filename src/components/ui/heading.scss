@@ -80,6 +80,35 @@
     );
 }
 
+.heading--link {
+    @include headingBase();
+
+    @include headingExtension(
+        variables.$font-weight-400,
+        variables.$font-size-base,
+        var(--color-light-neutral-10),
+        variables.$line-height-base
+    );
+
+    display: inline-block;
+
+    transition: variables.$transition-base;
+    transform: scale(1);
+    color: var(--color-light-accent-30);
+    text-decoration: underline;
+
+    &:hover,
+    &:focus {
+        color: var(--color-light-accent-10);
+        text-decoration: underline;
+        transform: scale(0.95);
+    }
+
+    &:active {
+        transform: scale(0.9);
+    }
+}
+
 // === EXTENSION === //
 
 .status--error {

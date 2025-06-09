@@ -1,21 +1,11 @@
+import Heading from '../../components/ui/Heading';
+import Section from '../../components/ui/Section';
 import { Footer } from '../../layouts/Footer';
 import { Header } from '../../layouts/Header';
 import Main from '../../layouts/Main';
 import LoginForm from './components/LoginForm';
 import LoginStatusMessage from './components/LoginStatusMessage';
 import useLogin from './hooks/useLogin';
-
-// Add Text in the Form for each input field
-
-// Add Text Between the Heading and the Form to describe what is this form about
-
-// Make the "Reset Password" Link shine as an interactive component
-
-// Transform the Form
-
-// Use AI to rewrite every text to be more professional
-
-// - Add a placeholder if possible
 
 function Login() {
     const {
@@ -30,8 +20,16 @@ function Login() {
         <>
             <Header />
 
-            <Main>
-                <h1>Login Page</h1>
+            <Main style={{ gap: 24 }} variant={'fluid'}>
+                <Section variant={'column'}>
+                    <Heading variant={'h1'} markup={'h1'}>
+                        Sign In
+                    </Heading>
+
+                    <Heading variant={'h4'} markup={'h2'}>
+                        So you can use our services.
+                    </Heading>
+                </Section>
 
                 <LoginStatusMessage mutation={mutation} />
 

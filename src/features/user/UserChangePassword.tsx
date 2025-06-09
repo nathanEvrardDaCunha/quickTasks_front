@@ -4,20 +4,8 @@ import ChangePasswordForm from './components/ChangePasswordForm';
 import useChangePassword from './hooks/useChangePassword';
 import ChangePasswordStatus from './components/ChangePasswordStatus';
 import Main from '../../layouts/Main';
-
-// For each form:
-// - Add a placeholder if possible
-// - Add a <p> description for each field if possible
-
-// Add Text in the Form for each input field
-
-// Add Text Between the Heading and the Form to describe what is this form about
-
-// Transform the Form
-
-// Use AI to rewrite every text to be more professional
-
-// - Add a placeholder if possible
+import Section from '../../components/ui/Section';
+import Heading from '../../components/ui/Heading';
 
 export default function UserChangePassword() {
     const {
@@ -32,8 +20,16 @@ export default function UserChangePassword() {
         <>
             <Header />
 
-            <Main>
-                <h1>User Change Password</h1>
+            <Main style={{ gap: 24 }} variant={'fluid'}>
+                <Section variant={'column'}>
+                    <Heading variant={'h1'} markup={'h1'}>
+                        Change Password
+                    </Heading>
+
+                    <Heading variant={'h4'} markup={'h2'}>
+                        So you can remember it.
+                    </Heading>
+                </Section>
 
                 <ChangePasswordStatus mutation={mutation} />
 

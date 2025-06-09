@@ -5,6 +5,13 @@ import type {
     ChangePasswordType,
 } from '../types/typeChangePassword';
 import type { UseMutationResult } from '@tanstack/react-query';
+import Form from '../../../components/form/Form';
+import Input from '../../../components/form/Input';
+import Label from '../../../components/form/Label';
+import Button from '../../../components/ui/Button';
+import Heading from '../../../components/ui/Heading';
+import Section from '../../../components/ui/Section';
+import { Link } from 'react-router-dom';
 
 interface ChangePasswordFormProps {
     handleAction: () => void;
@@ -29,26 +36,54 @@ export default function ChangePasswordForm({
     handleReset,
 }: ChangePasswordFormProps) {
     return (
-        <form action={handleAction}>
-            <legend>User change password</legend>
+        <>
+            <Form action={handleAction}>
+                <Section variant={'column'} style={{ gap: 4 }}>
+                    <Label htmlFor={'password'} style={'default'}>
+                        Password
+                    </Label>
 
-            <label htmlFor="password">Password</label>
-            <p>Write the new password you desire</p>
-            <input
-                type="password"
-                name="password"
-                id="password"
-                required
-                value={userFormData.password}
-                onChange={handleOnChange}
-            />
+                    <Heading variant={'p'} markup={'p'}>
+                        Write down your new password.
+                    </Heading>
 
-            <button type="submit" disabled={mutation.isPending}>
-                {mutation.isPending ? 'Submitting...' : 'Submit'}
-            </button>
-            <button type="button" onClick={handleReset}>
-                Reset
-            </button>
-        </form>
+                    <Input
+                        type="password"
+                        name="password"
+                        id="password"
+                        value={userFormData.password}
+                        onChange={handleOnChange}
+                        required
+                    />
+                </Section>
+
+                <Section
+                    variant={'row'}
+                    style={{ justifyContent: 'space-between' }}
+                >
+                    <Button
+                        type="reset"
+                        handleOnClick={handleReset}
+                        variant={'outline'}
+                    >
+                        Reset
+                    </Button>
+
+                    <Button
+                        type="submit"
+                        variant={'default'}
+                        disabled={mutation.isPending}
+                    >
+                        {mutation.isPending ? 'Submitting...' : 'Submit'}
+                    </Button>
+                </Section>
+
+                <Link to={'/user'}>
+                    <Heading variant={'link'} markup={'p'}>
+                        Go to Dashboard
+                    </Heading>
+                </Link>
+            </Form>
+        </>
     );
 }

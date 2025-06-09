@@ -4,6 +4,7 @@ import type {
     ChangePasswordError,
     ChangePasswordType,
 } from '../types/typeChangePassword';
+import Status from '../../../components/composed/Status';
 
 interface ChangePasswordStatusProps {
     mutation: UseMutationResult<
@@ -14,19 +15,18 @@ interface ChangePasswordStatusProps {
     >;
 }
 
-// Add type to component like "ChangePasswordStatus" everywhere ?
-// Type every "any" type (in short, no more any should be in the codebase)
-
 export default function ChangePasswordStatus({
     mutation,
 }: ChangePasswordStatusProps) {
     if (mutation.isPending) {
-        return <h2>Action processing...</h2>;
+        return <Status variant={'pending'}>Action processing...</Status>;
     }
 
     if (mutation.isSuccess && mutation.data) {
         return (
-            <h2>Success: {(mutation.data as { message: string }).message}</h2>
+            <Status variant={'success'}>
+                {(mutation.data as { message: string }).message}
+            </Status>
         );
     }
 
@@ -35,7 +35,7 @@ export default function ChangePasswordStatus({
             mutation.error instanceof Error
                 ? mutation.error.message
                 : (mutation.error as ChangePasswordError).cause;
-        return <h2>Error: {errorMessage}</h2>;
+        return <Status variant={'error'}>{errorMessage}</Status>;
     }
 
     return null;

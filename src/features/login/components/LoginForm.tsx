@@ -1,6 +1,6 @@
 import type { UseMutationResult } from '@tanstack/react-query';
 import type { ChangeEvent } from 'react';
-import type { LoginError, LoginSuccess } from '../types/loginType';
+import type { LoginError, LoginSuccess, LoginUser } from '../types/loginType';
 import { Link } from 'react-router-dom';
 import Input from '../../../components/form/Input';
 import Label from '../../../components/form/Label';
@@ -13,7 +13,7 @@ interface LoginFormProps {
     handleAction: () => void;
     handleOnChange: (event: ChangeEvent<HTMLInputElement>) => void;
     handleReset: () => void;
-    mutation: UseMutationResult<LoginSuccess, LoginError>;
+    mutation: UseMutationResult<LoginSuccess, LoginError, LoginUser, unknown>;
     userFormData: {
         email: string;
         password: string;

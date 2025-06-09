@@ -1,9 +1,9 @@
 import type { UseMutationResult } from '@tanstack/react-query';
-import type { LoginError, LoginSuccess } from '../types/loginType';
+import type { LoginError, LoginSuccess, LoginUser } from '../types/loginType';
 import Status from '../../../components/composed/Status';
 
 interface LoginStatusMessageProps {
-    mutation: UseMutationResult<LoginSuccess, LoginError>;
+    mutation: UseMutationResult<LoginSuccess, LoginError, LoginUser, unknown>;
 }
 
 export default function LoginStatusMessage({

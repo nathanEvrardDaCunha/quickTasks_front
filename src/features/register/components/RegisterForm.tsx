@@ -17,7 +17,12 @@ interface RegisterFormProps {
     handleOnChange: (event: ChangeEvent<HTMLInputElement>) => void;
     handleReset: () => void;
     userFormDate: RegisterUser;
-    mutation: UseMutationResult<RegisterSuccess, RegisterError>;
+    mutation: UseMutationResult<
+        RegisterSuccess,
+        RegisterError,
+        RegisterUser,
+        unknown
+    >;
 }
 
 export default function RegisterForm({

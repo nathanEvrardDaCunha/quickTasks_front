@@ -6,6 +6,12 @@ import type {
     ResetPasswordError,
     ResetPasswordType,
 } from '../types/typeResetPassword';
+import Form from '../../../components/form/Form';
+import Input from '../../../components/form/Input';
+import Label from '../../../components/form/Label';
+import Button from '../../../components/ui/Button';
+import Heading from '../../../components/ui/Heading';
+import Section from '../../../components/ui/Section';
 
 interface ResetPasswordFormProps {
     handleAction: () => void;
@@ -20,33 +26,62 @@ interface ResetPasswordFormProps {
     userFormData: ResetPasswordType;
 }
 
-export default function ResetPasswordForm(props: ResetPasswordFormProps) {
+export default function ResetPasswordForm({
+    handleAction,
+    handleOnChange,
+    handleReset,
+    mutation,
+    userFormData,
+}: ResetPasswordFormProps) {
     return (
-        <form action={props.handleAction}>
-            <fieldset>
-                <legend>User Reset Password</legend>
+        <>
+            <Form action={handleAction}>
+                <Section variant={'column'} style={{ gap: 4 }}>
+                    <Label htmlFor={'email'} style={'default'}>
+                        Email Address
+                    </Label>
 
-                <label htmlFor="email">Email Address</label>
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    required={true}
-                    value={props.userFormData.email}
-                    onChange={props.handleOnChange}
-                />
+                    <Heading variant={'p'} markup={'p'}>
+                        Write down your email address.
+                    </Heading>
 
-                <Link to={'/login'}>Go back to Login</Link>
+                    <Input
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={userFormData.email}
+                        onChange={handleOnChange}
+                        required
+                    />
+                </Section>
 
-                <div>
-                    <button type="submit" disabled={props.mutation.isPending}>
-                        {props.mutation.isPending ? 'Submitting...' : 'Submit'}
-                    </button>
-                    <button type="button" onClick={props.handleReset}>
+                <Section
+                    variant={'row'}
+                    style={{ justifyContent: 'space-between' }}
+                >
+                    <Button
+                        type="reset"
+                        handleOnClick={handleReset}
+                        variant={'outline'}
+                    >
                         Reset
-                    </button>
-                </div>
-            </fieldset>
-        </form>
+                    </Button>
+
+                    <Button
+                        type="submit"
+                        variant={'default'}
+                        disabled={mutation.isPending}
+                    >
+                        {mutation.isPending ? 'Submitting...' : 'Submit'}
+                    </Button>
+                </Section>
+
+                <Link to={'/login'}>
+                    <Heading variant={'link'} markup={'p'}>
+                        Go to Sign In
+                    </Heading>
+                </Link>
+            </Form>
+        </>
     );
 }

@@ -84,3 +84,34 @@ $transform-scale-active-80: scale(0.8);
         var(--color-light-neutral-90)
     );
 }
+
+.button--dark-outline {
+    transition: variables.$transition-quick;
+    transform: $transform-scale-base;
+    width: fit-content;
+    padding-inline: variables.$spacing-12;
+    padding-block: variables.$spacing-8;
+    border-radius: variables.$spacing-4;
+    font-size: variables.$font-size-small;
+    font-weight: variables.$font-weight-700;
+    border: 2px solid var(--color-light-neutral-90);
+
+    &:hover,
+    &:focus {
+        cursor: $cursor-base;
+        transform: $transform-scale-active-90;
+    }
+    &:active {
+        transform: $transform-scale-active-80;
+    }
+
+    background-color: transparent;
+
+    color: var(--color-light-neutral-90);
+
+    &:hover,
+    &:focus {
+        background-color: var(--color-light-neutral-90);
+        color: var(--color-light-neutral-10);
+    }
+}

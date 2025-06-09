@@ -3,7 +3,7 @@ import './button.scss';
 
 interface ButtonProps {
     type: 'button' | 'reset' | 'submit';
-    variant: 'default' | 'outline';
+    variant: 'default' | 'outline' | 'dark-outline';
     children: string;
     handleOnClick?: any;
     disabled?: boolean;

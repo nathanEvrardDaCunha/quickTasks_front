@@ -5,6 +5,12 @@ import type {
     UpdateProfileSuccess,
 } from '../types/typeUpdateProfile';
 import type { UseMutationResult } from '@tanstack/react-query';
+import Form from '../../../components/form/Form';
+import Input from '../../../components/form/Input';
+import Label from '../../../components/form/Label';
+import Button from '../../../components/ui/Button';
+import Heading from '../../../components/ui/Heading';
+import Section from '../../../components/ui/Section';
 
 interface UpdateProfileFormProps {
     handleAction: (formData: FormData) => void;
@@ -27,37 +33,67 @@ export default function UpdateProfileForm({
     userFormData,
 }: UpdateProfileFormProps) {
     return (
-        <form action={handleAction}>
-            <fieldset>
-                <legend>User Profile Update</legend>
+        <>
+            <Form action={handleAction}>
+                <Section variant={'column'} style={{ gap: 4 }}>
+                    <Label htmlFor={'username'} style={'default'}>
+                        Username
+                    </Label>
 
-                <label htmlFor="username">Username</label>
-                <input
-                    type="text"
-                    name="username"
-                    id="username"
-                    value={userFormData.username}
-                    onChange={handleOnChange}
-                    required
-                />
+                    <Heading variant={'p'} markup={'p'}>
+                        Write down your username.
+                    </Heading>
 
-                <label htmlFor="email">Email Address</label>
-                <input
-                    type="email"
-                    name="email"
-                    id="email"
-                    value={userFormData.email}
-                    onChange={handleOnChange}
-                    required
-                />
+                    <Input
+                        type="text"
+                        name="username"
+                        id="username"
+                        value={userFormData.username}
+                        onChange={handleOnChange}
+                        required
+                    />
+                </Section>
 
-                <button type="submit" disabled={mutation.isPending}>
-                    {mutation.isPending ? 'Submitting...' : 'Submit'}
-                </button>
-                <button type="button" onClick={handleReset}>
-                    Reset
-                </button>
-            </fieldset>
-        </form>
+                <Section variant={'column'} style={{ gap: 4 }}>
+                    <Label htmlFor={'email'} style={'default'}>
+                        Email Address
+                    </Label>
+
+                    <Heading variant={'p'} markup={'p'}>
+                        Write down your email address.
+                    </Heading>
+
+                    <Input
+                        type="email"
+                        name="email"
+                        id="email"
+                        value={userFormData.email}
+                        onChange={handleOnChange}
+                        required
+                    />
+                </Section>
+
+                <Section
+                    variant={'row'}
+                    style={{ justifyContent: 'space-between' }}
+                >
+                    <Button
+                        type="reset"
+                        handleOnClick={handleReset}
+                        variant={'outline'}
+                    >
+                        Reset
+                    </Button>
+
+                    <Button
+                        type="submit"
+                        variant={'default'}
+                        disabled={mutation.isPending}
+                    >
+                        {mutation.isPending ? 'Submitting...' : 'Submit'}
+                    </Button>
+                </Section>
+            </Form>
+        </>
     );
 }

@@ -4,19 +4,8 @@ import UpdateProfileForm from './components/UpdateProfileForm';
 import useUpdateProfile from './hooks/useUpdateProfile';
 import UpdateProfileStatus from './components/UpdateProfileStatus';
 import Main from '../../layouts/Main';
-
-// Maybe use AI rewrite every sentence in the project to be more professional (error ; success ; form label ; form description...)
-// Maybe use AI rewrite every sentence in the back to be more professional (error ; success...)
-
-// Add Text in the Form for each input field
-
-// Add Text Between the Heading and the Form to describe what is this form about
-
-// Transform the Form
-
-// Use AI to rewrite every text to be more professional
-
-// - Add a placeholder if possible
+import Section from '../../components/ui/Section';
+import Heading from '../../components/ui/Heading';
 
 export default function UserUpdateProfile() {
     const {
@@ -31,8 +20,16 @@ export default function UserUpdateProfile() {
         <>
             <Header />
 
-            <Main>
-                <h1>User Update Profile</h1>
+            <Main style={{ gap: 24 }} variant={'fluid'}>
+                <Section variant={'column'}>
+                    <Heading variant={'h1'} markup={'h1'}>
+                        Update Account
+                    </Heading>
+
+                    <Heading variant={'h4'} markup={'h2'}>
+                        So you can be up-to-date.
+                    </Heading>
+                </Section>
 
                 <UpdateProfileStatus mutation={mutation} />
 

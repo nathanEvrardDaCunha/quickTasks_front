@@ -30,4 +30,9 @@
 
     padding-inline: variables.$spacing-24;
     padding-block: variables.$spacing-16;
+
+    @media (min-width: 1024px) {
+        width: min(100%, 1200px);
+        padding-inline: variables.$spacing-32;
+    }
 }

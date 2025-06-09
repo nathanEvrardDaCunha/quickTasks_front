@@ -10,11 +10,11 @@ import useFilterTask from './hooks/useFilterTask';
 import useSortTask from './hooks/useSortTask';
 import SortTasks from './components/SortTasks';
 import Main from '../../layouts/Main';
-import Heading from '../../components/ui/Heading';
-import Section from '../../components/ui/Section';
 import Button from '../../components/ui/Button';
 import { useState } from 'react';
 import Card from '../../components/ui/Card';
+import { FiFilter, FiList, FiPlus } from 'react-icons/fi';
+import './components/today.scss';
 
 function Today() {
     const [isFilterOpen, setIsFilterOpen] = useState<boolean>(false);
@@ -60,214 +60,146 @@ function Today() {
             <Header />
 
             <Main style={{ gap: 24 }} variant={'fluid'}>
-                {isFilterOpen === true ? (
-                    <Section variant={'column'} style={{ gap: 8 }}>
-                        <Section variant={'column'}>
-                            <Heading variant={'h2'} markup={'h2'}>
-                                Filters
-                            </Heading>
+                <div className="today-layout">
+                    <div className="today-layout__controls">
+                        {isFilterOpen ? (
+                            <Card variant={'outline'} style={{ gap: 24 }}>
+                                <FilterTasks
+                                    handleOnFilterProjectChange={
+                                        handleOnFilterProjectChange
+                                    }
+                                    displayAllProject={displayAllProject}
+                                    handleOnFilterCompletedChange={
+                                        handleOnFilterCompletedChange
+                                    }
+                                    minDate={minDate}
+                                    handleMinDateChange={handleMinDateChange}
+                                    maxDate={maxDate}
+                                    handleMaxDateChange={handleMaxDateChange}
+                                />
 
-                            <Heading variant={'h4'} markup={'h3'}>
-                                Filter your tasks.
-                            </Heading>
-                        </Section>
-
-                        <Card variant={'outline'} style={{ gap: 24 }}>
-                            <FilterTasks
-                                handleOnFilterProjectChange={
-                                    handleOnFilterProjectChange
-                                }
-                                displayAllProject={displayAllProject}
-                                handleOnFilterCompletedChange={
-                                    handleOnFilterCompletedChange
-                                }
-                                minDate={minDate}
-                                handleMinDateChange={handleMinDateChange}
-                                maxDate={maxDate}
-                                handleMaxDateChange={handleMaxDateChange}
-                            />
-
+                                <Button
+                                    type={'button'}
+                                    variant={'default'}
+                                    handleOnClick={() => setIsFilterOpen(false)}
+                                >
+                                    <span className="button-content">
+                                        <FiFilter />
+                                        Close filters
+                                    </span>
+                                </Button>
+                            </Card>
+                        ) : (
                             <Button
                                 type={'button'}
                                 variant={'default'}
-                                handleOnClick={() =>
-                                    setIsFilterOpen((previous) => !previous)
-                                }
+                                handleOnClick={() => setIsFilterOpen(true)}
                             >
-                                Close filters
+                                <span className="button-content">
+                                    <FiFilter />
+                                    Filter tasks
+                                </span>
                             </Button>
-                        </Card>
-                    </Section>
-                ) : (
-                    <Section variant={'column'} style={{ gap: 8 }}>
-                        <Section variant={'column'}>
-                            <Heading variant={'h2'} markup={'h2'}>
-                                Filters
-                            </Heading>
+                        )}
 
-                            <Heading variant={'h4'} markup={'h3'}>
-                                Filter your tasks.
-                            </Heading>
-                        </Section>
+                        {isSorterOpen ? (
+                            <Card variant={'outline'} style={{ gap: 24 }}>
+                                <SortTasks
+                                    deadlineSort={deadlineSort}
+                                    handleDeadlineSortChange={
+                                        handleDeadlineSortChange
+                                    }
+                                    projectSort={projectSort}
+                                    handleProjectSortChange={
+                                        handleProjectSortChange
+                                    }
+                                    titleSort={titleSort}
+                                    handleTitleSortChange={
+                                        handleTitleSortChange
+                                    }
+                                    descriptionSort={descriptionSort}
+                                    handleDescriptionSortChange={
+                                        handleDescriptionSortChange
+                                    }
+                                />
 
-                        <Button
-                            type={'button'}
-                            variant={'default'}
-                            handleOnClick={() =>
-                                setIsFilterOpen((previous) => !previous)
-                            }
-                        >
-                            Open filters
-                        </Button>
-                    </Section>
-                )}
-
-                {isSorterOpen === true ? (
-                    <Section variant={'column'} style={{ gap: 8 }}>
-                        <Section variant={'column'}>
-                            <Heading variant={'h2'} markup={'h2'}>
-                                Sort
-                            </Heading>
-
-                            <Heading variant={'h4'} markup={'h3'}>
-                                Sort your tasks.
-                            </Heading>
-                        </Section>
-
-                        <Card variant={'outline'} style={{ gap: 24 }}>
-                            <SortTasks
-                                deadlineSort={deadlineSort}
-                                handleDeadlineSortChange={
-                                    handleDeadlineSortChange
-                                }
-                                projectSort={projectSort}
-                                handleProjectSortChange={
-                                    handleProjectSortChange
-                                }
-                                titleSort={titleSort}
-                                handleTitleSortChange={handleTitleSortChange}
-                                descriptionSort={descriptionSort}
-                                handleDescriptionSortChange={
-                                    handleDescriptionSortChange
-                                }
-                            />
-
+                                <Button
+                                    type={'reset'}
+                                    variant={'default'}
+                                    handleOnClick={() => setIsSorterOpen(false)}
+                                >
+                                    <span className="button-content">
+                                        <FiList />
+                                        Close sorting
+                                    </span>
+                                </Button>
+                            </Card>
+                        ) : (
                             <Button
                                 type={'reset'}
                                 variant={'default'}
-                                handleOnClick={() =>
-                                    setIsSorterOpen((previous) => !previous)
-                                }
+                                handleOnClick={() => setIsSorterOpen(true)}
                             >
-                                Close sorters
+                                <span className="button-content">
+                                    <FiList />
+                                    Sort tasks
+                                </span>
                             </Button>
-                        </Card>
-                    </Section>
-                ) : (
-                    <Section variant={'column'} style={{ gap: 8 }}>
-                        <Section variant={'column'}>
-                            <Heading variant={'h2'} markup={'h2'}>
-                                Sort
-                            </Heading>
+                        )}
 
-                            <Heading variant={'h4'} markup={'h3'}>
-                                Sort your tasks.
-                            </Heading>
-                        </Section>
+                        {isCreatorOpen ? (
+                            <Card variant={'outline'} style={{ gap: 24 }}>
+                                <CreateTaskStatusMessage mutation={mutation} />
 
-                        <Button
-                            type={'reset'}
-                            variant={'default'}
-                            handleOnClick={() =>
-                                setIsSorterOpen((previous) => !previous)
-                            }
-                        >
-                            Open sorters
-                        </Button>
-                    </Section>
-                )}
+                                <CreateTaskForm
+                                    handleAction={handleAction}
+                                    handleOnChange={handleOnChange}
+                                    handleReset={handleReset}
+                                    mutation={mutation}
+                                    createTaskData={createTaskData}
+                                />
 
-                {isCreatorOpen === true ? (
-                    <Section variant={'column'} style={{ gap: 8 }}>
-                        <Section variant={'column'}>
-                            <Heading variant={'h2'} markup={'h2'}>
-                                Create Task
-                            </Heading>
-
-                            <Heading variant={'h4'} markup={'h3'}>
-                                Create, update and delete your tasks freely.
-                            </Heading>
-                        </Section>
-
-                        <Card variant={'outline'} style={{ gap: 24 }}>
-                            <CreateTaskStatusMessage mutation={mutation} />
-
-                            <CreateTaskForm
-                                handleAction={handleAction}
-                                handleOnChange={handleOnChange}
-                                handleReset={handleReset}
-                                mutation={mutation}
-                                createTaskData={createTaskData}
-                            />
-
+                                <Button
+                                    type={'reset'}
+                                    variant={'default'}
+                                    handleOnClick={() =>
+                                        setIsCreatorOpen(false)
+                                    }
+                                >
+                                    <span className="button-content">
+                                        <FiPlus />
+                                        Close creator
+                                    </span>
+                                </Button>
+                            </Card>
+                        ) : (
                             <Button
                                 type={'reset'}
                                 variant={'default'}
-                                handleOnClick={() =>
-                                    setIsCreatorOpen((previous) => !previous)
-                                }
+                                handleOnClick={() => setIsCreatorOpen(true)}
                             >
-                                Close creator
+                                <span className="button-content">
+                                    <FiPlus />
+                                    Add task
+                                </span>
                             </Button>
-                        </Card>
-                    </Section>
-                ) : (
-                    <Section variant={'column'} style={{ gap: 8 }}>
-                        <Section variant={'column'}>
-                            <Heading variant={'h2'} markup={'h2'}>
-                                Create Task
-                            </Heading>
+                        )}
+                    </div>
 
-                            <Heading variant={'h4'} markup={'h3'}>
-                                Create, update and delete your tasks freely.
-                            </Heading>
-                        </Section>
-
-                        <Button
-                            type={'reset'}
-                            variant={'default'}
-                            handleOnClick={() =>
-                                setIsCreatorOpen((previous) => !previous)
-                            }
-                        >
-                            Open creator
-                        </Button>
-                    </Section>
-                )}
-
-                <Section variant={'column'} style={{ gap: 24 }}>
-                    <Section variant={'column'}>
-                        <Heading variant={'h2'} markup={'h2'}>
-                            Display Task
-                        </Heading>
-
-                        <Heading variant={'h4'} markup={'h3'}>
-                            Tasks based on filters and sorters.
-                        </Heading>
-                    </Section>
-
-                    <FetchTaskStatusMessage
-                        query={query}
-                        project={projectFilter}
-                        completed={completedFilter}
-                        minDate={minDate}
-                        maxDate={maxDate}
-                        deadlineSort={deadlineSort}
-                        projectSort={projectSort}
-                        titleSort={titleSort}
-                        descriptionSort={descriptionSort}
-                    />
-                </Section>
+                    <div className="today-layout__content">
+                        <FetchTaskStatusMessage
+                            query={query}
+                            project={projectFilter}
+                            completed={completedFilter}
+                            minDate={minDate}
+                            maxDate={maxDate}
+                            deadlineSort={deadlineSort}
+                            projectSort={projectSort}
+                            titleSort={titleSort}
+                            descriptionSort={descriptionSort}
+                        />
+                    </div>
+                </div>
             </Main>
 
             <Footer />

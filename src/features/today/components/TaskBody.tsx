@@ -60,13 +60,15 @@ export default function TaskBody(props: TaskBodyProps) {
                     Update
                 </Button>
 
-                <Button
-                    type="button"
-                    handleOnClick={props.handleOnCompleteClick}
-                    variant={'default'}
-                >
-                    Complete
-                </Button>
+                {props.task.completed === true ? null : (
+                    <Button
+                        type="button"
+                        handleOnClick={props.handleOnCompleteClick}
+                        variant={'default'}
+                    >
+                        Complete
+                    </Button>
+                )}
             </Section>
         </Card>
     );

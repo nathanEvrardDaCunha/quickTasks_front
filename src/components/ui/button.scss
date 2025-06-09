@@ -21,6 +21,18 @@ $transform-scale-active-80: scale(0.8);
     border-radius: variables.$spacing-4;
     font-size: variables.$font-size-small;
     font-weight: variables.$font-weight-700;
+
+    .button-content {
+        display: flex;
+        align-items: center;
+        gap: variables.$spacing-8;
+
+        svg {
+            width: variables.$spacing-16;
+            height: variables.$spacing-16;
+        }
+    }
+
     &:hover,
     &:focus {
         cursor: $cursor-base;

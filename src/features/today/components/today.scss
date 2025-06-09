@@ -1,0 +1,35 @@
+@use '../../../assets/variables';
+
+.today-layout {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: variables.$spacing-24;
+
+    @media (min-width: 1024px) {
+        flex-direction: row;
+        align-items: flex-start;
+        gap: variables.$spacing-32;
+    }
+}
+
+.today-layout__controls {
+    display: flex;
+    flex-direction: column;
+    gap: variables.$spacing-24;
+
+    @media (min-width: 1024px) {
+        flex: 0 1 320px;
+        position: sticky;
+        top: variables.$spacing-24;
+    }
+}
+
+.today-layout__content {
+    flex: 1;
+    width: 100%;
+
+    @media (min-width: 1024px) {
+        max-width: 800px;
+    }
+}

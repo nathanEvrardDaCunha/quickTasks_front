@@ -1,11 +1,11 @@
-import type { JSX } from 'react';
+import type { JSX, ReactNode, MouseEvent } from 'react';
 import './button.scss';
 
 interface ButtonProps {
     type: 'button' | 'reset' | 'submit';
     variant: 'default' | 'outline' | 'dark-outline';
-    children: string;
-    handleOnClick?: any;
+    children: ReactNode;
+    handleOnClick?: (event: MouseEvent<HTMLButtonElement>) => void;
     disabled?: boolean;
 }
 

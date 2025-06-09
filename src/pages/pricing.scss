@@ -1,0 +1,134 @@
+@use '../assets/variables';
+
+.pricing-hero {
+    min-height: 40vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    background: linear-gradient(
+        135deg,
+        var(--color-light-accent-50),
+        var(--color-light-accent-70)
+    );
+    color: var(--color-light-neutral-90);
+    padding: 2rem;
+
+    &__content {
+        max-width: 800px;
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--color-light-neutral-90);
+        }
+
+        p {
+            font-size: 1.25rem;
+            opacity: 0.9;
+            color: var(--color-light-neutral-90);
+        }
+    }
+}
+
+.pricing-card {
+    padding: 5rem 2rem;
+    background-color: var(--color-light-neutral-85);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    article {
+        max-width: 400px;
+        background-color: var(--color-light-neutral-90);
+        padding: 2rem;
+        border-radius: 8px;
+        box-shadow: 0 4px 6px var(--color-light-neutral-30-transparent);
+    }
+
+    &__header {
+        text-align: center;
+        margin-bottom: 1rem;
+
+        h2 {
+            color: var(--color-light-neutral-10);
+            margin-bottom: 1rem;
+        }
+    }
+
+    &__price {
+        .amount {
+            font-size: 3rem;
+            font-weight: 700;
+            color: var(--color-light-accent-30);
+        }
+
+        .period {
+            font-size: 1.25rem;
+            color: var(--color-light-neutral-30);
+        }
+    }
+
+    &__features {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+
+        li {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--color-light-neutral-10);
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+
+            svg {
+                color: var(--color-light-accent-30);
+            }
+        }
+    }
+}
+
+.pricing-faq {
+    padding: 5rem 2rem;
+    background-color: var(--color-light-neutral-90);
+
+    &__content {
+        max-width: 1200px;
+        margin: 0 auto;
+
+        h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--color-light-neutral-10);
+        }
+    }
+}
+
+.faq-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
+        max-width: 500px;
+        margin: 0 auto;
+    }
+
+    article {
+        background-color: var(--color-light-neutral-85);
+        padding: 1.5rem;
+        border-radius: 8px;
+
+        h3 {
+            color: var(--color-light-neutral-10);
+            margin-bottom: 0.5rem;
+        }
+
+        p {
+            color: var(--color-light-neutral-30);
+            line-height: 1.6;
+        }
+    }
+}

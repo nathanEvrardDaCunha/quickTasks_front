@@ -9,13 +9,13 @@ export function Footer() {
                     <img
                         src="/src/assets/favicon_io/android-chrome-192x192.png"
                         srcSet="/src/assets/favicon_io/android-chrome-192x192.png, /src/assets/favicon_io/android-chrome-512x512.png 2x"
-                        alt="QuickTask Business Icon"
+                        alt="QuickTasks Business Icon"
                         className="footer__icon"
                         tabIndex={0}
                     />
                 </Link>
                 <p className="footer__copyright">
-                    © 2025 QuickTask. All rights reserved.
+                    © 2025 QuickTasks. All rights reserved.
                 </p>
             </div>
 
@@ -42,9 +42,6 @@ export function Footer() {
                         </li>
                         <li>
                             <Link to="/contact">Contact</Link>
-                        </li>
-                        <li>
-                            <Link to="/blog">Blog</Link>
                         </li>
                     </ul>
                 </div>

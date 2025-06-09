@@ -69,7 +69,7 @@ export function Header() {
                     <img
                         src="/src/assets/favicon_io/android-chrome-192x192.png"
                         srcSet="/src/assets/favicon_io/android-chrome-192x192.png, /src/assets/favicon_io/android-chrome-512x512.png 2x"
-                        alt="QuickTask Business Icon"
+                        alt="QuickTasks Business Icon"
                         className="header__icon"
                         tabIndex={0}
                     />

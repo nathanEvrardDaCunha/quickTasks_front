@@ -9,6 +9,7 @@ $cursor-base: pointer;
 $transform-scale-base: scale(1);
 $transform-scale-active-90: scale(0.9);
 $transform-scale-active-80: scale(0.8);
+$mobile-breakpoint: 768px;
 
 // === HEADER === //
 
@@ -16,9 +17,17 @@ $transform-scale-active-80: scale(0.8);
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    background-color: var(--color-light-neutral-85);
+    align-items: center;
+    background-color: var(--color-neutral-85);
     padding-inline: clamp(variables.$spacing-8, 5vw, variables.$spacing-48);
     padding-block: variables.$spacing-8;
+    position: relative;
+}
+
+.header__left {
+    display: flex;
+    align-items: center;
+    gap: variables.$spacing-16;
 }
 
 .header__icon {
@@ -37,9 +46,63 @@ $transform-scale-active-80: scale(0.8);
     }
 }
 
+.theme-toggle {
+    background: none;
+    border: none;
+    color: var(--color-neutral-10);
+    cursor: pointer;
+    padding: variables.$spacing-4;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: variables.$transition-quick;
+
+    &:hover {
+        background-color: var(--color-neutral-80);
+    }
+
+    .theme-icon {
+        width: 20px;
+        height: 20px;
+    }
+}
+
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: var(--color-neutral-10);
+    cursor: pointer;
+    padding: variables.$spacing-4;
+    font-size: 24px;
+
+    @media (max-width: $mobile-breakpoint) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
 .header__navigation {
     display: flex;
     flex-direction: row;
+
+    @media (max-width: $mobile-breakpoint) {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: var(--color-neutral-85);
+        padding: variables.$spacing-16;
+        box-shadow: 0 4px 6px var(--color-neutral-30-transparent);
+
+        &.is-open {
+            display: flex;
+            flex-direction: column;
+        }
+    }
 }
 
 .navigation__list {
@@ -47,4 +110,22 @@ $transform-scale-active-80: scale(0.8);
     flex-direction: row;
     align-items: center;
     gap: variables.$spacing-8;
+
+    @media (max-width: $mobile-breakpoint) {
+        flex-direction: column;
+        width: 100%;
+
+        li {
+            width: 100%;
+
+            a {
+                width: 100%;
+                display: block;
+            }
+
+            button {
+                width: 100%;
+            }
+        }
+    }
 }

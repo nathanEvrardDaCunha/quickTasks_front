@@ -1,6 +1,5 @@
 import Label from '../../../components/form/Label';
 import Select from '../../../components/form/Select';
-import Heading from '../../../components/ui/Heading';
 import Section from '../../../components/ui/Section';
 
 interface SortTasksProps {

@@ -1,6 +1,10 @@
+import type { UseQueryResult } from '@tanstack/react-query';
 import { useState, type JSX } from 'react';
+import type { FetchTaskSuccess } from '../types/typeFetchTask';
 
-export default function useFilterTask(query: any) {
+export default function useFilterTask(
+    query: UseQueryResult<FetchTaskSuccess, Error>
+) {
     const [projectFilter, setProjectFilter] = useState<string>('all');
     const [completedFilter, setCompletedFilter] = useState<string>('false');
     const [minDate, setMinDate] = useState<string>('1990-01-01');

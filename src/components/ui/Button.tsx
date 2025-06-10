@@ -7,6 +7,7 @@ interface ButtonProps {
     children: ReactNode;
     handleOnClick?: (event: MouseEvent<HTMLButtonElement>) => void;
     disabled?: boolean;
+    style?: React.CSSProperties;
 }
 
 export default function Button({
@@ -15,6 +16,7 @@ export default function Button({
     children,
     handleOnClick,
     disabled,
+    style,
 }: ButtonProps): JSX.Element {
     const className = `button--${variant}`;
 
@@ -24,6 +26,7 @@ export default function Button({
             className={className}
             onClick={handleOnClick}
             disabled={disabled}
+            style={style}
         >
             {children}
         </button>

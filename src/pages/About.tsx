@@ -1,7 +1,6 @@
 import { Footer } from '../layouts/Footer';
 import { Header } from '../layouts/Header';
 import Main from '../layouts/Main';
-import Section from '../components/ui/Section';
 import Heading from '../components/ui/Heading';
 import Card from '../components/ui/Card';
 import './about.scss';

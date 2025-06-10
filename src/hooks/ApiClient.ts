@@ -53,6 +53,7 @@ class ApiClient {
     }
 
     async request<T>(path: string, options: RequestInit = {}): Promise<T> {
+        console.log(this.baseURL);
         const fullUrl = `${this.baseURL}${path}`;
 
         const headers = {

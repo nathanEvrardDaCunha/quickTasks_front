@@ -1,0 +1,16 @@
+version: '3.8'
+
+services:
+    frontend:
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: todolist-frontend
+        ports:
+            - '80:80'
+        restart: always
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.5'
+                    memory: 512M

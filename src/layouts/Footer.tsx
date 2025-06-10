@@ -1,14 +1,15 @@
 import { Link } from 'react-router-dom';
 import './footer.scss';
 
+import brandLogo192 from '../assets/favicon_io/android-chrome-192x192.png';
+
 export function Footer() {
     return (
         <footer className="container__footer">
             <div className="footer__branding">
                 <Link to={'/'}>
                     <img
-                        src="/src/assets/favicon_io/android-chrome-192x192.png"
-                        srcSet="/src/assets/favicon_io/android-chrome-192x192.png, /src/assets/favicon_io/android-chrome-512x512.png 2x"
+                        src={brandLogo192}
                         alt="QuickTasks Business Icon"
                         className="footer__icon"
                         tabIndex={0}

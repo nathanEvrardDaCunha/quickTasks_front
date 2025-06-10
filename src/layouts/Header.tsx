@@ -9,6 +9,8 @@ import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
 import { useCallback } from 'react';
 import { useTheme } from '../context/ThemeContext';
 
+import brandLogo192 from '../assets/favicon_io/android-chrome-192x192.png';
+
 export function Header() {
     const [accessToken, setAccessToken] = useState<string | null>(null);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
@@ -46,8 +48,7 @@ export function Header() {
             <div className="header__left">
                 <Link to={'/'}>
                     <img
-                        src="/src/assets/favicon_io/android-chrome-192x192.png"
-                        srcSet="/src/assets/favicon_io/android-chrome-192x192.png, /src/assets/favicon_io/android-chrome-512x512.png 2x"
+                        src={brandLogo192}
                         alt="QuickTasks Business Icon"
                         className="header__icon"
                         tabIndex={0}

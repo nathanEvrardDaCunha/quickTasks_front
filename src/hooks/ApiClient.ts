@@ -1,3 +1,5 @@
+import type { LoginUser } from '../features/login/types/loginType';
+
 class ApiClient {
     private baseURL: string;
     private isRefreshing: boolean = false;
@@ -7,10 +9,9 @@ class ApiClient {
         retry: () => Promise<unknown>;
     }> = [];
 
-    apiUrl = import.meta.env.VITE_API_URL;
-
-    constructor(baseURL: string = `{apiUrl}/api`) {
-        this.baseURL = baseURL;
+    constructor() {
+        this.baseURL =
+            import.meta.env.VITE_API_URL || 'http://localhost:5003/api';
     }
 
     private async refreshToken(): Promise<string> {
@@ -232,6 +233,14 @@ class ApiClient {
         return this.request<T>(`${this.baseURL}/contact`, {
             method: 'POST',
             body: JSON.stringify(data),
+        });
+    }
+
+    async login<T>(userData: LoginUser): Promise<T> {
+        return this.request<T>('/auth/login', {
+            method: 'POST',
+            body: JSON.stringify(userData),
+            credentials: 'include',
         });
     }
 }

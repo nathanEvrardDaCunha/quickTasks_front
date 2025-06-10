@@ -3,6 +3,7 @@ import type { ChangeEvent } from 'react';
 import type { LoginError, LoginSuccess, LoginUser } from '../types/loginType';
 import { useMutation } from '@tanstack/react-query';
 import { useNavigate } from 'react-router-dom';
+import { apiClient } from '../../../hooks/ApiClient';
 
 export default function useLogin() {
     const [userFormData, setUserFormData] = useState<LoginUser>({
@@ -11,35 +12,24 @@ export default function useLogin() {
     });
     const navigate = useNavigate();
 
-    const apiUrl = import.meta.env.VITE_API_URL;
-
     const mutation = useMutation({
         mutationKey: ['loginUser'],
-        mutationFn: async (user: LoginUser): Promise<LoginSuccess> => {
-            const response = await fetch(`${apiUrl}/auth/login`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(user),
-                credentials: 'include',
-            });
-
-            if (!response.ok) {
-                const errorData: LoginError = await response.json();
-                throw new Error(
-                    errorData.cause || errorData.name || 'Failed to create task'
-                );
-            }
-
-            return (await response.json()) as LoginSuccess;
+        mutationFn: (user: LoginUser): Promise<LoginSuccess> => {
+            return apiClient.login<LoginSuccess>(user);
         },
         onError: (error: LoginError) => {
-            console.error(`${error.name}: ${error.cause}`);
+            console.error('Login failed:', error);
         },
         onSuccess: (data: LoginSuccess) => {
-            localStorage.setItem('accessToken', data.data['accessToken']);
-            navigate('/user');
+            if (data && data.data && data.data['accessToken']) {
+                localStorage.setItem('accessToken', data.data['accessToken']);
+                navigate('/user');
+            } else {
+                console.error(
+                    'Login successful, but accessToken not found in the response.',
+                    data
+                );
+            }
         },
     });
 
@@ -50,9 +40,8 @@ export default function useLogin() {
         };
 
         if (!user.email || !user.password) {
-            throw new Error(
-                'All fields are required and cannot be empty or just whitespace'
-            );
+            alert('Email and password are required.');
+            return;
         }
 
         mutation.mutate(user);

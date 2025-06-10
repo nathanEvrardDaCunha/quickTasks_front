@@ -1,4 +1,9 @@
+// ===================================================================
+// FILE: src/services/ApiClient.ts (CORRECTED)
+// ===================================================================
+
 import type { LoginUser } from '../features/login/types/loginType';
+import type { RegisterUser } from '../features/register/types/typeRegister';
 
 class ApiClient {
     private baseURL: string;
@@ -11,24 +16,18 @@ class ApiClient {
 
     constructor() {
         this.baseURL =
-            import.meta.env.VITE_API_URL || 'http://localhost:5003/api';
+            import.meta.env.VITE_API_URL + '/api' ||
+            'http://localhost:5003/api';
     }
 
     private async refreshToken(): Promise<string> {
-        const response = await fetch(`${this.baseURL}/token/refresh`, {
-            method: 'GET',
-            credentials: 'include',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-        });
-
-        if (!response.ok) {
-            localStorage.removeItem('accessToken');
-            throw new Error('Token refresh failed');
-        }
-
-        const data: { data: string } = await response.json();
+        const data: { data: string } = await this.request<{ data: string }>(
+            '/token/refresh',
+            {
+                method: 'GET',
+                credentials: 'include',
+            }
+        );
         const newAccessToken = data.data;
         localStorage.setItem('accessToken', newAccessToken);
         return newAccessToken;
@@ -53,18 +52,23 @@ class ApiClient {
         };
     }
 
-    async request<T>(url: string, options: RequestInit = {}): Promise<T> {
+    async request<T>(path: string, options: RequestInit = {}): Promise<T> {
+        const fullUrl = `${this.baseURL}${path}`;
+
         const headers = {
             ...this.getAuthHeaders(),
             ...(options.headers || {}),
         };
 
-        const response = await fetch(url, {
+        const response = await fetch(fullUrl, {
             ...options,
             headers,
         });
 
         if (response.ok) {
+            if (response.status === 204) {
+                return {} as T;
+            }
             return await response.json();
         }
 
@@ -74,7 +78,7 @@ class ApiClient {
                     ...this.getAuthHeaders(),
                     ...(options.headers || {}),
                 };
-                return fetch(url, {
+                return fetch(fullUrl, {
                     ...options,
                     headers: freshHeaders,
                 });
@@ -110,13 +114,11 @@ class ApiClient {
         try {
             await this.refreshToken();
             this.processQueue();
-
             const response = await retryRequest();
             if (!response.ok) {
                 const errorData = await response.json();
                 throw errorData;
             }
-
             return await response.json();
         } catch (error) {
             this.processQueue(
@@ -134,7 +136,7 @@ class ApiClient {
         project?: string;
         deadline: string;
     }): Promise<T> {
-        return this.request<T>(`${this.baseURL}/task/`, {
+        return this.request<T>('/task/', {
             method: 'POST',
             body: JSON.stringify(taskData),
         });
@@ -149,50 +151,46 @@ class ApiClient {
         },
         id: number
     ): Promise<T> {
-        return this.request<T>(`${this.baseURL}/task/${id}`, {
+        return this.request<T>(`/task/${id}`, {
             method: 'PATCH',
             body: JSON.stringify(taskData),
         });
     }
 
     async completeSingleTask<T>(taskData: { id: number }): Promise<T> {
-        return this.request<T>(`${this.baseURL}/task/${taskData.id}/complete`, {
+        return this.request<T>(`/task/${taskData.id}/complete`, {
             method: 'PATCH',
             body: JSON.stringify(taskData),
         });
     }
 
     async changePassword<T>(data: { password: string }): Promise<T> {
-        return this.request<T>(`${this.baseURL}/user/password`, {
+        return this.request<T>('/user/password', {
             method: 'PATCH',
             body: JSON.stringify(data),
         });
     }
 
     async deleteSingleTask<T>(taskData: { id: number }): Promise<T> {
-        return this.request<T>(`${this.baseURL}/task/${taskData.id}`, {
+        return this.request<T>(`/task/${taskData.id}`, {
             method: 'DELETE',
         });
     }
 
     async fetchTodayTasks<T>(): Promise<T> {
-        return this.request<T>(`${this.baseURL}/task/today`, {
+        return this.request<T>('/task/today', {
             method: 'GET',
         });
     }
 
     async fetchUser<T>(): Promise<T> {
-        return this.request<T>(`${this.baseURL}/user`, {
+        return this.request<T>('/user', {
             method: 'GET',
         });
     }
 
-    async register<T>(userData: {
-        username: string;
-        email: string;
-        password: string;
-    }): Promise<T> {
-        return this.request<T>(`${this.baseURL}/auth/register`, {
+    async register<T>(userData: RegisterUser): Promise<T> {
+        return this.request<T>('/auth/register', {
             method: 'POST',
             body: JSON.stringify(userData),
         });
@@ -202,21 +200,21 @@ class ApiClient {
         username: string;
         email: string;
     }): Promise<T> {
-        return this.request<T>(`${this.baseURL}/user`, {
+        return this.request<T>('/user', {
             method: 'PATCH',
             body: JSON.stringify(userData),
         });
     }
 
     async logout<T>(): Promise<T> {
-        return this.request<T>(`${this.baseURL}/auth/logout`, {
+        return this.request<T>('/auth/logout', {
             method: 'POST',
             credentials: 'include',
         });
     }
 
     async deleteAccount<T>(): Promise<T> {
-        return this.request<T>(`${this.baseURL}/user`, {
+        return this.request<T>('/user', {
             method: 'DELETE',
             credentials: 'include',
         });
@@ -227,10 +225,7 @@ class ApiClient {
         email: string;
         message: string;
     }): Promise<T> {
-        console.log(data.name);
-        console.log(data.email);
-        console.log(data.message);
-        return this.request<T>(`${this.baseURL}/contact`, {
+        return this.request<T>('/contact', {
             method: 'POST',
             body: JSON.stringify(data),
         });

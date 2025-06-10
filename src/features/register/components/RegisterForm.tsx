@@ -109,25 +109,11 @@ export default function RegisterForm({
                             onChange={handleOnChange}
                             required
                         />
-                        {/* <Label htmlFor={'termsAccepted'} style={'default'}>
-                            
-                        </Label> */}
                         <Link to={'/terms'}>
                             <Heading variant={'link'} markup={'small'}>
                                 I accept the Terms of Service
                             </Heading>
                         </Link>
-
-                        {/* <a
-                            href="/terms"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            style={{
-                                color: 'var(--color-primary)',
-                            }}
-                        >
-                            
-                        </a> */}
                     </div>
                 </Section>
 

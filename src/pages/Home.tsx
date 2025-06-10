@@ -11,7 +11,6 @@ function Home() {
             <Header />
 
             <Main variant={'default'} style={{ gap: 0 }}>
-                {/* Hero Section */}
                 <section className="hero">
                     <div className="hero__content">
                         <h1>Organize Your Life with Ease</h1>
@@ -27,7 +26,6 @@ function Home() {
                     </div>
                 </section>
 
-                {/* Features Section */}
                 <section className="features">
                     <div className="features__grid">
                         <div className="features__item">
@@ -76,7 +74,6 @@ function Home() {
                     </div>
                 </section>
 
-                {/* Testimonials Section */}
                 <section className="testimonials">
                     <h2 className="testimonials__title">What Our Users Say</h2>
                     <div className="testimonials__grid">
@@ -132,7 +129,6 @@ function Home() {
                     </div>
                 </section>
 
-                {/* CTA Section */}
                 <section className="cta">
                     <div className="cta__content">
                         <h2>Ready to Get Started?</h2>

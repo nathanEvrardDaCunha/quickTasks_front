@@ -21,7 +21,6 @@ export default function Features() {
             <Header />
 
             <Main variant="default" style={{ gap: 0 }}>
-                {/* Hero Section */}
                 <section className="features-hero">
                     <div className="features-hero__content">
                         <Heading variant="h1" markup="h1">
@@ -34,7 +33,6 @@ export default function Features() {
                     </div>
                 </section>
 
-                {/* Features Grid */}
                 <section className="features-grid-parent">
                     <section className="features-grid">
                         <Card variant="column" style={{ gap: 16 }}>
@@ -119,7 +117,6 @@ export default function Features() {
                     </section>
                 </section>
 
-                {/* Database Section */}
                 <section className="features-detail">
                     <div className="features-detail__content">
                         <Heading variant="h2" markup="h2">
@@ -134,7 +131,6 @@ export default function Features() {
                     </div>
                 </section>
 
-                {/* Online Access Section */}
                 <section className="features-detail features-detail--reverse">
                     <div className="features-detail__content">
                         <Heading variant="h2" markup="h2">

@@ -11,20 +11,19 @@ export default function useResetPassword() {
         email: '',
     });
 
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const mutation = useMutation({
         mutationKey: ['resetPassword'],
         mutationFn: async (email: ResetPasswordType) => {
-            const response = await fetch(
-                `http://localhost:5003/api/auth/reset-password`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(email),
-                    credentials: 'include',
-                }
-            );
+            const response = await fetch(`${apiUrl}/api/auth/reset-password`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(email),
+                credentials: 'include',
+            });
 
             if (!response.ok) {
                 const errorData: ResetPasswordError = await response.json();

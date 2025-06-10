@@ -11,20 +11,19 @@ export default function useLogin() {
     });
     const navigate = useNavigate();
 
+    const apiUrl = import.meta.env.VITE_API_URL;
+
     const mutation = useMutation({
         mutationKey: ['loginUser'],
         mutationFn: async (user: LoginUser): Promise<LoginSuccess> => {
-            const response = await fetch(
-                `http://localhost:5003/api/auth/login`,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(user),
-                    credentials: 'include',
-                }
-            );
+            const response = await fetch(`${apiUrl}/auth/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(user),
+                credentials: 'include',
+            });
 
             if (!response.ok) {
                 const errorData: LoginError = await response.json();

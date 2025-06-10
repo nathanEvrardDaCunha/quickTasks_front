@@ -7,7 +7,9 @@ class ApiClient {
         retry: () => Promise<unknown>;
     }> = [];
 
-    constructor(baseURL: string = 'http://localhost:5003/api') {
+    apiUrl = import.meta.env.VITE_API_URL;
+
+    constructor(baseURL: string = `{apiUrl}/api`) {
         this.baseURL = baseURL;
     }
 

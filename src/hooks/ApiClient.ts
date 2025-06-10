@@ -181,7 +181,7 @@ class ApiClient {
     }
 
     async deleteSingleTask<T>(taskData: { id: number }): Promise<T> {
-        return this.request<T>(`/task/${id}`, {
+        return this.request<T>(`/task/${taskData.id}`, {
             method: 'DELETE',
         });
     }

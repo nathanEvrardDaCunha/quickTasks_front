@@ -60,7 +60,6 @@ export default function Contact() {
                 message: response.message || 'Message sent successfully!',
             });
 
-            // Reset form
             setFormData({ name: '', email: '', message: '' });
         } catch (error) {
             const errorData = error as ResponseError;

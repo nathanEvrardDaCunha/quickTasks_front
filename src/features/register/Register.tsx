@@ -16,9 +16,6 @@ export default function Register() {
         userFormDate,
     } = useRegister();
 
-    // The email id cause html autocomplete to work sub optimally
-
-    // Need to fix every mutation and maybe query type overwrite problems
     return (
         <>
             <Header />

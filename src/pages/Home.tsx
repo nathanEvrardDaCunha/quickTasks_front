@@ -32,7 +32,7 @@ function Home() {
                     <div className="features__grid">
                         <div className="features__item">
                             <img
-                                src="https://picsum.photos/seed/feature1/300/200"
+                                src="/src/assets/images/compressed/presse-papiers-3d-avec-coche-verte-en-papier-de-liste-de-controle.jpg"
                                 alt="Task Organization"
                             />
                             <div className="features__item-content">
@@ -46,7 +46,8 @@ function Home() {
                         </div>
                         <div className="features__item reverse">
                             <img
-                                src="https://picsum.photos/seed/feature2/300/200"
+                                className="img-reverse"
+                                src="/src/assets/images/compressed/icone-de-l-heure-de-la-liste-des-taches-du-projet-cible-metier.jpg"
                                 alt="Productivity Tools"
                             />
                             <div className="features__item-content">
@@ -60,7 +61,7 @@ function Home() {
                         </div>
                         <div className="features__item">
                             <img
-                                src="https://picsum.photos/seed/feature3/300/200"
+                                src="/src/assets/images/compressed/chapeau-de-graduation-etudiant-3d-sur-la-pile-de-livres.jpg"
                                 alt="Collaboration"
                             />
                             <div className="features__item-content">
@@ -87,7 +88,7 @@ function Home() {
                             </p>
                             <div className="testimonials__item-author">
                                 <img
-                                    src="https://picsum.photos/seed/user1/100/100"
+                                    src="/src/assets/images/people-compressed/secretaire-feminine-heureuse-.jpg"
                                     alt="Sarah Johnson"
                                 />
                                 <div>
@@ -103,7 +104,7 @@ function Home() {
                             </p>
                             <div className="testimonials__item-author">
                                 <img
-                                    src="https://picsum.photos/seed/user2/100/100"
+                                    src="/src/assets/images/people-compressed/designer-travaillant.jpg"
                                     alt="Michael Chen"
                                 />
                                 <div>
@@ -119,7 +120,7 @@ function Home() {
                             </p>
                             <div className="testimonials__item-author">
                                 <img
-                                    src="https://picsum.photos/seed/user3/100/100"
+                                    src="/src/assets/images/people-compressed/differents-collegues.jpg"
                                     alt="Emma Davis"
                                 />
                                 <div>

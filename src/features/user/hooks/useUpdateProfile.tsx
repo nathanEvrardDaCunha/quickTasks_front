@@ -18,8 +18,6 @@ function throwErrorIfFalsy(
     }
 }
 
-// onSuccess => navigate to /user automatically ?
-
 export default function useUpdateProfile() {
     const [userFormData, setUserFormData] = useState<UpdateProfile>({
         username: '',

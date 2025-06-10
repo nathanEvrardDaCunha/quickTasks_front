@@ -21,8 +21,6 @@ import Cookies from './pages/Cookies';
 
 const queryClient = new QueryClient();
 
-// Need to check on the HTML side to see for each page if they have h1, h2, h3 and h4 properly set to display a coherent content structure
-
 const router = createBrowserRouter([
     { path: '/', element: <Home /> },
     { path: '/features', element: <Features /> },

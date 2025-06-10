@@ -11,7 +11,6 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
 
     useEffect(() => {
-        // Set initial theme
         const prefersDark = window.matchMedia(
             '(prefers-color-scheme: dark)'
         ).matches;
@@ -19,14 +18,12 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
         const initialTheme = savedTheme ? savedTheme === 'dark' : prefersDark;
         setIsDarkMode(initialTheme);
 
-        // Apply theme immediately
         document.documentElement.dataset.theme = initialTheme
             ? 'dark'
             : 'light';
     }, []);
 
     useEffect(() => {
-        // Update theme when isDarkMode changes
         document.documentElement.dataset.theme = isDarkMode ? 'dark' : 'light';
         localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
     }, [isDarkMode]);

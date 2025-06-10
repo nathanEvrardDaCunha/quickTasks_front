@@ -152,7 +152,6 @@ class ApiClient {
         });
     }
 
-    // Body not used in backend => Can remove it without causing any issue ?
     async completeSingleTask<T>(taskData: { id: number }): Promise<T> {
         return this.request<T>(`${this.baseURL}/task/${taskData.id}/complete`, {
             method: 'PATCH',
@@ -160,8 +159,6 @@ class ApiClient {
         });
     }
 
-    // Change every "taskData" to "data" for consistency purpose ?
-    // Replace the {} by the relevant, already existing, type ?
     async changePassword<T>(data: { password: string }): Promise<T> {
         return this.request<T>(`${this.baseURL}/user/password`, {
             method: 'PATCH',

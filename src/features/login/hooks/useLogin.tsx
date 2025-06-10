@@ -35,7 +35,6 @@ export default function useLogin() {
 
             return (await response.json()) as LoginSuccess;
         },
-        // Error here is always undefined
         onError: (error: LoginError) => {
             console.error(`${error.name}: ${error.cause}`);
         },

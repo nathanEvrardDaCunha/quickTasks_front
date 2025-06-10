@@ -6,8 +6,6 @@ import Button from '../components/ui/Button';
 import Heading from '../components/ui/Heading';
 import Section from '../components/ui/Section';
 
-// Add text between Heading and Button
-
 export function NotFound() {
     return (
         <>

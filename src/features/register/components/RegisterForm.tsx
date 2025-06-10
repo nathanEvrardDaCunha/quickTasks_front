@@ -11,6 +11,7 @@ import Section from '../../../components/ui/Section';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/form/Input';
 import Heading from '../../../components/ui/Heading';
+import { Link } from 'react-router-dom';
 
 interface RegisterFormProps {
     handleAction: (formData: FormData) => void;
@@ -90,6 +91,44 @@ export default function RegisterForm({
                         onChange={handleOnChange}
                         required
                     />
+                </Section>
+
+                <Section variant={'column'} style={{ gap: 4 }}>
+                    <div
+                        style={{
+                            display: 'flex',
+                            alignItems: 'center',
+                            gap: '8px',
+                        }}
+                    >
+                        <Input
+                            type="checkbox"
+                            name="termsAccepted"
+                            id="termsAccepted"
+                            checked={!!userFormDate.termsAccepted}
+                            onChange={handleOnChange}
+                            required
+                        />
+                        {/* <Label htmlFor={'termsAccepted'} style={'default'}>
+                            
+                        </Label> */}
+                        <Link to={'/terms'}>
+                            <Heading variant={'link'} markup={'small'}>
+                                I accept the Terms of Service
+                            </Heading>
+                        </Link>
+
+                        {/* <a
+                            href="/terms"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            style={{
+                                color: 'var(--color-primary)',
+                            }}
+                        >
+                            
+                        </a> */}
+                    </div>
                 </Section>
 
                 <Section

@@ -25,6 +25,7 @@ export default function useRegister() {
         username: '',
         email: '',
         password: '',
+        termsAccepted: false,
     });
     const navigate = useNavigate();
 
@@ -45,25 +46,28 @@ export default function useRegister() {
         const username = formData.get('username');
         const email = formData.get('email');
         const password = formData.get('password');
+        const termsAccepted = formData.get('termsAccepted');
 
         throwErrorIfFalsy(username, 'username');
         throwErrorIfFalsy(email, 'email');
         throwErrorIfFalsy(password, 'password');
+        throwErrorIfFalsy(termsAccepted, 'terms acceptance');
 
         const user: RegisterUser = {
             username: username as string,
             email: email as string,
             password: password as string,
+            termsAccepted: termsAccepted === 'on',
         };
 
         mutation.mutate(user);
     }
 
     function handleOnChange(event: ChangeEvent<HTMLInputElement>) {
-        const { name, value } = event.target;
+        const { name, value, type, checked } = event.target;
         setUserFormData((previous) => ({
             ...previous,
-            [name]: value,
+            [name]: type === 'checkbox' ? checked : value,
         }));
     }
 
@@ -72,6 +76,7 @@ export default function useRegister() {
             username: '',
             email: '',
             password: '',
+            termsAccepted: false,
         });
     }
 

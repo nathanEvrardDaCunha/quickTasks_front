@@ -13,6 +13,8 @@ export default function Status({
 }: StatusProps): JSX.Element {
     const className = `status--${variant}`;
     const title = variant.charAt(0).toUpperCase() + variant.slice(1);
+    const messageLines = children.split('\n');
+    const isMultiLine = messageLines.length > 1;
 
     return (
         <Card variant={'column'} classExtension={className}>
@@ -20,9 +22,25 @@ export default function Status({
                 {title}
             </Heading>
 
-            <Heading variant={'p'} markup={'p'} classExtension={className}>
-                {children}
-            </Heading>
+            {isMultiLine ? (
+                <ul className={className}>
+                    {messageLines.map((line, index) => (
+                        <li key={index}>
+                            <Heading
+                                variant={'p'}
+                                markup={'p'}
+                                classExtension={className}
+                            >
+                                {line}
+                            </Heading>
+                        </li>
+                    ))}
+                </ul>
+            ) : (
+                <Heading variant={'p'} markup={'p'} classExtension={className}>
+                    {children}
+                </Heading>
+            )}
         </Card>
     );
 }

@@ -5,40 +5,23 @@ import type {
     ResetPasswordError,
     ResetPasswordSuccess,
 } from '../types/typeResetPassword';
+import { apiClient } from '../../../hooks/ApiClient';
 
 export default function useResetPassword() {
     const [userFormData, setUserFormData] = useState<ResetPasswordType>({
         email: '',
     });
 
-    const apiUrl = import.meta.env.VITE_API_URL;
-
     const mutation = useMutation({
         mutationKey: ['resetPassword'],
-        mutationFn: async (email: ResetPasswordType) => {
-            const response = await fetch(`${apiUrl}/api/auth/reset-password`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(email),
-                credentials: 'include',
-            });
-
-            if (!response.ok) {
-                const errorData: ResetPasswordError = await response.json();
-                throw new Error(
-                    errorData.cause || errorData.name || 'Failed to create task'
-                );
-            }
-
-            return (await response.json()) as ResetPasswordSuccess;
+        mutationFn: (email: ResetPasswordType) => {
+            return apiClient.resetPassword<ResetPasswordSuccess>(email);
         },
         onError: (error: ResetPasswordError) => {
-            console.error(`${error.name}: ${error.cause}`);
+            console.error('Password reset failed:', error);
         },
         onSuccess(data: ResetPasswordSuccess) {
-            console.log(data.message);
+            console.log('Password reset success:', data.message);
         },
     });
 
@@ -48,9 +31,8 @@ export default function useResetPassword() {
         };
 
         if (!user.email) {
-            throw new Error(
-                'All fields are required and cannot be empty or just whitespace'
-            );
+            alert('Email field is required.');
+            return;
         }
 
         mutation.mutate(user);

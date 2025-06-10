@@ -1,5 +1,6 @@
 import type { LoginUser } from '../features/login/types/loginType';
 import type { RegisterUser } from '../features/register/types/typeRegister';
+import type { ResetPasswordType } from '../features/reset-password/types/typeResetPassword';
 
 class ApiClient {
     private baseURL: string;
@@ -55,7 +56,6 @@ class ApiClient {
         };
 
         const response = await fetch(fullUrl, {
-            // Use the cnstructed fullUrl
             ...options,
             headers,
         });
@@ -125,6 +125,35 @@ class ApiClient {
         }
     }
 
+    async login<T>(userData: LoginUser): Promise<T> {
+        return this.request<T>('/auth/login', {
+            method: 'POST',
+            body: JSON.stringify(userData),
+            credentials: 'include',
+        });
+    }
+
+    async register<T>(userData: RegisterUser): Promise<T> {
+        return this.request<T>('/auth/register', {
+            method: 'POST',
+            body: JSON.stringify(userData),
+        });
+    }
+
+    async resetPassword<T>(emailData: ResetPasswordType): Promise<T> {
+        return this.request<T>('/auth/reset-password', {
+            method: 'POST',
+            body: JSON.stringify(emailData),
+        });
+    }
+
+    async logout<T>(): Promise<T> {
+        return this.request<T>('/auth/logout', {
+            method: 'POST',
+            credentials: 'include',
+        });
+    }
+
     async createTask<T>(taskData: {
         title: string;
         description?: string;
@@ -159,13 +188,6 @@ class ApiClient {
         });
     }
 
-    async changePassword<T>(data: { password: string }): Promise<T> {
-        return this.request<T>('/user/password', {
-            method: 'PATCH',
-            body: JSON.stringify(data),
-        });
-    }
-
     async deleteSingleTask<T>(taskData: { id: number }): Promise<T> {
         return this.request<T>(`/task/${taskData.id}`, {
             method: 'DELETE',
@@ -184,10 +206,10 @@ class ApiClient {
         });
     }
 
-    async register<T>(userData: RegisterUser): Promise<T> {
-        return this.request<T>('/auth/register', {
-            method: 'POST',
-            body: JSON.stringify(userData),
+    async changePassword<T>(data: { password: string }): Promise<T> {
+        return this.request<T>('/user/password', {
+            method: 'PATCH',
+            body: JSON.stringify(data),
         });
     }
 
@@ -198,13 +220,6 @@ class ApiClient {
         return this.request<T>('/user', {
             method: 'PATCH',
             body: JSON.stringify(userData),
-        });
-    }
-
-    async logout<T>(): Promise<T> {
-        return this.request<T>('/auth/logout', {
-            method: 'POST',
-            credentials: 'include',
         });
     }
 
@@ -223,14 +238,6 @@ class ApiClient {
         return this.request<T>('/contact', {
             method: 'POST',
             body: JSON.stringify(data),
-        });
-    }
-
-    async login<T>(userData: LoginUser): Promise<T> {
-        return this.request<T>('/auth/login', {
-            method: 'POST',
-            body: JSON.stringify(userData),
-            credentials: 'include',
         });
     }
 }

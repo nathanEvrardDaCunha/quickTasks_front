@@ -5,6 +5,14 @@ import Button from '../components/ui/Button';
 import './home.scss';
 import { Link } from 'react-router-dom';
 
+import paperPress from '../assets/images/compressed/presse-papiers-3d-avec-coche-verte-en-papier-de-liste-de-controle.jpg';
+import jobGoal from '../assets/images/compressed/icone-de-l-heure-de-la-liste-des-taches-du-projet-cible-metier.jpg';
+import schoolHat from '../assets/images/compressed/chapeau-de-graduation-etudiant-3d-sur-la-pile-de-livres.jpg';
+
+import happySarah from '../assets/images/people-compressed/secretaire-feminine-heureuse-.jpg';
+import happyMichael from '../assets/images/people-compressed/designer-travaillant.jpg';
+import happyEmma from '../assets/images/people-compressed/differents-collegues.jpg';
+
 function Home() {
     return (
         <>
@@ -29,10 +37,7 @@ function Home() {
                 <section className="features">
                     <div className="features__grid">
                         <div className="features__item">
-                            <img
-                                src="/src/assets/images/compressed/presse-papiers-3d-avec-coche-verte-en-papier-de-liste-de-controle.jpg"
-                                alt="Task Organization"
-                            />
+                            <img src={paperPress} alt="Task Organization" />
                             <div className="features__item-content">
                                 <h3>Smart Task Organization</h3>
                                 <p>
@@ -45,7 +50,7 @@ function Home() {
                         <div className="features__item reverse">
                             <img
                                 className="img-reverse"
-                                src="/src/assets/images/compressed/icone-de-l-heure-de-la-liste-des-taches-du-projet-cible-metier.jpg"
+                                src={jobGoal}
                                 alt="Productivity Tools"
                             />
                             <div className="features__item-content">
@@ -58,10 +63,7 @@ function Home() {
                             </div>
                         </div>
                         <div className="features__item">
-                            <img
-                                src="/src/assets/images/compressed/chapeau-de-graduation-etudiant-3d-sur-la-pile-de-livres.jpg"
-                                alt="Collaboration"
-                            />
+                            <img src={schoolHat} alt="Collaboration" />
                             <div className="features__item-content">
                                 <h3>Personal Focus</h3>
                                 <p>
@@ -84,10 +86,7 @@ function Home() {
                                 powerful!"
                             </p>
                             <div className="testimonials__item-author">
-                                <img
-                                    src="/src/assets/images/people-compressed/secretaire-feminine-heureuse-.jpg"
-                                    alt="Sarah Johnson"
-                                />
+                                <img src={happySarah} alt="Sarah Johnson" />
                                 <div>
                                     <h4>Sarah Johnson</h4>
                                     <p>Freelance Designer</p>
@@ -100,10 +99,7 @@ function Home() {
                                 used. It helps me stay organized and focused."
                             </p>
                             <div className="testimonials__item-author">
-                                <img
-                                    src="/src/assets/images/people-compressed/designer-travaillant.jpg"
-                                    alt="Michael Chen"
-                                />
+                                <img src={happyMichael} alt="Michael Chen" />
                                 <div>
                                     <h4>Michael Chen</h4>
                                     <p>Product Manager</p>
@@ -116,10 +112,7 @@ function Home() {
                                 couldn't imagine working without it now!"
                             </p>
                             <div className="testimonials__item-author">
-                                <img
-                                    src="/src/assets/images/people-compressed/differents-collegues.jpg"
-                                    alt="Emma Davis"
-                                />
+                                <img src={happyEmma} alt="Emma Davis" />
                                 <div>
                                     <h4>Emma Davis</h4>
                                     <p>Team Lead</p>

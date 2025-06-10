@@ -40,21 +40,21 @@
 // === EXTENSION === //
 
 .status--error {
-    background-color: var(--color-light-destructive-10);
+    background-color: var(--color-light-destructive-10) !important;
 }
 
 .status--pending {
-    background-color: var(--color-light-neutral-10);
+    background-color: var(--color-light-neutral-10) !important;
 }
 
 .status--warning {
-    background-color: var(--color-light-warning-10);
+    background-color: var(--color-light-warning-10) !important;
 }
 
 .status--success {
-    background-color: var(--color-light-success-10);
+    background-color: var(--color-light-success-10) !important;
 }
 
 .personal-info {
-    background-color: var(--color-light-neutral-10);
+    background-color: var(--color-light-neutral-10) !important;
 }

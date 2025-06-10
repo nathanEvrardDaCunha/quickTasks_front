@@ -9,14 +9,68 @@ import Input from '../components/form/Input';
 import Textarea from '../components/form/Textarea';
 import Label from '../components/form/Label';
 import Button from '../components/ui/Button';
-import { FiMail, FiGithub, FiTwitter } from 'react-icons/fi';
+import Status from '../components/composed/Status';
+import { FiMail, FiGithub } from 'react-icons/fi';
+import { apiClient } from '../hooks/ApiClient';
+import { useState } from 'react';
+import type { ResponseSuccess, ResponseError } from '../types/responseTypes';
 import './contact.scss';
 
+interface ContactFormData {
+    name: string;
+    email: string;
+    message: string;
+}
+
 export default function Contact() {
-    // This is a demo form - in a real app, you'd handle form submission
-    const handleSubmit = (e: React.FormEvent) => {
-        e.preventDefault();
-        // Handle form submission
+    const [formData, setFormData] = useState<ContactFormData>({
+        name: '',
+        email: '',
+        message: '',
+    });
+    const [status, setStatus] = useState<{
+        type: 'success' | 'error' | 'pending' | null;
+        message: string;
+    }>({ type: null, message: '' });
+
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        const { name, value } = e.target;
+        setFormData((prev) => ({
+            ...prev,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (formData: FormData) => {
+        try {
+            setStatus({ type: 'pending', message: 'Sending your message...' });
+
+            const data = {
+                name: formData.get('name') as string,
+                email: formData.get('email') as string,
+                message: formData.get('message') as string,
+            };
+
+            const response = await apiClient.contact<ResponseSuccess>(data);
+
+            setStatus({
+                type: 'success',
+                message: response.message || 'Message sent successfully!',
+            });
+
+            // Reset form
+            setFormData({ name: '', email: '', message: '' });
+        } catch (error) {
+            const errorData = error as ResponseError;
+            setStatus({
+                type: 'error',
+                message:
+                    errorData.cause ||
+                    'Failed to send message. Please try again.',
+            });
+        }
     };
 
     return (
@@ -75,6 +129,26 @@ export default function Contact() {
                                 Send us a Message
                             </Heading>
 
+                            <div>
+                                {status.type === 'success' && (
+                                    <Status variant="success">
+                                        {status.message}
+                                    </Status>
+                                )}
+
+                                {status.type === 'error' && (
+                                    <Status variant="error">
+                                        {status.message}
+                                    </Status>
+                                )}
+
+                                {status.type === 'pending' && (
+                                    <Status variant="pending">
+                                        {status.message}
+                                    </Status>
+                                )}
+                            </div>
+
                             <Form action={handleSubmit}>
                                 <Section variant="column" style={{ gap: 4 }}>
                                     <Label htmlFor="name" style="default">
@@ -84,6 +158,8 @@ export default function Contact() {
                                         type="text"
                                         name="name"
                                         id="name"
+                                        value={formData.name}
+                                        onChange={handleChange}
                                         required
                                     />
                                 </Section>
@@ -96,6 +172,8 @@ export default function Contact() {
                                         type="email"
                                         name="email"
                                         id="email"
+                                        value={formData.email}
+                                        onChange={handleChange}
                                         required
                                     />
                                 </Section>
@@ -107,12 +185,20 @@ export default function Contact() {
                                     <Textarea
                                         name="message"
                                         id="message"
+                                        value={formData.message}
+                                        onChange={handleChange}
                                         required
                                     />
                                 </Section>
 
-                                <Button type="submit" variant="default">
-                                    Send Message
+                                <Button
+                                    type="submit"
+                                    variant="default"
+                                    disabled={status.type === 'pending'}
+                                >
+                                    {status.type === 'pending'
+                                        ? 'Sending...'
+                                        : 'Send Message'}
                                 </Button>
                             </Form>
                         </Card>

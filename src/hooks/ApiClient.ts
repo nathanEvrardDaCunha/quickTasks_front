@@ -221,6 +221,20 @@ class ApiClient {
             credentials: 'include',
         });
     }
+
+    async contact<T>(data: {
+        name: string;
+        email: string;
+        message: string;
+    }): Promise<T> {
+        console.log(data.name);
+        console.log(data.email);
+        console.log(data.message);
+        return this.request<T>(`${this.baseURL}/contact`, {
+            method: 'POST',
+            body: JSON.stringify(data),
+        });
+    }
 }
 
 export const apiClient = new ApiClient();

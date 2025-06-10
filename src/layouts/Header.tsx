@@ -7,37 +7,16 @@ import './header.scss';
 import Button from '../components/ui/Button';
 import { FiSun, FiMoon, FiMenu, FiX } from 'react-icons/fi';
 import { useCallback } from 'react';
+import { useTheme } from '../context/ThemeContext';
 
 export function Header() {
     const [accessToken, setAccessToken] = useState<string | null>(null);
-    const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState<boolean>(false);
     const navigate = useNavigate();
+    const { isDarkMode, toggleTheme } = useTheme();
 
     useEffect(() => {
         setAccessToken(localStorage.getItem('accessToken'));
-
-        // Set initial theme
-        const prefersDark = window.matchMedia(
-            '(prefers-color-scheme: dark)'
-        ).matches;
-        const savedTheme = localStorage.getItem('theme');
-        const initialTheme = savedTheme ? savedTheme === 'dark' : prefersDark;
-        setIsDarkMode(initialTheme);
-
-        // Apply theme immediately
-        document.documentElement.dataset.theme = initialTheme
-            ? 'dark'
-            : 'light';
-    }, []);
-
-    useEffect(() => {
-        document.documentElement.dataset.theme = isDarkMode ? 'dark' : 'light';
-        localStorage.setItem('theme', isDarkMode ? 'dark' : 'light');
-    }, [isDarkMode]);
-
-    const toggleTheme = useCallback(() => {
-        setIsDarkMode((prev) => !prev);
     }, []);
 
     const toggleMobileMenu = useCallback(() => {

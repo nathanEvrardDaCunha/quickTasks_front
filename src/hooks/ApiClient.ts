@@ -1,7 +1,3 @@
-// ===================================================================
-// FILE: src/services/ApiClient.ts (CORRECTED)
-// ===================================================================
-
 import type { LoginUser } from '../features/login/types/loginType';
 import type { RegisterUser } from '../features/register/types/typeRegister';
 
@@ -15,15 +11,10 @@ class ApiClient {
     }> = [];
 
     constructor() {
-        // CORRECTED LOGIC:
-        // This groups the check for the environment variable first. If it's
-        // undefined, it will use the localhost fallback. THEN, it appends '/api'.
-        this.baseURL =
-            (import.meta.env.VITE_API_URL || 'http://localhost:5003') + '/api';
+        this.baseURL = 'https://todo-listback-production.up.railway.app/api';
     }
 
     private async refreshToken(): Promise<string> {
-        // refreshToken should also use the request method to be consistent
         const data: { data: string } = await this.request<{ data: string }>(
             '/token/refresh',
             {
@@ -55,10 +46,8 @@ class ApiClient {
         };
     }
 
-    // This is the main fix. The `request` method is now responsible for
-    // building the FULL URL, so other methods only need to pass the path.
     async request<T>(path: string, options: RequestInit = {}): Promise<T> {
-        const fullUrl = `${this.baseURL}${path}`; // Always prepend baseURL
+        const fullUrl = `${this.baseURL}${path}`;
 
         const headers = {
             ...this.getAuthHeaders(),
@@ -66,17 +55,15 @@ class ApiClient {
         };
 
         const response = await fetch(fullUrl, {
-            // Use the constructed fullUrl
+            // Use the cnstructed fullUrl
             ...options,
             headers,
         });
 
         if (response.ok) {
-            // Handle cases where the response might have no body (e.g., 204 No Content)
             if (response.status === 204) {
                 return {} as T;
             }
-            // Use .json() directly as it's the most common case
             return await response.json();
         }
 
@@ -138,7 +125,6 @@ class ApiClient {
         }
     }
 
-    // All methods below now pass a relative path to `request`
     async createTask<T>(taskData: {
         title: string;
         description?: string;
